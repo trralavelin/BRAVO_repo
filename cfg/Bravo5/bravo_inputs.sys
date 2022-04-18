@@ -29,7 +29,12 @@ new TInputVar( Speedometer_Stb_Input, "kts", "Stb SOW Sensor", "BravoInputs", Ca
 new TInputVar( SOW_Input, "kts", "Speed over water", "BravoInputs", CalculeVar_025 )
 
 #Depth
-new TInputVar( Depth_Input, "m", "Depth", "BravoInputs", CalculeVar_025 )
+new TInputVar( Depth_Input, "m", "Depth", "BravoInputs", CalculeVar_010 )
+new TInputVar( WaterTemp_Input, "deg", "Water Temp", "BravoInputs", CalculeVar_001 )
+new TInputVar( InsideTemp_Input, "deg", "Inside Temp", "BravoInputs", CalculeVar_001 )
+
+#Baro
+new TInputVar( Baro_Input, "hPa", "Pression atm", "BravoInputs", CalculeVar_010 )
 
 #AHRS/IMU
 new TInputVar( HDT_Input, "deg", "True Heading", "BravoInputs", CalculeVar_050 )
@@ -116,3 +121,9 @@ new TInputVar( Ballast_AV_High_Stb_Input, "", "Ballast AV Stb High", "BravoInput
 
 #Entrées Digitales
 new TInputVar( Alarm_Battery_Input, "", "Alarme Batteries basses", "BravoInputs", CalculeVar_001 )
+new TInputVar( Alarm_WS1_Input, "", "Alarme Presence eau 1", "BravoInputs", CalculeVar_001 )
+new TInputVar( Alarm_WS2_Input, "", "Alarme Presence eau 2", "BravoInputs", CalculeVar_001 )
+new TInputVar( Alarm_WS3_Input, "", "Alarme Presence eau 3", "BravoInputs", CalculeVar_001 )
+new TInputVar( Alarm_WS4_Input, "", "Alarme Presence eau 4", "BravoInputs", CalculeVar_001 )
+new TInputVar( Alarm_WS5_Input, "", "Alarme Presence eau 5", "BravoInputs", CalculeVar_001 )
+new TInputVar( Alarm_WS6_Input, "", "Alarme Presence eau 6", "BravoInputs", CalculeVar_001 )

@@ -14,4 +14,4 @@
 #     3 - BravoCommonsLibrary 1.6000
 
 UseTWATables.Set( 1 )
-DCU_BUZZ_ON.Set( 1 )
+DCU_BUZZ_ON.Set( 0 )

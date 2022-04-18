@@ -123,8 +123,7 @@ new TFinalVar( Heave, "BravoVars", "m", "linear", 2, "Heave", "", 0, CalculeVar_
 new TFinalVar( Surge, "BravoVars", "m", "linear", 2, "Surge", "", 0, CalculeVar_025 )
 new TFinalVar( Sway, "BravoVars", "m", "linear", 2, "Sway", "", 0, CalculeVar_025 )
 
-new TFinalVar( Depth_Input_Final, "BravoVars", "m", "linear", 2, "Depth", "", 0, CalculeVar_025 )
-new TAverage( dampDepth_Input_Finalfil, 30 )
+
 
 new TFinalVar( ForstayLoad, "BravoVars", "T", "linear", 2, "", "", 0, CalculeVar_025 )
 new TFinalVar( Runner, "BravoVars", "", "linear", 2, "", "", 5, CalculeVar_025 )

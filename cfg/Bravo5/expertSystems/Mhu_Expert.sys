@@ -22,7 +22,7 @@
 #------------------------------------------------------------------------------
 new TSetting( MhuToUse, 1, 0 )
 new TSetting( MhuAuto, 1, 0 )
-new TSetting( MhuSpare, 1, 0 )
+new TSetting( MhuSpare, 0, 0 )
 
 new TExpertSys( Mhu_ES )
 //

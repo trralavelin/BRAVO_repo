@@ -28,6 +28,3 @@ load "cfg/Bravo5/instruments/kvh.sys"
 
 # SCAIME
 load "cfg/Bravo5/instruments/scaime.sys"
-
-# BARO
-load "cfg/Bravo5/instruments/n2k_baro.sys"
