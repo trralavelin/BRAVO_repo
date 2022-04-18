@@ -1,0 +1,51 @@
+
+#------------------------------------------------------------------------------
+# Compas N2K
+#------------------------------------------------------------------------------
+
+new TSetting( n2kCompasHeelFactor, -1, 0 )
+new TSetting( n2kCompasTrimFactor, 1, 0 )
+new TSetting( n2kCompasPitchRateFactor, 1, 0 )
+new TSetting( n2kCompasRollRateFactor, 1, 0 )
+new TSetting( n2kCompasYawRateFactor, 1, 0 )
+
+
+new TSetting( n2kCompasHdgOffset, "CalsFile", 0 )
+new TSetting( n2kCompasHeelOffset, "CalsFile", 0 )
+new TSetting( n2kCompasTrimOffset, "CalsFile", 0 )
+
+new TCopy( n2kCompasHDGi, Dev_Precision_9_Compass_1081815_Pgn127250_HdgMag, CalculeVar_010 )
+new TMultiply( n2kCompasHEELi, n2kCompasHeelFactor, Dev_Precision_9_Compass_1081815_Pgn127257_Roll, CalculeVar_010 )
+new TMultiply( n2kCompasTRIMi, n2kCompasTrimFactor, Dev_Precision_9_Compass_1081815_Pgn127257_Pitch, CalculeVar_010 )
+
+new TAdd360( n2kCompasHDMm, n2kCompasHDGi, n2kCompasHdgOffset, CalculeVar_010 )
+new TAdd( n2kCompasHEELm, n2kCompasHEELi, n2kCompasHeelOffset, CalculeVar_010 )
+new TAdd( n2kCompasTRIMm, n2kCompasTRIMi, n2kCompasTrimOffset, CalculeVar_010 )
+
+new TAdd360( n2kCompasHDTm, n2kCompasHDMm, MagneticVariation, CalculeVar_010 )
+
+new TCopy( n2kCompasHDMorg, n2kCompasHDMm, CalculeVar_010 )
+new TCopy( n2kCompasHDTorg, n2kCompasHDTm, CalculeVar_010 )
+new TCopy( n2kCompasHEELorg, n2kCompasHEELm, CalculeVar_010 )
+new TCopy( n2kCompasTRIMorg, n2kCompasTRIMm, CalculeVar_010 )
+
+
+new TAverage( n2kCompasGYROZfil, 3000 )
+new TCopy( n2kCompasGYROZtrend, Dev_Precision_9_Compass_1081815_Pgn127251_RateOfTurn, CalculeVar_010 )
+n2kCompasGYROZtrend.SetFilter( n2kCompasGYROZfil )
+
+new TSubtract( n2kCompasYAWRATEm, Dev_Precision_9_Compass_1081815_Pgn127251_RateOfTurn, n2kCompasGYROZtrend, CalculeVar_010 )
+
+new TMultiply( n2kCompasYAWRATEorg, n2kCompasYawRateFactor, n2kCompasYAWRATEm, CalculeVar_010 )
+
+#------------------------------------------------------------------------------
+# Diagnotic
+#	Compas
+#	GPS
+new TSetting( n2kCompasUpdateDuration, 5, 0 )
+new TIsUpdating( n2kCompasCOMPASupdating, Dev_Precision_9_Compass_1081815_Pgn127250_HdgMag, n2kCompasUpdateDuration, CalculeVar_010 )
+
+new TChooser( n2kCompasValid, "(&n2kCompasCOMPASupdating) and (&Dev_Precision_9_Compass_1081815_Pgn127257_IsPitchValid) and (&Dev_Precision_9_Compass_1081815_Pgn127257_IsRollValid)", 1, 0, CalculeVar_010 )
+
+
+new TChooser( n2kGpsValid, " (&Dev_Precision_9_Compass_1081815_Pgn129025_IsValid) and (&Dev_Precision_9_Compass_1081815_Pgn129026_IsTrueValid)", 1, 0, CalculeVar_010 )

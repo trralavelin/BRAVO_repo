@@ -1,0 +1,70 @@
+#------------------------------------------------------------------------------
+#
+# Name: Buzz_Arbalette_Expert
+#
+# Description:  
+#
+# Inputs:
+#
+# Parameters:
+#	
+#	
+#
+# Dependences:
+#	
+#
+# Computed Vars
+#  
+#
+# Outputs:
+#    
+#
+#------------------------------------------------------------------------------
+
+
+new TDivide( ratio_J2_Runner, Runner_On_1s_max, E2_1s_max, CalculeVar_010 )
+new TChooser( Arbalette_Alarm, "&ratio_J2_Runner > 1.1 and &E0_10s_mean > 800", 1, 0, CalculeVar_010 )
+
+
+new TExpertSys( Arbalette_Buzz_ES )
+//
+// ExpertSystem States
+//
+Arbalette_Buzz_ES.AddState( OK )
+Arbalette_Buzz_ES.AddState( KO )
+//
+// ExpertSystem Conditions
+//
+Arbalette_Buzz_ES.Stop()
+
+Arbalette_Buzz_ES.OK.AddCondition( "&RunnerValid or (&DCU_BUZZ_ON == 0) or (&DCU_BUZZ_ON == 1 and &RunnerValid == 0 and &ArbaletteBuzzCounter == 0) " )
+
+Arbalette_Buzz_ES.OK.AddAction( "DCU_BUZZ.Set( 0 )" )
+Arbalette_Buzz_ES.OK.AddAction( "alarm_nb.SetValue( 0 )" )
+
+Arbalette_Buzz_ES.KO.AddCondition( "(&DCU_BUZZ_ON == 1) and (&Arbalette_Alarm == 1) and (&ArbaletteBuzzCounter == 2) " )
+
+Arbalette_Buzz_ES.KO.AddAction( "DCU_BUZZ.Set( 1 )" )
+Arbalette_Buzz_ES.KO.AddAction( "alarm_nb.SetValue( 10 )" )
+
+Arbalette_Buzz_ES.Start()
+
+
+# Buzz counter
+new TAdd( ArbaletteBuzzCounter, ArbaletteBuzzCounter, 1, CalculeVar_001 )
+
+new TExpertSys( ArbaletteBuzzCounter_ES )
+//
+// ExpertSystem States
+//
+ArbaletteBuzzCounter_ES.AddState( RESET )
+//
+// ExpertSystem Conditions
+//
+ArbaletteBuzzCounter_ES.Stop()
+
+ArbaletteBuzzCounter_ES.RESET.AddCondition( "&ArbaletteBuzzCounter > 2" )
+
+ArbaletteBuzzCounter_ES.RESET.AddAction( "ArbaletteBuzzCounter.SetValue( 0 )" )
+
+ArbaletteBuzzCounter_ES.Start()

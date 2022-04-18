@@ -1,0 +1,14 @@
+new TCurve( LeewayCalFactor, ctLinearCurve, 7, absTWA, CalculeVar_025 )
+LeewayCalFactor.SetUseAbsX( false )
+//
+// Set points for curve <LeewayCalFactor>
+//
+LeewayCalFactor.SetValue( 1, 0.00000, 8.00000 )
+LeewayCalFactor.SetValue( 2, 20.00000, 10.20000 )
+LeewayCalFactor.SetValue( 3, 70.00000, 10.20000 )
+LeewayCalFactor.SetValue( 4, 90.00000, 9.00000 )
+LeewayCalFactor.SetValue( 5, 120.00000, 8.00000 )
+LeewayCalFactor.SetValue( 6, 150.00000, 6.00000 )
+LeewayCalFactor.SetValue( 7, 180.00000, 3.00000 )
+// Build curve <LeewayCalFactor>
+LeewayCalFactor.BuildCurve()

@@ -1,0 +1,16 @@
+new TCurve( adjPaddleWheelTable, ctLinearCurve, 9, padBSm, CalculeVar_025 )
+adjPaddleWheelTable.SetUseAbsX( false )
+//
+// Set points for curve <adjPaddleWheelTable>
+//
+adjPaddleWheelTable.SetValue( 1, 0.00000, 1.17000 )
+adjPaddleWheelTable.SetValue( 2, 5.00000, 1.00500 )
+adjPaddleWheelTable.SetValue( 3, 8.00000, 0.99600 )
+adjPaddleWheelTable.SetValue( 4, 15.00000, 0.98000 )
+adjPaddleWheelTable.SetValue( 5, 20.00000, 0.97500 )
+adjPaddleWheelTable.SetValue( 6, 25.00000, 0.96800 )
+adjPaddleWheelTable.SetValue( 7, 30.00000, 0.96000 )
+adjPaddleWheelTable.SetValue( 8, 35.00000, 0.95000 )
+adjPaddleWheelTable.SetValue( 9, 40.00000, 0.95000 )
+// Build curve <adjPaddleWheelTable>
+adjPaddleWheelTable.BuildCurve()

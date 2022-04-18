@@ -1,0 +1,73 @@
+
+#------------------------------------------------------------------------------
+# We create the device from hardware.sys
+##new T3DMGX4_45( MicroStrain, Serial1, B115200, NOPAR, L8, S1 )
+
+#------------------------------------------------------------------------------
+# We create the device
+
+new T3DMGX4_45( MicroStrain, Serial5, B115200, NOPAR, L8, S1 )
+
+
+new TSetting( msHeelFactor, -1, 0 )
+new TSetting( msTrimFactor, 1, 0 )
+
+
+new TSetting( msHdgOffset, "CalsFile", 0 )
+new TSetting( msHeelOffset, "CalsFile", 0 )
+new TSetting( msTrimOffset, "CalsFile", 0 )
+
+new TCopy( msHDGi, MicroStrain_AhrsYaw, CalculeVar_050 )
+new TMultiply( msHEELi, msHeelFactor, MicroStrain_AhrsRoll, CalculeVar_050 )
+new TMultiply( msTRIMi, msTrimFactor, MicroStrain_AhrsPitch, CalculeVar_050 )
+
+
+new TAdd360( msHDTm, msHDGi, msHdgOffset, CalculeVar_050 )
+new TAdd( msHEELm, msHEELi, msHeelOffset, CalculeVar_050 )
+new TAdd( msTRIMm, msTRIMi, msTrimOffset, CalculeVar_050 )
+
+#Par defaut True 
+new TSubtract360( msHDMm, msHDTm, MagneticVariation, CalculeVar_050 )
+
+new TCopy( msHDMorg, msHDMm, CalculeVar_050 )
+new TCopy( msHDTorg, msHDTm, CalculeVar_050 )
+new TCopy( msHEELorg, msHEELm, CalculeVar_050 )
+new TCopy( msTRIMorg, msTRIMm, CalculeVar_050 )
+
+#------------------------------------------------------------------------------
+# Turn Rate
+#   YawRate   : +deg/sec turning to stbd
+#   RollRate  : +deg/sec turning to port 
+#   PitchRate : +deg/sec turning to up   
+
+new TSetting( msPitchRateFactor, 1, 0 )
+new TSetting( msRollRateFactor, -1, 0 )
+new TSetting( msYawRateFactor, 1, 0 )
+
+new TCopy( msPITCHRATEm, MicroStrain_GyroY, CalculeVar_050 )
+new TCopy( msROLLRATEm, MicroStrain_GyroX, CalculeVar_050 )
+new TCopy( msYAWRATEm, MicroStrain_GyroZ, CalculeVar_050 )
+
+
+new TMultiply( msPITCHRATEorg, msPitchRateFactor, msPITCHRATEm, CalculeVar_050 )
+new TMultiply( msROLLRATEorg, msRollRateFactor, msROLLRATEm, CalculeVar_050 )
+new TMultiply( msYAWRATEorg, msYawRateFactor, msYAWRATEm, CalculeVar_050 )
+
+#------------------------------------------------------------------------------
+# Diagnotic: 
+#	Compas
+#	GPS
+new TSetting( msUpdateDuration, 5, 0 )
+
+
+new TIsUpdating( msHDGupdating, MicroStrain_AhrsYaw, msUpdateDuration, CalculeVar_001 )
+#new TLuaVar( msHDGupdating, "cfg/Bravo5/maths/checker.lua", CalculeVar_001 )
+#msHDGupdating.Params.Add( "x", MicroStrain_AhrsYaw )
+#msHDGupdating.Params.Add( "N", msUpdateDuration )
+#msHDGupdating.Output.Add( "status" )
+
+
+new TIsUpdating( msGPSupdating, MicroStrain_GpsTime, msUpdateDuration, CalculeVar_001 )
+
+new TChooser( msCOMPASvalid, "&msHDGupdating", 1, 0, CalculeVar_001 )
+new TChooser( msGPSvalid, "&msGPSupdating", 1, 0, CalculeVar_001 )

@@ -1,0 +1,83 @@
+#------------------------------------------------------------------------------
+#
+# Name: Ballast_Expert
+#
+# Description:  Etat des ballasts
+#
+# Inputs:
+#
+# Parameters:
+#	Ballast_Port_State
+#	Ballast_Stb_State
+#
+# Dependences:
+#	Ballast_Low_Port_Input
+#	Ballast_High_Port_Input
+#	Ballast_Low_Stb_Input
+#	Ballast_High_Stb_Input
+#
+# Computed Vars
+#  
+#
+# Outputs:
+#    
+#
+#------------------------------------------------------------------------------
+#
+#------------------------------------------------------------------------------
+new TSetting( Ballast_Port_State, 0, 0 )
+new TSetting( Ballast_Stb_State, 0, 0 )
+
+
+new TExpertSys( Ballast_Stb_ES )
+//
+// ExpertSystem States
+//
+Ballast_Stb_ES.AddState( vide )
+Ballast_Stb_ES.AddState( mi )
+Ballast_Stb_ES.AddState( plein )
+//
+// ExpertSystem Conditions
+//
+Ballast_Stb_ES.Stop()
+
+Ballast_Stb_ES.vide.AddCondition( "&bal_low_stb_smooth_mean < 50" )
+
+Ballast_Stb_ES.vide.AddAction( "Ballast_Stb_State.SetValue( 0 )" )
+
+Ballast_Stb_ES.mi.AddCondition( "(&bal_low_stb_smooth_mean > 50) and (&bal_high_stb_smooth_mean < 50)" )
+
+Ballast_Stb_ES.mi.AddAction( "Ballast_Stb_State.SetValue( 50 )" )
+
+Ballast_Stb_ES.plein.AddCondition( "(&bal_low_stb_smooth_mean > 50) and (&bal_high_stb_smooth_mean > 50)" )
+
+Ballast_Stb_ES.plein.AddAction( "Ballast_Stb_State.SetValue( 100 )" )
+
+Ballast_Stb_ES.Start()
+
+
+new TExpertSys( Ballast_Port_ES )
+//
+// ExpertSystem States
+//
+Ballast_Port_ES.AddState( vide )
+Ballast_Port_ES.AddState( mi )
+Ballast_Port_ES.AddState( plein )
+//
+// ExpertSystem Conditions
+//
+Ballast_Port_ES.Stop()
+
+Ballast_Port_ES.vide.AddCondition( "&bal_low_port_smooth_mean < 50" )
+
+Ballast_Port_ES.vide.AddAction( "Ballast_Port_State.SetValue( 0 )" )
+
+Ballast_Port_ES.mi.AddCondition( "(&bal_low_port_smooth_mean > 50) and (&bal_high_port_smooth_mean < 50)" )
+
+Ballast_Port_ES.mi.AddAction( "Ballast_Port_State.SetValue( 50 )" )
+
+Ballast_Port_ES.plein.AddCondition( "(&bal_low_port_smooth_mean > 50) and (&bal_high_port_smooth_mean > 50)" )
+
+Ballast_Port_ES.plein.AddAction( "Ballast_Port_State.SetValue( 100 )" )
+
+Ballast_Port_ES.Start()

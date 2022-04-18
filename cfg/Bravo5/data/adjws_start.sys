@@ -1,0 +1,96 @@
+#------------------------------------------------------------------------------
+# Name: 
+# Description:  Adjust wind Speed
+# Inputs:     
+#             TWS
+#             TWA
+#
+# Parameters: 
+# Dependences:
+#
+# Outputs:
+#          Adjust Wind Speed
+#------------------------------------------------------------------------------
+# Author: JL.Vela
+# Date: Aphril 20th, 2011
+# Copyright: Bravo Systems SL. All Rights Reserved.
+#------------------------------------------------------------------------------
+
+new TWtpTable( adjWindSpeedStartTable , ttWtpLinearLinearTable,4, TWS, absTWA, 0 )
+adjWindSpeedStartTable.SetUseAbsX( false )
+adjWindSpeedStartTable.SetUseAbsY( false )
+//
+// Points for table adjWindSpeedStartTable
+//
+adjWindSpeedStartTable.AddRow( 2.000000 )
+adjWindSpeedStartTable.SetPoint( 0, 0, 40.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 0, 1, 65.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 0, 2, 110.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 0, 3, 180.000000, 0.000000 )
+//--
+adjWindSpeedStartTable.AddRow( 4.000000 )
+adjWindSpeedStartTable.SetPoint( 1, 0, 40.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 1, 1, 65.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 1, 2, 110.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 1, 3, 180.000000, 0.000000 )
+//--
+adjWindSpeedStartTable.AddRow( 6.000000 )
+adjWindSpeedStartTable.SetPoint( 2, 0, 40.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 2, 1, 65.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 2, 2, 110.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 2, 3, 180.000000, 0.000000 )
+//--
+adjWindSpeedStartTable.AddRow( 8.000000 )
+adjWindSpeedStartTable.SetPoint( 3, 0, 40.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 3, 1, 65.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 3, 2, 110.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 3, 3, 180.000000, 0.000000 )
+//--
+adjWindSpeedStartTable.AddRow( 10.000000 )
+adjWindSpeedStartTable.SetPoint( 4, 0, 40.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 4, 1, 65.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 4, 2, 110.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 4, 3, 180.000000, 0.000000 )
+//--
+adjWindSpeedStartTable.AddRow( 12.000000 )
+adjWindSpeedStartTable.SetPoint( 5, 0, 40.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 5, 1, 65.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 5, 2, 110.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 5, 3, 180.000000, 0.000000 )
+//--
+adjWindSpeedStartTable.AddRow( 14.000000 )
+adjWindSpeedStartTable.SetPoint( 6, 0, 40.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 6, 1, 65.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 6, 2, 110.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 6, 3, 180.000000, 0.000000 )
+//--
+adjWindSpeedStartTable.AddRow( 16.000000 )
+adjWindSpeedStartTable.SetPoint( 7, 0, 40.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 7, 1, 65.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 7, 2, 110.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 7, 3, 180.000000, 0.000000 )
+//--
+adjWindSpeedStartTable.AddRow( 20.000000 )
+adjWindSpeedStartTable.SetPoint( 8, 0, 40.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 8, 1, 65.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 8, 2, 110.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 8, 3, 180.000000, 0.000000 )
+//--
+adjWindSpeedStartTable.AddRow( 24.000000 )
+adjWindSpeedStartTable.SetPoint( 9, 0, 40.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 9, 1, 65.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 9, 2, 110.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 9, 3, 180.000000, 0.000000 )
+//--
+adjWindSpeedStartTable.AddRow( 28.000000 )
+adjWindSpeedStartTable.SetPoint( 10, 0, 40.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 10, 1, 65.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 10, 2, 110.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 10, 3, 180.000000, 0.000000 )
+//--
+adjWindSpeedStartTable.AddRow( 32.000000 )
+adjWindSpeedStartTable.SetPoint( 11, 0, 40.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 11, 1, 65.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 11, 2, 110.000000, 0.000000 )
+adjWindSpeedStartTable.SetPoint( 11, 3, 180.000000, 0.000000 )
+//--

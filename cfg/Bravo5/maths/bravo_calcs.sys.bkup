@@ -1,0 +1,55 @@
+#------------------------------------------------------------------------------
+# Magnetic Variation
+new TSetting( MagneticVariationManual, 0, 0 )
+
+#------------------------------------------------------------------------------
+# Gravity
+new TGravityWGS84( wgsGravity, Lat, Lon, CalculeVar_001 )
+
+#------------------------------------------------------------------------------
+# NAVIGATION
+new TTripLogBySpeed( TRIPLOGbs, BS, CalculeVar_025 )
+new TTripLogByPosition( TRIPLOGpos, Lat_Input, Lon_Input, CalculeVar_025 )
+
+new TAdd360( HDGtrue, HDGorg, MagneticVariation, CalculeVar_050 )
+
+new TNavigationUnit( NavSolver, CalculeVar_025 )
+NavSolver.SetLatitude( LATorg )
+NavSolver.SetLongitude( LONorg )
+NavSolver.SetSpeedOverGround( SOGorg )
+NavSolver.SetCourseOverGround( COGorg )
+NavSolver.SetBoatspeed( BSorg )
+NavSolver.SetHeading( HDGorg )
+NavSolver.SetLeeway( LWYorg )
+NavSolver.SetSet( CURRSETorg )
+NavSolver.SetDrift( CURRDRIFTorg )
+NavSolver.SetGpsLwyLimie( 10 )
+
+#------------------------------------------------------------------------------
+# Time derivates
+new TDifference360( dotHdg, Hdg, true, CalculeVar_050 )
+new TDifference( dotHeel, Heel, true, CalculeVar_050 )
+new TDifference( dotTrim, Trim, true, CalculeVar_050 )
+new TDifference( dotBS, BS, true, CalculeVar_050 )
+dotBS.SetCalibration( Knot2MeterSecCal )
+new TDifference( dotSOG, SOG, true, CalculeVar_025 )
+dotSOG.SetCalibration( Knot2MeterSecCal )
+
+new TAbs( absYAW, YAWorg, CalculeVar_025 )
+new TAbs( absTWA, TWA, CalculeVar_025 )
+
+new TVectorSubtractMod( GWS, TWS, TWD, CurrDrift, CurrSet, CalculeVar_025 )
+new TVectorSubtractArg( GWD180, TWS, TWD, CurrDrift, CurrSet, false, CalculeVar_025 )
+new TAdd360( GWD, cte0, GWD180, CalculeVar_025 )
+
+
+#------------------------------------------------------------------------------
+# MOTION
+new TAbs( absYawRate, YawRate, CalculeVar_025 )
+
+# Boat Motion Control
+new TSetting( cteBoatSpeedLowLimit, 1, 0 )
+new TSetting( cteLeewayHighLimit, 15, 0 )
+
+new TChooser( LowSpeedOn, "&BSorg  < &cteBoatSpeedLowLimit", cte1, cte0, CalculeVar_025 )
+new TChooser( HighLwyOn, "&absYAW > &cteLeewayHighLimit", cte1, cte0, CalculeVar_025 )

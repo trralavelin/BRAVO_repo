@@ -1,0 +1,66 @@
+#------------------------------------------------------------------------------
+#
+# Name: Ballast_AV_Expert
+#
+# Description:  Etat du ballast AV
+#
+# Inputs:
+#
+# Parameters:
+#	Ballast_AV_State
+#	
+#
+# Dependences:
+#	bal_av_low_port_smooth_mean
+#	bal_av_high_port_smooth_mean
+#	bal_av_low_stb_smooth_mean
+#	bal_av_high_stb_smooth_mean
+#
+# Computed Vars
+#  
+#
+# Outputs:
+#    
+#
+#------------------------------------------------------------------------------
+#
+#------------------------------------------------------------------------------
+new TSetting( Ballast_AV_State, 0, 0 )
+
+
+
+new TExpertSys( Ballast_AV_ES )
+//
+// ExpertSystem States
+//
+Ballast_AV_ES.AddState( vide )
+Ballast_AV_ES.AddState( quart )
+Ballast_AV_ES.AddState( mi )
+Ballast_AV_ES.AddState( troisquart )
+Ballast_AV_ES.AddState( plein )
+//
+// ExpertSystem Conditions
+//
+Ballast_AV_ES.Stop()
+
+Ballast_AV_ES.vide.AddCondition( "(&bal_av_low_port_smooth_mean < 50) and (&bal_av_low_stb_smooth_mean < 50)" )
+
+Ballast_AV_ES.vide.AddAction( "Ballast_AV_State.SetValue( 0 )" )
+
+Ballast_AV_ES.quart.AddCondition( "((&bal_av_low_port_smooth_mean < 50) and (&bal_av_low_stb_smooth_mean > 50)) or ((&bal_av_low_port_smooth_mean > 50) and (&bal_av_low_stb_smooth_mean < 50))" )
+
+Ballast_AV_ES.quart.AddAction( "Ballast_AV_State.SetValue( 25 )" )
+
+Ballast_AV_ES.mi.AddCondition( "((&bal_av_low_port_smooth_mean < 50) and (&bal_av_low_stb_smooth_mean > 50) and (&bal_av_high_stb_smooth_mean > 50)) or ((&bal_av_low_port_smooth_mean > 50) and (&bal_av_low_stb_smooth_mean < 50) and (&bal_av_high_port_smooth_mean > 50)) or ((&bal_av_low_port_smooth_mean > 50) and (&bal_av_low_stb_smooth_mean > 50) and (&bal_av_high_port_smooth_mean < 50) and (&bal_av_high_stb_smooth_mean < 50))" )
+
+Ballast_AV_ES.mi.AddAction( "Ballast_AV_State.SetValue( 50 )" )
+
+Ballast_AV_ES.troisquart.AddCondition( "((&bal_av_high_port_smooth_mean < 50) and (&bal_av_high_stb_smooth_mean > 50)) or ((&bal_av_high_port_smooth_mean > 50) and (&bal_av_high_stb_smooth_mean < 50))" )
+
+Ballast_AV_ES.troisquart.AddAction( "Ballast_AV_State.SetValue( 75 )" )
+
+Ballast_AV_ES.plein.AddCondition( "(&bal_av_high_stb_smooth_mean > 50) and (&bal_av_high_port_smooth_mean > 50)" )
+
+Ballast_AV_ES.plein.AddAction( "Ballast_AV_State.SetValue( 100 )" )
+
+Ballast_AV_ES.Start()

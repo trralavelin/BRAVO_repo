@@ -1,0 +1,111 @@
+#------------------------------------------------------------------------------
+#
+# Name: GPS_Expert
+#
+# Description:  GPS Selector
+#
+# Inputs:
+#
+# Parameters:
+#.             GPSToUse
+# Dependences:
+# 
+#
+# Computed Vars
+#  
+#
+# Outputs:
+#    
+#
+#------------------------------------------------------------------------------
+#
+#------------------------------------------------------------------------------
+new TSetting( GPSToUse, 2, 0 )
+new TSetting( GPSAuto, 1, 0 )
+new TSetting( GPSValid, 1, 0 )
+
+new TExpertSys( GPS_ES )
+//
+// ExpertSystem States
+//
+GPS_ES.AddState( NMEA_1 )
+GPS_ES.AddState( Quadrans )
+GPS_ES.AddState( N2K )
+GPS_ES.AddState( MicroStrain )
+//
+// ExpertSystem Conditions
+//
+GPS_ES.Stop()
+
+GPS_ES.NMEA_1.AddCondition( "& GPSToUse  == 1" )
+
+GPS_ES.NMEA_1.AddAction( "Lat_Input.Source.Set( GPS_1_Rmc_Lat )" )
+GPS_ES.NMEA_1.AddAction( "Lon_Input.Source.Set( GPS_1_Rmc_Lon )" )
+GPS_ES.NMEA_1.AddAction( "QI_Input.Source.Set( GPS_1_Gga_QI )" )
+GPS_ES.NMEA_1.AddAction( "PosFixTime_Input.Source.Set( GPS_1_Gga_PosFixTime )" )
+GPS_ES.NMEA_1.AddAction( "SOG_Input.Source.Set( GPS_1_Rmc_SOGKnots )" )
+GPS_ES.NMEA_1.AddAction( "COG_Input.Source.Set( GPS_1_Rmc_TMG )" )
+
+GPS_ES.Quadrans.AddCondition( "& GPSToUse  == 2" )
+
+GPS_ES.Quadrans.AddAction( "SOG_Input.Source.Set( QuadransUDP_Speed_Calculed_SOG )" )
+GPS_ES.Quadrans.AddAction( "COG_Input.Source.Set( QuadransUDP_Speed_Calculed_COG )" )
+GPS_ES.Quadrans.AddAction( "Lat_Input.Source.Set( GPS_1_Rmc_Lat)" )
+GPS_ES.Quadrans.AddAction( "Lon_Input.Source.Set( GPS_1_Rmc_Lon)" )
+
+GPS_ES.N2K.AddCondition( "& GPSToUse  == 3" )
+
+GPS_ES.N2K.AddAction( "Lat_Input.Source.Set( Dev_Zeus3_7_iGPS_1441847_Pgn129025_Latitude )" )
+GPS_ES.N2K.AddAction( "Lon_Input.Source.Set( Dev_Zeus3_7_iGPS_1441847_Pgn129025_Longitude )" )
+GPS_ES.N2K.AddAction( "QI_Input.Source.Set( Dev_Zeus3_7_iGPS_1441847_Pgn129029_Quality )" )
+GPS_ES.N2K.AddAction( "PosFixTime_Input.Source.Set( Dev_Zeus3_7_iGPS_1441847_Pgn126992_Time )" )
+GPS_ES.N2K.AddAction( "SOG_Input.Source.Set( Dev_Zeus3_7_iGPS_1441847_Pgn129026_SOGKnots )" )
+GPS_ES.N2K.AddAction( "COG_Input.Source.Set( Dev_Zeus3_7_iGPS_1441847_Pgn129026_COGTrue )" )
+
+GPS_ES.MicroStrain.AddCondition( "& GPSToUse  == 4" )
+
+GPS_ES.MicroStrain.AddAction( "Lat_Input.Source.Set( MicroStrain_GpsLat )" )
+GPS_ES.MicroStrain.AddAction( "Lon_Input.Source.Set( MicroStrain_GpsLon )" )
+GPS_ES.MicroStrain.AddAction( "QI_Input.Source.Set( MicroStrain_GpsQI )" )
+GPS_ES.MicroStrain.AddAction( "PosFixTime_Input.Source.Set( MicroStrain_GpsTime )" )
+GPS_ES.MicroStrain.AddAction( "SOG_Input.Source.Set( MicroStrain_SOG )" )
+GPS_ES.MicroStrain.AddAction( "COG_Input.Source.Set( MicroStrain_COG )" )
+
+GPS_ES.Start()
+
+
+new TExpertSys( GPS_AUTO )
+//
+// ExpertSystem States
+//
+GPS_AUTO.AddState( Quadrans )
+GPS_AUTO.AddState( gps1 )
+GPS_AUTO.AddState( gps3dm )
+GPS_AUTO.AddState( gpsOk )
+GPS_AUTO.AddState( gpsKo )
+//
+// ExpertSystem Conditions
+//
+GPS_AUTO.Stop()
+
+GPS_AUTO.Quadrans.AddCondition( "(&GPSAuto == 1) and (&quadGPSvalid == 1)" )
+
+GPS_AUTO.Quadrans.AddAction( "GPSToUse.SetValue( 2 )" )
+
+GPS_AUTO.gps1.AddCondition( "(&GPSAuto == 1) and (&quadGPSvalid == 0) and  (&gps1TimeUpdating == 1)" )
+
+GPS_AUTO.gps1.AddAction( "GPSToUse.SetValue( 1 )" )
+
+GPS_AUTO.gps3dm.AddCondition( "(&GPSAuto == 1) and (&quadGPSvalid == 0)and  (&gps1TimeUpdating == 0) and (&msGPSvalid == 0) and (&msGPSvalid ==1)" )
+
+GPS_AUTO.gps3dm.AddAction( "GPSToUse.SetValue( 4 )" )
+
+GPS_AUTO.gpsOk.AddCondition( "(&quadGPSvalid == 1 ) or (&gps1TimeUpdating == 1) or  (&msGPSvalid == 1) or (&msGPSvalid ==1)" )
+
+GPS_AUTO.gpsOk.AddAction( "GPSValid.SetValue( 1 )" )
+
+GPS_AUTO.gpsKo.AddCondition( "(&quadGPSvalid == 0 ) and (&gps1TimeUpdating == 0) and (&msGPSvalid == 0) and (&msGPSvalid == 0)" )
+
+GPS_AUTO.gpsKo.AddAction( "GPSValid.SetValue( 0 )" )
+
+GPS_AUTO.Start()

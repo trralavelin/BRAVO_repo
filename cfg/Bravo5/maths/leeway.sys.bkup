@@ -1,0 +1,18 @@
+#--------------------------------------------------------------------------------
+# COG - Heading
+#
+
+new TSubtract( LWYHEELi_unsigned, HDT_Input, COG_Input, CalculeVar_025 )
+new TAbs( Heelabs, Heel, CalculeVar_025 )
+new TDivide( HEELSIGN, Heel, Heelabs, CalculeVar_025 )
+
+new TMultiply( LWYHEELi, LWYHEELi_unsigned, HEELSIGN, CalculeVar_025 )
+
+new TSetting( Leeway_damp, 5, 0 )
+new TExponentialFilter( LWYHEELi_damped, LWYHEELi, circ180, Leeway_damp, CalculeVar_025 )
+
+new TMaxMinFilter( maxLWYfil, -10.000000, 10.000000 )
+new TMultiply( LWYHEELm, cte1, LWYHEELi, CalculeVar_025 )
+LWYHEELm.SetFilter( maxLWYfil )
+
+new TCopy( LWYHEELorg, LWYHEELm, CalculeVar_025 )

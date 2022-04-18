@@ -1,0 +1,97 @@
+
+
+
+#------------------------------------------------------------------------------
+# Instrumental inputs for a GPS
+new TCopy( gpsLATi, Lat_Input, CalculeVar_025 )
+new TCopy( gpsLONi, Lon_Input, CalculeVar_025 )
+new TCopy( gpsQUALITYi, QI_Input, CalculeVar_025 )
+new TCopy( gpsPOSFIXTIMEi, PosFixTime_Input, CalculeVar_025 )
+new TCopy( gpsSOGi, SOG_Input, CalculeVar_025 )
+new TCopy( gpsCOGi, COG_Input, CalculeVar_025 )
+
+#------------------------------------------------------------------------------
+# Arm from the GPS antenna to the reference point
+new TSetting( cteGpsToRefX, "CalsFile", 0 )
+new TSetting( cteGpsToRefY, "CalsFile", 0 )
+new TSetting( cteGpsToRefZ, "CalsFile", 0 )
+
+#------------------------------------------------------------------------------
+# Arm from the GPS antenna to the CoG = Arm from Antena to Reference + Arm from Reference to CoG
+new TAdd( armGpsToCGX, cteGpsToRefX, cteRefToCGX, CalculeVar_025 )
+new TAdd( armGpsToCGY, cteGpsToRefY, cteRefToCGY, CalculeVar_025 )
+new TAdd( armGpsToCGZ, cteGpsToRefZ, cteRefToCGZ, CalculeVar_025 )
+
+#------------------------------------------------------------------------------
+# Position of the antenna
+new TCopy( gpsLATm, gpsLATi, CalculeVar_025 )
+new TCopy( gpsLONm, gpsLONi, CalculeVar_025 )
+new TCopy( gpsQUALITYorg, gpsQUALITYi, CalculeVar_025 )
+new TCopy( gpsPOSFIXTIMEorg, gpsPOSFIXTIMEi, CalculeVar_025 )
+
+#------------------------------------------------------------------------------
+# Position of the CoG
+new TGpsLeverArm( GpsPos, gpsLATi, gpsLONi, 0, CalculeVar_025 )
+GpsPos.SetArmX( armGpsToCGX )
+GpsPos.SetArmY( armGpsToCGY )
+GpsPos.SetArmZ( armGpsToCGZ )
+GpsPos.SetPitch( TRIMorg )
+GpsPos.SetRoll( HEELorg )
+GpsPos.SetYaw( HDGtrue )
+
+new TCopy( gpsLATorg, GpsPos_Lat, CalculeVar_025 )
+new TCopy( gpsLONorg, GpsPos_Lon, CalculeVar_025 )
+
+#------------------------------------------------------------------------------
+# Speed over Ground
+new TCopy( gpsSOGorg, gpsSOGi, CalculeVar_025 )
+
+#------------------------------------------------------------------------------
+# Magnetic Course over Ground
+new TCopy( gpsCOGtrue, gpsCOGi, CalculeVar_025 )
+new TSubtract360( gpsCOGorg, gpsCOGtrue, MagneticVariation, CalculeVar_025 )
+
+#------------------------------------------------------------------------------
+# Speed and Magnetic Course over Water (removing current)
+new TVectorSubtractMod( gpsSOWorg, gpsSOGorg, gpsCOGorg, CurrDrift, CurrSet, CalculeVar_025 )
+new TVectorSubtractArg( gpsCSEorg, gpsSOGorg, gpsCOGorg, CurrDrift, CurrSet, false, CalculeVar_025 )
+
+#------------------------------------------------------------------------------
+# Heading over boat frame (removing Leeway)
+new TAdd360( gpsHDGorg, gpsCSEorg, LWYorg, CalculeVar_025 )
+
+#------------------------------------------------------------------------------
+# Speed over boat frame (removing Leeway and pitching,rolling and yawing)
+new TVectorCosProjection( gpsBSm, gpsSOWorg, LWYorg, CalculeVar_025 )
+
+#   Pitching correction  BS = BS - VELOCx = BS - ( OMEGA x ARM )
+#------------------------------------------------------------------------------
+# in rad/sec
+new TCopy( PITCHRATErad, PITCHRATEorg, CalculeVar_025 )
+PITCHRATErad.SetCalibration( Deg2RadCal )
+new TCopy( ROLLRATErad, ROLLRATEorg, CalculeVar_025 )
+ROLLRATErad.SetCalibration( Deg2RadCal )
+new TCopy( YAWRATErad, YAWRATEorg, CalculeVar_025 )
+YAWRATErad.SetCalibration( Deg2RadCal )
+
+new TVectorCrossProductX( gpsVELOCXorg, ROLLRATErad, PITCHRATErad, YAWRATErad, armGpsToCGX, armGpsToCGY, armGpsToCGZ, CalculeVar_025 )
+new TSubtract( gpsBSorg, gpsBSm, gpsVELOCXorg, CalculeVar_025 )
+
+#------------------------------------------------------------------------------
+# Diagnotic: 
+#	Compas
+new TSetting( gpsUpdateDuration, 5, 0 )
+new TIsUpdating( gpsHDG1updating, GPS_1_Vtg_TMG, gpsUpdateDuration, CalculeVar_010 )
+
+
+new TChooser( gpsCOMPASvalid, "&gpsHDG1updating", 1, 0, CalculeVar_010 )
+
+#------------------------------------------------------------------------------
+# Diagnotic: 
+#	Time
+new TIsUpdating( gps1TimeUpdating, GPS_1_Gga_PosFixTime, gpsUpdateDuration, CalculeVar_010 )
+#new TIsUpdating( gpsN2kTimeUpdating, Dev_Zeus3_7_iGPS_1441847_Pgn126992_Time, gpsUpdateDuration#, CalculeVar_010 )
+new TChooser( gpsN2kTimeValid, "&Dev_Zeus3_7_iGPS_1441847_Pgn129025_IsValid", 1, 0, CalculeVar_010 )
+
+
+new TChooser( gpsTimevalid, "&gps1TimeUpdating and &gpsN2kTimeValid", 1, 0, CalculeVar_010 )

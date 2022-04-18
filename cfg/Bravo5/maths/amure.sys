@@ -1,0 +1,32 @@
+#------------------------------------------------------------------------------
+# Amure
+
+
+new TSetting( tack, -1, 0 )
+
+new TExpertSys( amure_ES )
+//
+// ExpertSystem States
+//
+amure_ES.AddState( Stb )
+amure_ES.AddState( Port )
+//
+// ExpertSystem Conditions
+//
+amure_ES.Stop()
+
+amure_ES.Stb.AddCondition( "((&MAD_AwaValid == 1) and (&AWA > 0)) or ((&MAD_AwaValid == 0) and (&Heel > 0))" )
+
+amure_ES.Stb.AddAction( "tack.SetValue( 1 )" )
+
+amure_ES.Port.AddCondition( "((&MAD_AwaValid == 1) and (&AWA < 0)) or ((&MAD_AwaValid == 0) and (&Heel < 0))" )
+
+amure_ES.Port.AddAction( "tack.SetValue( -1 )" )
+
+amure_ES.Start()
+
+new TChooser( Foil_Active_peak, "(&tack > 0)", Foil_Port_peak, Foil_Stb_peak, FoilProcess )
+new TChooser( Outrigger_Active, "(&tack > 0)", Outrigger_Stb_Input, Outrigger_Port_Input, CalculeVar_025 )
+new TChooser( Runner_Active, "(&tack > 0)", Runner_Stb_Input, Runner_Port_Input, CalculeVar_025 )
+new TChooser( Foil_Active_Rake, "(&tack > 0)", Foil_Port_Rake_Input, Foil_Stb_Rake_Input, CalculeVar_025 )
+new TChooser( Foil_Active_Pos, "(&tack > 0)", Foil_Port_Pos_Input, Foil_Stb_Pos_Input, CalculeVar_025 )

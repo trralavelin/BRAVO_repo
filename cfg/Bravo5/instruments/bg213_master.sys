@@ -1,0 +1,18 @@
+#------------------------------------------------------------------------------
+# Apparent Wind Angle Measured
+#------------------------------------------------------------------------------
+#   - Instrumental filtering
+new TIAWA( bg213AWAi, AWAblue_Input, AWAgreen_Input, AWAred_Input, CalculeVar_050 )
+new TSumSequence( bg213AWAphases, AWAblue_Input, AWAgreen_Input, AWAred_Input, CalculeVar_050 )
+
+#   - Non-Linearity correction
+load "cfg/Bravo5/data/adjMhu.sys"
+new TSubtract180( bg213AWAm, bg213AWAi, adjMhuTable, CalculeVar_050 )
+
+new TSetting( MhuOffset_1, 0, 0 )
+new TAdd180( bg213AWAofc, bg213AWAm, MhuOffset_1, CalculeVar_050 )
+
+#------------------------------------------------------------------------------
+# Apparent Wind Speed Measured
+#------------------------------------------------------------------------------
+new TCopy( bg213AWSm, AWS_Input, CalculeVar_050 )

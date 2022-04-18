@@ -1,0 +1,81 @@
+#------------------------------------------------------------------------------
+#-- MAD_BRAIN
+#------------------------------------------------------------------------------
+
+# Yaw
+new TSetting( MAD_dampYaw, 0.15, 0 )
+new TExponentialFilter( MAD_Yaw, HDT_Input, circ360, MAD_dampYaw, MAD_Vars )
+new TSetting( MAD_YawValid, 1, 0 )
+
+# Pitch
+new TSetting( MAD_dampPitch, 0.3, 0 )
+new TExponentialFilter( MAD_Pitch, Trim_Input, circ180, MAD_dampPitch, MAD_Vars )
+
+# Roll
+new TSetting( MAD_dampRoll, 0.3, 0 )
+new TExponentialFilter( MAD_Roll, Heel_Input, circ180, MAD_dampRoll, MAD_Vars )
+
+# Yaw Rate
+new TSetting( MAD_dampYawRate, 0.3, 0 )
+new TExponentialFilter( MAD_YawRate, GyroZ_Input, circ180, MAD_dampYawRate, MAD_Vars )
+
+# Pitch Rate
+new TSetting( MAD_dampPitchRate, 0.3, 0 )
+new TExponentialFilter( MAD_PitchRate, GyroY_Input, circ180, MAD_dampPitchRate, MAD_Vars )
+
+# Roll Rate
+new TSetting( MAD_dampRollRate, 0.3, 0 )
+new TExponentialFilter( MAD_RollRate, GyroX_Input, circ180, MAD_dampRollRate, MAD_Vars )
+
+# BS
+new TSetting( MAD_dampBs, 0.3, 0 )
+new TExponentialFilter( MAD_Bs, SOW_Input, linear, MAD_dampBs, MAD_Vars )
+
+# AWA
+new TSetting( MAD_dampAwa, 0.3, 0 )
+new TExponentialFilter( MAD_Awa, AWAorg, circ180, MAD_dampAwa, MAD_Vars )
+new TSetting( MAD_AwaValid, 1, 0 )
+
+# AWS
+new TSetting( MAD_dampAws, 0.6, 0 )
+new TExponentialFilter( MAD_Aws, AWSorg, linear, MAD_dampAws, MAD_Vars )
+
+# TWA
+new TSetting( MAD_dampTwa, 0.9, 0 )
+new TExponentialFilter( MAD_Twa, TWAorg, circ180, MAD_dampTwa, MAD_Vars )
+
+# TWD
+new TSetting( MAD_dampTwd, 1.5, 0 )
+new TExponentialFilter( MAD_Twd, TWDorg, circ360, MAD_dampTwd, MAD_Vars )
+
+# TWS
+new TSetting( MAD_dampTws, 0.9, 0 )
+new TExponentialFilter( MAD_Tws, TWSorg, linear, MAD_dampTws, MAD_Vars )
+
+# Target TWA (From Polar)
+new TSetting( MAD_dampTargetTwa, 10, 0 )
+new TExponentialFilter( MAD_TargetTwa, perf_vmg_target_org, circ180, MAD_dampTargetTwa, MAD_Vars )
+
+#------------------------------------------------------------------------------
+# Position in degrees
+new TGeographicToDegrees( Lat_deg, gpsLATorg, MAD_Vars )
+new TGeographicToDegrees( Lon_deg, gpsLONorg, MAD_Vars )
+
+
+#------------------------------------------------------------------------------
+# Diagnotic
+
+new TChooser( MADBRAINvalid, "&MadintecCan_MAD_Controller_AlarmStreamIn_ClutchCMD == 1", 1, 0, CalculeVar_001 )
+
+new TSetting( mcUpdateDuration, 10, 0 )
+new TIsUpdating( mcUpdating, MadintecCan_MAD_Controller_State_VBat, mcUpdateDuration, CalculeVar_010 )
+new TChooser( MADCONTROLLERvalid, "&mcUpdating == 1", 1, 0, CalculeVar_001 )
+
+
+# Process à 50 Hz
+new TCalcule( MAD_Vars, 50 )
+
+#-------------------------------------------------------------------------------
+# Bug Bs à zero
+
+new TChooser( MAD_Bs_Safe, "&MAD_Bs > 0.1", MAD_Bs, 0.1, MAD_Vars )

@@ -1,0 +1,76 @@
+#------------------------------------------------------------------------------
+#
+# Name: MAD Brain Buzz
+#
+# Description: Monitor if MADBrain is OK. If the MADBrain is on error, Buzz 
+#
+# Inputs:
+#		MADBRAINvalid
+#		DCU_BUZZ_ON
+#
+# Parameters:
+#	
+# Dependences:
+#		BuzzCounter
+#
+# Computed Vars:
+#		DCU_BUZZ
+#
+# Outputs:
+#		Brain_Buzz_ES_OK
+#		Brain_Buzz_ES_KO
+#		BuzzCounter_ES_RESET
+#
+#------------------------------------------------------------------------------
+# Last Editor: AC
+# Date: 1-6-2020
+#------------------------------------------------------------------------------
+new TSetting( DCU_BUZZ_ON, "ExpertsFile", 0 )
+
+
+
+new TChooser( MADvalid, "&MADBRAINvalid and &MADCONTROLLERvalid and &MAD_YawValid", 1, 0, CalculeVar_010 )
+
+
+new TExpertSys( Brain_Buzz_ES )
+//
+// ExpertSystem States
+//
+Brain_Buzz_ES.AddState( OK )
+Brain_Buzz_ES.AddState( KO )
+//
+// ExpertSystem Conditions
+//
+Brain_Buzz_ES.Stop()
+
+Brain_Buzz_ES.OK.AddCondition( "&MADvalid or (&DCU_BUZZ_ON == 0) or (&DCU_BUZZ_ON == 1 and &MADvalid == 0 and &BuzzCounter == 0)" )
+
+Brain_Buzz_ES.OK.AddAction( "DCU_BUZZ.Set( 0 )" )
+Brain_Buzz_ES.OK.AddAction( "alarm_nb.SetValue( 0 )" )
+
+Brain_Buzz_ES.KO.AddCondition( "(&DCU_BUZZ_ON == 1) and (&MADvalid == 0) and (&BuzzCounter == 1)" )
+
+Brain_Buzz_ES.KO.AddAction( "DCU_BUZZ.Set( 1 )" )
+Brain_Buzz_ES.KO.AddAction( "alarm_nb.SetValue( 9 )" )
+
+Brain_Buzz_ES.Start()
+
+
+# Buzz counter
+new TAdd( BuzzCounter, BuzzCounter, 1, CalculeVar_001 )
+
+new TExpertSys( BuzzCounter_ES )
+//
+// ExpertSystem States
+//
+BuzzCounter_ES.AddState( RESET )
+//
+// ExpertSystem Conditions
+//
+BuzzCounter_ES.Stop()
+
+BuzzCounter_ES.RESET.AddCondition( "&BuzzCounter > 1" )
+
+BuzzCounter_ES.RESET.AddAction( "BuzzCounter.SetValue( 0 )" )
+
+BuzzCounter_ES.Start()

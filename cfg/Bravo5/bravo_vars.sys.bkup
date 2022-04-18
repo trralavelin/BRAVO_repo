@@ -1,0 +1,210 @@
+#------------------------------------------------------------------------------
+new TConfigFile( CalsFile, "cfg/Bravo5/data/calibrations.map" )
+new TConfigFile( BravoVars, "cfg/Bravo5/data/BravoVars.map" )
+
+
+#------------------------------------------------------------------------------
+#-- BOAT SETTINGS
+#------------------------------------------------------------------------------
+new TSetting( cteRefToCGX, "CalsFile", 0 )
+new TSetting( cteRefToCGY, "CalsFile", 0 )
+new TSetting( cteRefToCGZ, "CalsFile", 0 )
+
+#------------------------------------------------------------------------------
+#-- ENVIROMENTAL
+#------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
+# Magnetic Variation
+new TDeclination( wmmMagneticVariation, Lat, Lon, "cfg/Bravo5/WMM.COF", CalculeVar_001 )
+
+#------------------------------------------------------------------------------
+
+new TFinalVar( MagneticVariation, "BravoVars", "deg", "linear", 1, "Magnetic variation", "", 0, CalculeVar_001 )
+new TFinalVar( Gravity, "BravoVars", "m/s^2", "linear", 2, "Earth Gravity", "", 0, CalculeVar_001 )
+new TFinalVar( CurrDrift, "BravoVars", "kts", "linear", 1, "Current speed", "", 0, CalculeVar_025 )
+new TFinalVar( CurrSet, "BravoVars", "deg", "circ360", 0, "Current direction", "", 0, CalculeVar_025 )
+new TFinalVar( WindShear, "BravoVars", "deg", "linear", 0, "Wind shear offset", "", 0, CalculeVar_025 )
+new TFinalVar( WindWeight, "BravoVars", "[0..1]", "linear", 2, "Wind weight factor", "", 0, CalculeVar_025 )
+
+new TFinalVar( Lat, "BravoVars", "ddmm.m", "position", 7, "Latitude", "", 0, CalculeVar_025 )
+new TFinalVar( Lon, "BravoVars", "ddmm.m", "position", 7, "Longitude", "", 0, CalculeVar_025 )
+new TFinalVar( PosFixTime, "BravoVars", "hhmmss", "linear", 2, "Position fix time", "", 0, CalculeVar_025 )
+new TFinalVar( PosQuality, "BravoVars", "", "linear", 0, "Quality Indicator", "", 0, CalculeVar_025 )
+new TFinalVar( COG, "BravoVars", "deg", "circ360", 0, "Course Over Ground", "", 0, CalculeVar_025 )
+new TFinalVar( SOG, "BravoVars", "kts", "linear", 2, "Speed Over Ground", "", 0, CalculeVar_025 )
+
+new TFinalVar( GpsHdg, "BravoVars", "deg", "circ360", 0, "Heading from GPS", "", 0, CalculeVar_025 )
+new TFinalVar( GpsBS, "BravoVars", "kts", "linear", 2, "Boatspeed from GPS", "", 0, CalculeVar_025 )
+
+new TFinalVar( Hdg, "BravoVars", "deg", "circ360", 0, "Heading", "", 0, CalculeVar_050 )
+new TFinalVar( HDT, "BravoVars", "deg", "circ360", 0, "Heading True", "", 0, CalculeVar_050 )
+new TFinalVar( HDM, "BravoVars", "deg", "circ360", 0, "Heading Mag", "", 0, CalculeVar_050 )
+new TFinalVar( Heel, "BravoVars", "deg", "circ180", 1, "Heel (+ stbd tack)", "", 0, CalculeVar_050 )
+new TFinalVar( Trim, "BravoVars", "deg", "circ180", 1, "Trim (+ bow up)", "", 0, CalculeVar_050 )
+new TFinalVar( BS, "BravoVars", "kts", "linear", 2, "Boatspeed", "", 0, CalculeVar_050 )
+new TFinalVar( Yaw, "BravoVars", "deg", "circ180", 2, "Leeway from GPS", "", 0, CalculeVar_050 )
+new TFinalVar( Lwy, "BravoVars", "deg", "circ180", 2, "Leeway", "", 0, CalculeVar_025 )
+new TFinalVar( Cse, "BravoVars", "deg", "circ360", 0, "Course Over Water", "", 0, CalculeVar_025 )
+new TFinalVar( SOW, "BravoVars", "kts", "linear", 2, "Speed Over Water", "", 0, CalculeVar_025 )
+
+new TFinalVar( MastTwist, "BravoVars", "deg", "linear", 1, "Mast twist", "", 0, CalculeVar_025 )
+new TFinalVar( UpwashAngle, "BravoVars", "deg", "linear", 1, "Upwash Angle correction", "", 0, CalculeVar_025 )
+new TFinalVar( UpwashSpeed, "BravoVars", "%", "linear", 1, "Upwash Speed correction", "", 0, CalculeVar_025 )
+
+new TFinalVar( AWA, "BravoVars", "deg", "circ180", 1, "Apparent Wind Angle", "", 0, CalculeVar_025 )
+new TFinalVar( AWS, "BravoVars", "kts", "linear", 1, "Apparent Wind Speed", "", 0, CalculeVar_025 )
+new TFinalVar( TWA, "BravoVars", "deg", "circ180", 1, "True Wind Angle", "", 0, CalculeVar_025 )
+new TFinalVar( TWS, "BravoVars", "kts", "linear", 1, "True Wind Speed", "", 0, CalculeVar_025 )
+new TFinalVar( TWD, "BravoVars", "deg", "circ360", 0, "True Wind Direction", "", 0, CalculeVar_025 )
+
+new TFinalVar( AWA1, "BravoVars", "deg", "circ180", 1, "Apparent Wind Angle", "", 0, CalculeVar_025 )
+new TFinalVar( AWS1, "BravoVars", "kts", "linear", 1, "Apparent Wind Speed", "", 0, CalculeVar_025 )
+new TFinalVar( TWA1, "BravoVars", "deg", "circ180", 1, "True Wind Angle", "", 0, CalculeVar_025 )
+new TFinalVar( TWS1, "BravoVars", "kts", "linear", 1, "True Wind Speed", "", 0, CalculeVar_025 )
+new TFinalVar( TWD1, "BravoVars", "deg", "circ360", 0, "True Wind Direction", "", 0, CalculeVar_025 )
+
+new TFinalVar( AWA2, "BravoVars", "deg", "circ180", 1, "Apparent Wind Angle", "", 0, CalculeVar_025 )
+new TFinalVar( AWS2, "BravoVars", "kts", "linear", 1, "Apparent Wind Speed", "", 0, CalculeVar_025 )
+new TFinalVar( TWA2, "BravoVars", "deg", "circ180", 1, "True Wind Angle", "", 0, CalculeVar_025 )
+new TFinalVar( TWS2, "BravoVars", "kts", "linear", 1, "True Wind Speed", "", 0, CalculeVar_025 )
+new TFinalVar( TWD2, "BravoVars", "deg", "circ360", 0, "True Wind Direction", "", 0, CalculeVar_025 )
+
+
+
+new TFinalVar( AWA3, "BravoVars", "deg", "circ180", 1, "Apparent Wind Angle", "", 0, CalculeVar_025 )
+new TFinalVar( AWS3, "BravoVars", "kts", "linear", 1, "Apparent Wind Speed", "", 0, CalculeVar_025 )
+new TFinalVar( TWA3, "BravoVars", "deg", "circ180", 1, "True Wind Angle", "", 0, CalculeVar_025 )
+new TFinalVar( TWS3, "BravoVars", "kts", "linear", 1, "True Wind Speed", "", 0, CalculeVar_025 )
+new TFinalVar( TWD3, "BravoVars", "deg", "circ360", 0, "True Wind Direction", "", 0, CalculeVar_025 )
+
+new TFinalVar( AWA4, "BravoVars", "deg", "circ180", 1, "Apparent Wind Angle", "", 0, CalculeVar_025 )
+new TFinalVar( AWS4, "BravoVars", "kts", "linear", 1, "Apparent Wind Speed", "", 0, CalculeVar_025 )
+new TFinalVar( TWA4, "BravoVars", "deg", "circ180", 1, "True Wind Angle", "", 0, CalculeVar_025 )
+new TFinalVar( TWS4, "BravoVars", "kts", "linear", 1, "True Wind Speed", "", 0, CalculeVar_025 )
+new TFinalVar( TWD4, "BravoVars", "deg", "circ360", 0, "True Wind Direction", "", 0, CalculeVar_025 )
+
+new TFinalVar( AWAeff, "BravoVars", "deg", "circ180", 1, "Effective Apparent Wind Angle", "", 0, CalculeVar_025 )
+new TFinalVar( AWSeff, "BravoVars", "kts", "linear", 1, "Effective Apparent Wind Speed", "", 0, CalculeVar_025 )
+new TFinalVar( TWAeff, "BravoVars", "deg", "circ180", 1, "Effective True Wind Angle", "", 0, CalculeVar_025 )
+new TFinalVar( TWSeff, "BravoVars", "kts", "linear", 1, "Effective True Wind Speed", "", 0, CalculeVar_025 )
+new TFinalVar( TWDeff, "BravoVars", "deg", "circ360", 0, "Effective True Wind Direction", "", 0, CalculeVar_025 )
+
+new TFinalVar( AWA1eff, "BravoVars", "deg", "circ180", 1, "Effective Apparent Wind Angle", "", 0, CalculeVar_025 )
+new TFinalVar( AWS1eff, "BravoVars", "kts", "linear", 1, "Effective Apparent Wind Speed", "", 0, CalculeVar_025 )
+new TFinalVar( TWA1eff, "BravoVars", "deg", "circ180", 1, "Effective True Wind Angle", "", 0, CalculeVar_025 )
+new TFinalVar( TWS1eff, "BravoVars", "kts", "linear", 1, "Effective True Wind Speed", "", 0, CalculeVar_025 )
+new TFinalVar( TWD1eff, "BravoVars", "deg", "circ360", 0, "Effective True Wind Direction", "", 0, CalculeVar_025 )
+
+new TFinalVar( AWA2eff, "BravoVars", "deg", "circ180", 1, "Effective Apparent Wind Angle", "", 0, CalculeVar_025 )
+new TFinalVar( AWS2eff, "BravoVars", "kts", "linear", 1, "Effective Apparent Wind Speed", "", 0, CalculeVar_025 )
+new TFinalVar( TWA2eff, "BravoVars", "deg", "circ180", 1, "Effective True Wind Angle", "", 0, CalculeVar_025 )
+new TFinalVar( TWS2eff, "BravoVars", "kts", "linear", 1, "Effective True Wind Speed", "", 0, CalculeVar_025 )
+new TFinalVar( TWD2eff, "BravoVars", "deg", "circ360", 0, "Effective True Wind Direction", "", 0, CalculeVar_025 )
+
+new TFinalVar( AWA3eff, "BravoVars", "deg", "circ180", 1, "Effective Apparent Wind Angle", "", 0, CalculeVar_025 )
+new TFinalVar( AWS3eff, "BravoVars", "kts", "linear", 1, "Effective Apparent Wind Speed", "", 0, CalculeVar_025 )
+new TFinalVar( TWA3eff, "BravoVars", "deg", "circ180", 1, "Effective True Wind Angle", "", 0, CalculeVar_025 )
+new TFinalVar( TWS3eff, "BravoVars", "kts", "linear", 1, "Effective True Wind Speed", "", 0, CalculeVar_025 )
+new TFinalVar( TWD3eff, "BravoVars", "deg", "circ360", 0, "Effective True Wind Direction", "", 0, CalculeVar_025 )
+
+new TFinalVar( AWA4eff, "BravoVars", "deg", "circ180", 1, "Effective Apparent Wind Angle", "", 0, CalculeVar_025 )
+new TFinalVar( AWS4eff, "BravoVars", "kts", "linear", 1, "Effective Apparent Wind Speed", "", 0, CalculeVar_025 )
+new TFinalVar( TWA4eff, "BravoVars", "deg", "circ180", 1, "Effective True Wind Angle", "", 0, CalculeVar_025 )
+new TFinalVar( TWS4eff, "BravoVars", "kts", "linear", 1, "Effective True Wind Speed", "", 0, CalculeVar_025 )
+new TFinalVar( TWD4eff, "BravoVars", "deg", "circ360", 0, "Effective True Wind Direction", "", 0, CalculeVar_025 )
+
+new TFinalVar( PitchRate, "BravoVars", "deg/s", "linear", 1, "Pitch rate", "", 0, CalculeVar_050 )
+new TFinalVar( RollRate, "BravoVars", "deg/s", "linear", 1, "Roll rate", "", 0, CalculeVar_050 )
+new TFinalVar( YawRate, "BravoVars", "deg/s", "linear", 1, "Yaw Rate", "", 0, CalculeVar_050 )
+new TFinalVar( AccelX, "BravoVars", "m/s^2", "linear", 2, "Acceleration X", "", 0, CalculeVar_050 )
+new TFinalVar( AccelY, "BravoVars", "m/s^2", "linear", 2, "Acceleration Y", "", 0, CalculeVar_050 )
+new TFinalVar( AccelZ, "BravoVars", "m/s^2", "linear", 2, "Acceleration Z", "", 0, CalculeVar_050 )
+new TFinalVar( Heave, "BravoVars", "m", "linear", 2, "Heave", "", 0, CalculeVar_025 )
+new TFinalVar( Surge, "BravoVars", "m", "linear", 2, "Surge", "", 0, CalculeVar_025 )
+new TFinalVar( Sway, "BravoVars", "m", "linear", 2, "Sway", "", 0, CalculeVar_025 )
+
+new TFinalVar( Depth_Input_Final, "BravoVars", "m", "linear", 2, "Depth", "", 0, CalculeVar_025 )
+new TAverage( dampDepth_Input_Finalfil, 30 )
+
+new TFinalVar( ForstayLoad, "BravoVars", "T", "linear", 2, "", "", 0, CalculeVar_025 )
+new TFinalVar( Runner, "BravoVars", "", "linear", 2, "", "", 5, CalculeVar_025 )
+new TFinalVar( MainSheetLoad, "BravoVars", "", "linear", 2, "", "", 0, CalculeVar_025 )
+new TFinalVar( PortShroudLoad, "BravoVars", "T", "linear", 2, "", "", 0, CalculeVar_025 )
+new TFinalVar( StbdShroudLoad, "BravoVars", "T", "linear", 2, "", "", 0, CalculeVar_025 )
+new TFinalVar( Rake, "BravoVars", "mm", "linear", 2, "", "", 0, CalculeVar_025 )
+new TFinalVar( MastButt, "BravoVars", "mm", "linear", 2, "", "", 0, CalculeVar_025 )
+new TFinalVar( RudderAngle, "BravoVars", "deg", "linear", 1, "", "", 0, CalculeVar_025 )
+new TFinalVar( TravellerPosition, "BravoVars", "", "linear", 2, "", "", 0, CalculeVar_025 )
+new TFinalVar( MastRotation, "BravoVars", "deg", "linear", 2, "", "", 0, CalculeVar_025 )
+
+new TFinalVar( PolarBs, "BravoVars", "kts", "linear", 2, "", "", 0, CalculeVar_025 )
+new TFinalVar( TargetBs, "BravoVars", "kts", "linear", 2, "", "", 0, CalculeVar_025 )
+new TFinalVar( TargetTwa, "BravoVars", "deg", "circ180", 2, "", "", 0, CalculeVar_025 )
+new TFinalVar( TargetAwa, "BravoVars", "deg", "circ180", 2, "", "", 0, CalculeVar_025 )
+new TFinalVar( TargetAws, "BravoVars", "kts", "linear", 2, "", "", 0, CalculeVar_025 )
+new TFinalVar( TargetCse, "BravoVars", "deg", "circ360", 2, "", "", 0, CalculeVar_025 )
+new TFinalVar( TargetVmg, "BravoVars", "kts", "linear", 2, "", "", 0, CalculeVar_025 )
+
+new TFinalVar( BsRatio, "BravoVars", "%", "linear", 2, "", "", 0, CalculeVar_025 )
+new TFinalVar( TargetBsRatio, "BravoVars", "%", "linear", 2, "", "", 0, CalculeVar_025 )
+new TFinalVar( VmgRatio, "BravoVars", "[0..1]", "linear", 2, "", "", 0, CalculeVar_025 )
+
+new TFinalVar( VMG, "BravoVars", "kts", "linear", 2, "", "", 0, CalculeVar_025 )
+new TFinalVar( PitchRMS, "BravoVars", "deg rms", "linear", 2, "", "", 0, CalculeVar_025 )
+new TFinalVar( PitchPeriod, "BravoVars", "s", "linear", 2, "", "", 0, CalculeVar_025 )
+new TFinalVar( HeaveRMS, "BravoVars", "", "linear", 2, "", "", 0, CalculeVar_025 )
+new TFinalVar( HeavePeriod, "BravoVars", "", "linear", 2, "", "", 0, CalculeVar_025 )
+new TFinalVar( SeaState, "BravoVars", "", "linear", 0, "", "", 0, CalculeVar_025 )
+new TFinalVar( TripLog, "BravoVars", "Nm", "linear", 1, "", "", 0, CalculeVar_025 )
+
+new TFinalVar( RngToMark, "BravoVars", "nm", "linear", 1, "", "", 0, CalculeVar_025 )
+new TFinalVar( BrgToMark, "BravoVars", "deg", "circ360", 0, "", "", 0, CalculeVar_025 )
+new TFinalVar( TimeOnPort, "BravoVars", "sec", "linear", 0, "", "", 0, CalculeVar_025 )
+new TFinalVar( TimeOnStbd, "BravoVars", "sec", "linear", 0, "", "", 0, CalculeVar_025 )
+new TFinalVar( OppTack, "BravoVars", "deg", "circ360", 0, "", "", 0, CalculeVar_025 )
+new TFinalVar( TargetOppTack, "BravoVars", "deg", "circ360", 2, "", "", 0, CalculeVar_025 )
+
+
+
+new TFinalVar( MastNz_1s_Mean_Final, "BravoVars", "T", "linear", 0, "", "", 0, CalculeVar_025 )
+new TFinalVar( E0_Input_Final, "BravoVars", "T", "linear", 0, "", "", 0, CalculeVar_025 )
+
+new TFinalVar( E2_Input_Final, "BravoVars", "T", "linear", 0, "", "", 0, CalculeVar_025 )
+new TFinalVar( E3_Input_Final, "BravoVars", "T", "linear", 0, "", "", 0, CalculeVar_025 )
+new TFinalVar( E4_Input_Final, "BravoVars", "T", "linear", 0, "", "", 0, CalculeVar_025 )
+new TFinalVar( Outrigger_Port_Input_Final, "BravoVars", "T", "linear", 0, "", "", 0, CalculeVar_025 )
+new TFinalVar( Outrigger_Stb_Input_Final, "BravoVars", "T", "linear", 0, "", "", 0, CalculeVar_025 )
+new TFinalVar( Runner_Port_Input_Final, "BravoVars", "T", "linear", 0, "", "", 0, CalculeVar_025 )
+new TFinalVar( Runner_Stb_Input_Final, "BravoVars", "T", "linear", 0, "", "", 0, CalculeVar_025 )
+
+
+new TFinalVar( Keel_Press_Stem_Input_Final, "BravoVars", "bar", "linear", 0, "", "", 0, CalculeVar_025 )
+new TFinalVar( Keel_Press_Barrel_Input_Final, "BravoVars", "bar", "linear", 0, "", "", 0, CalculeVar_025 )
+new TFinalVar( Foil_Active_Rake_Final, "BravoVars", "deg", "linear", 0, "", "", 0, CalculeVar_025 )
+new TFinalVar( Foil_Active_Pos_Final, "BravoVars", "%", "linear", 0, "", "", 0, CalculeVar_025 )
+new TFinalVar( KeelAngle_Input_Final, "BravoVars", "deg", "linear", 0, "", "", 0, CalculeVar_025 )
+new TFinalVar( Heel_Input_Final, "BravoVars", "deg", "linear", 0, "", "", 0, CalculeVar_025 )
+new TFinalVar( Outrigger_Active_Final, "BravoVars", "T", "linear", 0, "", "", 0, CalculeVar_025 )
+new TFinalVar( Runner_Active_Final, "BravoVars", "T", "linear", 0, "", "", 0, CalculeVar_025 )
+
+new TFinalVar( Foil_Stb_peak_Final, "BravoVars", "", "linear", 0, "", "", 0, CalculeVar_025 )
+new TFinalVar( Foil_Port_peak_Final, "BravoVars", "", "linear", 0, "", "", 0, CalculeVar_025 )
+new TFinalVar( Foil_Active_peak_Final, "BravoVars", "", "linear", 0, "", "", 0, CalculeVar_025 )
+
+
+new TFinalVar( E1_1s_max_Final, "BravoVars", "T", "linear", 0, "", "", 0, CalculeVar_025 )
+new TFinalVar( E3_1s_max_Final, "BravoVars", "T", "linear", 0, "", "", 0, CalculeVar_025 )
+new TFinalVar( Foil_Stb_Rake_Input_Final, "BravoVars", "°", "linear", 0, "", "", 0, CalculeVar_025 )
+new TFinalVar( Foil_Port_Rake_Input_Final, "BravoVars", "°", "linear", 0, "", "", 0, CalculeVar_025 )
+new TFinalVar( Foil_Stb_Pos_Input_Final, "BravoVars", "%", "linear", 0, "", "", 0, CalculeVar_025 )
+new TFinalVar( Foil_Port_Pos_Input_Final, "BravoVars", "%", "linear", 0, "", "", 0, CalculeVar_025 )
+
+new TFinalVar( n2k_Baro_Pa_Final, "BravoVars", "Pa", "linear", 0, "", "", 0, CalculeVar_025 )
+new TFinalVar( n2k_Baro_Temp_Final, "BravoVars", "°C", "linear", 0, "", "", 0, CalculeVar_025 )
+new TFinalVar( Adr_Pvit_cible_Final, "BravoVars", "%", "linear", 0, "", "", 0, CalculeVar_025 )
+new TFinalVar( Adr_VMG_Final, "BravoVars", "%", "linear", 0, "", "", 0, CalculeVar_025 )
+
+
+
+new TRBTimer( Countdown )
+Countdown.SetTimer( "05:00" )

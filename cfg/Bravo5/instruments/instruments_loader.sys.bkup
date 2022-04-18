@@ -1,0 +1,33 @@
+#------------------------------------------------------------------------------
+# instruments_loader
+#   Uncomments each instruments needed  for setup
+#
+
+# Mhu
+load "cfg/Bravo5/instruments/nke_wind.sys"
+load "cfg/Bravo5/instruments/nke_wind_secondary.sys"
+load "cfg/Bravo5/instruments/nke_wind_3.sys"
+load "cfg/Bravo5/instruments/nke_wind_4.sys"
+
+# Speedo
+load "cfg/Bravo5/instruments/signet.sys"
+
+# Compas
+load "cfg/Bravo5/instruments/quadrans.sys"
+load "cfg/Bravo5/instruments/3dm.sys"
+load "cfg/Bravo5/instruments/n2k_compas.sys"
+
+# Attitude solver
+load "cfg/Bravo5/instruments/ahrs.sys"
+
+# GPS
+load "cfg/Bravo5/instruments/gps.sys"
+
+# KVH
+load "cfg/Bravo5/instruments/kvh.sys"
+
+# SCAIME
+load "cfg/Bravo5/instruments/scaime.sys"
+
+# BARO
+load "cfg/Bravo5/instruments/n2k_baro.sys"

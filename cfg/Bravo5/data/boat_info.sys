@@ -1,0 +1,252 @@
+
+new TCurve( LuffingLayLines, ctLinearCurve, 2, TWSstart, 0 )
+//
+// Set points for curve <LuffingLayLines>
+//
+LuffingLayLines.SetValue( 1, 0.00000, 35.00000 )
+LuffingLayLines.SetValue( 2, 50.00000, 32.00000 )
+// Build curve <LuffingLayLines>
+LuffingLayLines.BuildCurve()
+
+
+new TCurve( Radius, ctLinearCurve, 11, BSstart, 0 )
+//
+// Set points for curve <Radius>
+//
+Radius.SetValue( 1, 0.00000, 20.00000 )
+Radius.SetValue( 2, 4.00000, 20.00000 )
+Radius.SetValue( 3, 8.00000, 20.00000 )
+Radius.SetValue( 4, 12.00000, 20.00000 )
+Radius.SetValue( 5, 16.00000, 20.00000 )
+Radius.SetValue( 6, 20.00000, 20.00000 )
+Radius.SetValue( 7, 24.00000, 20.00000 )
+Radius.SetValue( 8, 28.00000, 20.00000 )
+Radius.SetValue( 9, 32.00000, 20.00000 )
+Radius.SetValue( 10, 36.00000, 20.00000 )
+Radius.SetValue( 11, 40.00000, 20.00000 )
+// Build curve <Radius>
+Radius.BuildCurve()
+
+new TCurve( RadiusTack, ctLinearCurve, 11, BSstart, 0 )
+//
+// Set points for curve <RadiusTack>
+//
+RadiusTack.SetValue( 1, 0.00000, 20.00000 )
+RadiusTack.SetValue( 2, 4.00000, 20.00000 )
+RadiusTack.SetValue( 3, 8.00000, 20.00000 )
+RadiusTack.SetValue( 4, 12.00000, 20.00000 )
+RadiusTack.SetValue( 5, 16.00000, 20.00000 )
+RadiusTack.SetValue( 6, 20.00000, 20.00000 )
+RadiusTack.SetValue( 7, 24.00000, 20.00000 )
+RadiusTack.SetValue( 8, 28.00000, 20.00000 )
+RadiusTack.SetValue( 9, 32.00000, 20.00000 )
+RadiusTack.SetValue( 10, 36.00000, 20.00000 )
+RadiusTack.SetValue( 11, 40.00000, 20.00000 )
+// Build curve <RadiusTack>
+RadiusTack.BuildCurve()
+
+new TCurve( RadiusGybe, ctLinearCurve, 11, BSstart, 0 )
+//
+// Set points for curve <RadiusGybe>
+//
+RadiusGybe.SetValue( 1, 0.00000, 20.00000 )
+RadiusGybe.SetValue( 2, 4.00000, 20.00000 )
+RadiusGybe.SetValue( 3, 8.00000, 20.00000 )
+RadiusGybe.SetValue( 4, 12.00000, 20.00000 )
+RadiusGybe.SetValue( 5, 16.00000, 20.00000 )
+RadiusGybe.SetValue( 6, 20.00000, 20.00000 )
+RadiusGybe.SetValue( 7, 24.00000, 20.00000 )
+RadiusGybe.SetValue( 8, 28.00000, 20.00000 )
+RadiusGybe.SetValue( 9, 32.00000, 20.00000 )
+RadiusGybe.SetValue( 10, 36.00000, 20.00000 )
+RadiusGybe.SetValue( 11, 40.00000, 20.00000 )
+// Build curve <RadiusGybe>
+RadiusGybe.BuildCurve()
+
+new TCurve( DragCoeff, ctLinearCurve, 11, TWAstart, 0 )
+//
+// Set points for curve <DragCoeff>
+//
+DragCoeff.SetValue( 1, 0.00000, 0.10000 )
+DragCoeff.SetValue( 2, 15.00000, 0.10000 )
+DragCoeff.SetValue( 3, 30.00000, 0.10000 )
+DragCoeff.SetValue( 4, 45.00000, 0.10000 )
+DragCoeff.SetValue( 5, 75.00000, 0.10000 )
+DragCoeff.SetValue( 6, 100.00000, 0.10000 )
+DragCoeff.SetValue( 7, 120.00000, 0.10000 )
+DragCoeff.SetValue( 8, 135.00000, 0.10000 )
+DragCoeff.SetValue( 9, 150.00000, 0.10000 )
+DragCoeff.SetValue( 10, 165.00000, 0.10000 )
+DragCoeff.SetValue( 11, 180.00000, 0.10000 )
+// Build curve <DragCoeff>
+DragCoeff.BuildCurve()
+
+new TCurve( DragCoeffTack, ctLinearCurve, 11, TWAstart, 0 )
+//
+// Set points for curve <DragCoeffTack>
+//
+DragCoeffTack.SetValue( 1, 0.00000, 0.15000 )
+DragCoeffTack.SetValue( 2, 15.00000, 0.15000 )
+DragCoeffTack.SetValue( 3, 30.00000, 0.12500 )
+DragCoeffTack.SetValue( 4, 45.00000, 0.10000 )
+DragCoeffTack.SetValue( 5, 75.00000, 0.10000 )
+DragCoeffTack.SetValue( 6, 100.00000, 0.10000 )
+DragCoeffTack.SetValue( 7, 120.00000, 0.10000 )
+DragCoeffTack.SetValue( 8, 135.00000, 0.10000 )
+DragCoeffTack.SetValue( 9, 150.00000, 0.10000 )
+DragCoeffTack.SetValue( 10, 165.00000, 0.10000 )
+DragCoeffTack.SetValue( 11, 180.00000, 0.10000 )
+// Build curve <DragCoeffTack>
+DragCoeffTack.BuildCurve()
+
+new TCurve( DragCoeffGybe, ctLinearCurve, 11, TWAstart, 0 )
+//
+// Set points for curve <DragCoeffGybe>
+//
+DragCoeffGybe.SetValue( 1, 0.00000, 0.20000 )
+DragCoeffGybe.SetValue( 2, 15.00000, 0.20000 )
+DragCoeffGybe.SetValue( 3, 30.00000, 0.00000 )
+DragCoeffGybe.SetValue( 4, 45.00000, 0.20000 )
+DragCoeffGybe.SetValue( 5, 75.00000, 0.20000 )
+DragCoeffGybe.SetValue( 6, 100.00000, 0.20000 )
+DragCoeffGybe.SetValue( 7, 120.00000, 0.20000 )
+DragCoeffGybe.SetValue( 8, 135.00000, 0.20000 )
+DragCoeffGybe.SetValue( 9, 150.00000, 0.20000 )
+DragCoeffGybe.SetValue( 10, 165.00000, 0.20000 )
+DragCoeffGybe.SetValue( 11, 180.00000, 0.20000 )
+// Build curve <DragCoeffGybe>
+DragCoeffGybe.BuildCurve()
+
+new TCurve( AccExponent, ctLinearCurve, 13, TWAstart, 0 )
+//
+// Set points for curve <AccExponent>
+//
+AccExponent.SetValue( 1, 0.00000, 2.00000 )
+AccExponent.SetValue( 2, 20.00000, 2.00000 )
+AccExponent.SetValue( 3, 30.00000, 2.00000 )
+AccExponent.SetValue( 4, 45.00000, 2.00000 )
+AccExponent.SetValue( 5, 60.00000, 2.00000 )
+AccExponent.SetValue( 6, 75.00000, 2.00000 )
+AccExponent.SetValue( 7, 90.00000, 2.00000 )
+AccExponent.SetValue( 8, 105.00000, 2.00000 )
+AccExponent.SetValue( 9, 120.00000, 2.00000 )
+AccExponent.SetValue( 10, 135.00000, 2.00000 )
+AccExponent.SetValue( 11, 150.00000, 2.00000 )
+AccExponent.SetValue( 12, 165.00000, 2.00000 )
+AccExponent.SetValue( 13, 180.00000, 2.00000 )
+// Build curve <AccExponent>
+AccExponent.BuildCurve()
+
+new TTable( Acc, ttLinearTable, 7, 11, TWAstart, TWSstart, 0 )
+//
+//
+Acc.SetXValue( 1, 15.00000 )
+Acc.SetXValue( 2, 45.00000 )
+Acc.SetXValue( 3, 60.00000 )
+Acc.SetXValue( 4, 90.00000 )
+Acc.SetXValue( 5, 120.00000 )
+Acc.SetXValue( 6, 140.00000 )
+Acc.SetXValue( 7, 180.00000 )
+//
+Acc.SetYValue( 1, 0.00000 )
+Acc.SetYValue( 2, 4.00000 )
+Acc.SetYValue( 3, 6.00000 )
+Acc.SetYValue( 4, 8.00000 )
+Acc.SetYValue( 5, 10.00000 )
+Acc.SetYValue( 6, 12.00000 )
+Acc.SetYValue( 7, 14.00000 )
+Acc.SetYValue( 8, 16.00000 )
+Acc.SetYValue( 9, 18.00000 )
+Acc.SetYValue( 10, 20.00000 )
+Acc.SetYValue( 11, 25.00000 )
+//
+Acc.SetZValue( 1, 1, -0.05000 )
+Acc.SetZValue( 1, 2, -0.05000 )
+Acc.SetZValue( 1, 3, -0.05000 )
+Acc.SetZValue( 1, 4, -0.05000 )
+Acc.SetZValue( 1, 5, -0.05000 )
+Acc.SetZValue( 1, 6, -0.05000 )
+Acc.SetZValue( 1, 7, -0.05000 )
+Acc.SetZValue( 1, 8, -0.05000 )
+Acc.SetZValue( 1, 9, -0.05000 )
+Acc.SetZValue( 1, 10, -0.05000 )
+Acc.SetZValue( 1, 11, -0.05000 )
+//
+Acc.SetZValue( 2, 1, 0.20000 )
+Acc.SetZValue( 2, 2, 0.20000 )
+Acc.SetZValue( 2, 3, 0.20000 )
+Acc.SetZValue( 2, 4, 0.20000 )
+Acc.SetZValue( 2, 5, 0.20000 )
+Acc.SetZValue( 2, 6, 0.20000 )
+Acc.SetZValue( 2, 7, 0.20000 )
+Acc.SetZValue( 2, 8, 0.20000 )
+Acc.SetZValue( 2, 9, 0.20000 )
+Acc.SetZValue( 2, 10, 0.20000 )
+Acc.SetZValue( 2, 11, 0.20000 )
+//
+Acc.SetZValue( 3, 1, 0.10000 )
+Acc.SetZValue( 3, 2, 0.10000 )
+Acc.SetZValue( 3, 3, 0.10000 )
+Acc.SetZValue( 3, 4, 0.10000 )
+Acc.SetZValue( 3, 5, 0.10000 )
+Acc.SetZValue( 3, 6, 0.10000 )
+Acc.SetZValue( 3, 7, 0.10000 )
+Acc.SetZValue( 3, 8, 0.10000 )
+Acc.SetZValue( 3, 9, 0.10000 )
+Acc.SetZValue( 3, 10, 0.10000 )
+Acc.SetZValue( 3, 11, 0.10000 )
+//
+Acc.SetZValue( 4, 1, 0.10000 )
+Acc.SetZValue( 4, 2, 0.10000 )
+Acc.SetZValue( 4, 3, 0.10000 )
+Acc.SetZValue( 4, 4, 0.10000 )
+Acc.SetZValue( 4, 5, 0.10000 )
+Acc.SetZValue( 4, 6, 0.10000 )
+Acc.SetZValue( 4, 7, 0.10000 )
+Acc.SetZValue( 4, 8, 0.10000 )
+Acc.SetZValue( 4, 9, 0.10000 )
+Acc.SetZValue( 4, 10, 0.10000 )
+Acc.SetZValue( 4, 11, 0.10000 )
+//
+Acc.SetZValue( 5, 1, 0.10000 )
+Acc.SetZValue( 5, 2, 0.10000 )
+Acc.SetZValue( 5, 3, 0.10000 )
+Acc.SetZValue( 5, 4, 0.10000 )
+Acc.SetZValue( 5, 5, 0.10000 )
+Acc.SetZValue( 5, 6, 0.10000 )
+Acc.SetZValue( 5, 7, 0.10000 )
+Acc.SetZValue( 5, 8, 0.10000 )
+Acc.SetZValue( 5, 9, 0.10000 )
+Acc.SetZValue( 5, 10, 0.10000 )
+Acc.SetZValue( 5, 11, 0.10000 )
+//
+Acc.SetZValue( 6, 1, 0.10000 )
+Acc.SetZValue( 6, 2, 0.10000 )
+Acc.SetZValue( 6, 3, 0.10000 )
+Acc.SetZValue( 6, 4, 0.10000 )
+Acc.SetZValue( 6, 5, 0.10000 )
+Acc.SetZValue( 6, 6, 0.10000 )
+Acc.SetZValue( 6, 7, 0.10000 )
+Acc.SetZValue( 6, 8, 0.10000 )
+Acc.SetZValue( 6, 9, 0.10000 )
+Acc.SetZValue( 6, 10, 0.10000 )
+Acc.SetZValue( 6, 11, 0.10000 )
+//
+Acc.SetZValue( 7, 1, 0.05000 )
+Acc.SetZValue( 7, 2, 0.05000 )
+Acc.SetZValue( 7, 3, 0.05000 )
+Acc.SetZValue( 7, 4, 0.05000 )
+Acc.SetZValue( 7, 5, 0.05000 )
+Acc.SetZValue( 7, 6, 0.05000 )
+Acc.SetZValue( 7, 7, 0.05000 )
+Acc.SetZValue( 7, 8, 0.05000 )
+Acc.SetZValue( 7, 9, 0.05000 )
+Acc.SetZValue( 7, 10, 0.05000 )
+Acc.SetZValue( 7, 11, 0.05000 )
+Acc.BuildTable()
+
+
+#new TDynamicNoAcceleration( BoatDynamic, Start )
+new TDynamic1DOF( BoatDynamic, Start, Acc, AccExponent, Radius, DragCoeff )
+new TDynamic1DOF( BoatDynamicTacking, Start, Acc, AccExponent, RadiusTack, DragCoeffTack )
+new TDynamic1DOF( BoatDynamicGybing, Start, Acc, AccExponent, RadiusGybe, DragCoeffGybe )

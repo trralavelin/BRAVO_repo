@@ -1,0 +1,33 @@
+#------------------------------------------------------------------------------
+# Upwash Angle correction
+#------------------------------------------------------------------------------
+#   - Static Upwash table
+load "cfg/Bravo5/data/upwash_angle.sys"
+
+new TCopy( staticUPWASHANGLEfactor, UpwashAngleTable, CalculeVar_025 )
+
+new TCurve( adjUpwashAngleTable, ctSplineCurve, 8, YawRate, CalculeVar_025 )
+adjUpwashAngleTable.SetUseAbsX( true )
+//
+// Set points for curve <adjUpwashAngleTable>
+//
+adjUpwashAngleTable.SetValue( 1, 0.00000, 1.00000 )
+adjUpwashAngleTable.SetValue( 2, 1.00000, 1.00000 )
+adjUpwashAngleTable.SetValue( 3, 2.00000, 1.00000 )
+adjUpwashAngleTable.SetValue( 4, 5.00000, 1.00000 )
+adjUpwashAngleTable.SetValue( 5, 10.00000, 1.00000 )
+adjUpwashAngleTable.SetValue( 6, 15.00000, 1.00000 )
+adjUpwashAngleTable.SetValue( 7, 20.00000, 1.00000 )
+adjUpwashAngleTable.SetValue( 8, 200.00000, 1.00000 )
+// Build curve <adjUpwashAngleTable>
+adjUpwashAngleTable.BuildCurve()
+
+new TCopy( dynUPWASHANGLEfactor, adjUpwashAngleTable, CalculeVar_025 )
+
+new TMultiply( UPWASHANGLEm, staticUPWASHANGLEfactor, dynUPWASHANGLEfactor, CalculeVar_025 )
+
+#------------------------------------------------------------------------------ 
+# Upwash Speed correction
+#------------------------------------------------------------------------------ 
+load "cfg/Bravo5/data/upwash_speed.sys"
+new TCopy( UPWASHSPEEDm, UpwashSpeedTable, CalculeVar_025 )

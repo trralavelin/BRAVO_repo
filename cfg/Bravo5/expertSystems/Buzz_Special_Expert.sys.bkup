@@ -1,0 +1,48 @@
+#------------------------------------------------------------------------------
+#
+# Name: Buzz_Special_Expert
+#
+# Description:  
+#
+# Inputs:
+#
+# Parameters:
+#	
+#	
+#
+# Dependences:
+#	
+#
+# Computed Vars
+#  
+#
+# Outputs:
+#    
+#
+#------------------------------------------------------------------------------
+
+
+
+new TChooser( Special_Alarm, "&RudderAngle1_Input > 10 ", 1, 0, CalculeVar_010 )
+
+
+new TExpertSys( Special_Buzz_ES )
+//
+// ExpertSystem States
+//
+Special_Buzz_ES.AddState( OK )
+Special_Buzz_ES.AddState( KO )
+//
+// ExpertSystem Conditions
+//
+Special_Buzz_ES.Stop()
+
+Special_Buzz_ES.OK.AddCondition( "&Special_Alarm == 0" )
+
+Special_Buzz_ES.OK.AddAction( "alarm_nb.SetValue( 0 )" )
+
+Special_Buzz_ES.KO.AddCondition( "&Special_Alarm == 1" )
+
+Special_Buzz_ES.KO.AddAction( "alarm_nb.SetValue( 11 )" )
+
+Special_Buzz_ES.Start()

@@ -1,0 +1,55 @@
+#------------------------------------------------------------------------------
+#
+# Name: Depth_Expert
+#
+# Description:  Depth Sensor To Use
+# Inputs:
+#
+#    
+# Parameters:
+#        DepthToUse
+#    
+# Dependences:
+#
+# Computed Vars
+#   
+#
+#
+#
+#------------------------------------------------------------------------------
+# Aout 2019
+# 
+#------------------------------------------------------------------------------
+new TSetting( DepthToUse, 1, 0 )
+
+new TChooser( Depth_Heel, "&Heel >  & cte0", Depth_Port_Input, Depth_Stb_Input, CalculeVar_025 )
+
+new TExpertSys( Depth_selector_ES )
+//
+// ExpertSystem States
+//
+Depth_selector_ES.AddState( Central )
+Depth_selector_ES.AddState( Port )
+Depth_selector_ES.AddState( Starboard )
+Depth_selector_ES.AddState( Fusion )
+
+//
+// ExpertSystem Conditions
+//
+Depth_selector_ES.Stop()
+
+Depth_selector_ES.Central.AddCondition( "(&DepthToUse == 1)" )
+
+Depth_selector_ES.Fusion.AddCondition( "(&DepthToUse == 2 )" )
+
+Depth_selector_ES.Fusion.AddAction( "Depth_Input.Source.Set(Depth_Heel)" )
+
+Depth_selector_ES.Port.AddCondition( "(&DepthToUse == 4)" )
+
+Depth_selector_ES.Port.AddAction( "Depth_Input.Source.Set(Depth_Port_Input)" )
+
+Depth_selector_ES.Starboard.AddCondition( "(&DepthToUse == 5)" )
+
+Depth_selector_ES.Starboard.AddAction( "Depth_Input.Source.Set(Depth_Stb_Input)" )
+
+Depth_selector_ES.Start()

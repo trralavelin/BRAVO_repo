@@ -1,0 +1,26 @@
+
+new TExpertSys( InstrumentsES )
+//
+// ExpertSystem States
+//
+InstrumentsES.AddState( Port )
+InstrumentsES.AddState( Stbd )
+InstrumentsES.AddState( OnStartAdjWind )
+InstrumentsES.AddState( OnStandardAdjWind )
+//
+// ExpertSystem Conditions
+//
+InstrumentsES.Stop()
+
+InstrumentsES.Port.AddCondition( "&TWA < 0" )
+
+InstrumentsES.Stbd.AddCondition( "not &InstrumentsES_Port" )
+
+InstrumentsES.OnStartAdjWind.AddCondition( "&Countdown_IsRunning > 0.0" )
+
+InstrumentsES.OnStartAdjWind.AddAction( "adjWindAngle.Source.Set( adjWindAngleStartTable )" )
+InstrumentsES.OnStartAdjWind.AddAction( "adjWindSpeed.Source.Set( adjWindSpeedStartTable )" )
+
+InstrumentsES.OnStandardAdjWind.AddCondition( "!&InstrumentsES_OnStartAdjWind" )
+
+InstrumentsES.Start()

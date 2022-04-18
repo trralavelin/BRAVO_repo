@@ -1,0 +1,18 @@
+#------------------------------------------------------------------------------
+# PADDEL WHEEL
+new TCopy( padBSm, DaggerSpeedometer_Input, CalculeVar_025 )
+
+# Curve calibrations (Non Linearities in BS and HEEL)
+load "cfg/Bravo5/data/adjPaddleWheel.sys"
+load "cfg/Bravo5/data/adjPaddleWheelHeel.sys"
+
+# BS = (K*freq + O)*f(BS)*f(Heel)
+new TMultiply( padBSadj, adjPaddleWheelTable, adjPaddleWheelHeelTable, CalculeVar_025 )
+new TMultiply( padBSc, padBSm, padBSadj, CalculeVar_025 )
+
+# Gyro correction
+new TVectorCrossProductX( padVELOCXorg, ROLLRATErad, PITCHRATErad, YAWRATErad, 0, 0, 0, CalculeVar_025 )
+new TSubtract( padBSgc, padBSc, padVELOCXorg, CalculeVar_025 )
+
+# Final
+new TCopy( padBSorg, padBSgc, CalculeVar_025 )

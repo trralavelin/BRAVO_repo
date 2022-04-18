@@ -1,0 +1,82 @@
+#------------------------------------------------------------------------------
+# Attiude
+#   Heading: degress from Magnetic North
+#   Heel   : +deg in stbd tack (port heeled)
+#   Trim   : +deg bow up
+
+new TAhrs( AhrsSolver, CalculeVar_050 )
+AhrsSolver.SetHeading( Hdg_Input )
+AhrsSolver.SetHeel( Heel_Input )
+AhrsSolver.SetTrim( Trim_Input )
+AhrsSolver.SetGyroX( GyroX_Input )
+AhrsSolver.SetGyroY( GyroY_Input )
+AhrsSolver.SetGyroZ( GyroZ_Input )
+AhrsSolver.SetMagneticDeviation( 0 )
+AhrsSolver.SetMagneticVariation( MagneticVariation )
+AhrsSolver.SetDisaligmentX( 0 )
+AhrsSolver.SetDisaligmentY( 0 )
+AhrsSolver.SetDisaligmentZ( 0 )
+AhrsSolver.SetTypeOfBearing( "Magnetic" )
+
+load "cfg/Bravo5/data/adjahrs.sys"
+
+new TAdd360( ahrsHDGorg, AhrsSolver_MagHdg, adjAHRStable, CalculeVar_050 )
+new TCopy( ahrsHEELorg, AhrsSolver_Heel, CalculeVar_050 )
+new TCopy( ahrsTRIMorg, AhrsSolver_Trim, CalculeVar_050 )
+
+# Rates and accelerations
+new TImu( ImuSolver, CalculeVar_050 )
+ImuSolver.SetGyroX( GyroX_Input )
+ImuSolver.SetGyroY( GyroY_Input )
+ImuSolver.SetGyroZ( GyroZ_Input )
+ImuSolver.SetAccelerometerX( AccelX_Input )
+ImuSolver.SetAccelerometerY( AccelY_Input )
+ImuSolver.SetAccelerometerZ( AccelZ_Input )
+ImuSolver.SetGravity( 9.81 )
+ImuSolver.SetGravityX( 0 )
+ImuSolver.SetGravityY( 0 )
+ImuSolver.SetGravityZ( 0 )
+ImuSolver.SetArmX( 0 )
+ImuSolver.SetArmY( 0 )
+ImuSolver.SetArmZ( 0 )
+ImuSolver.SetCompensateGravity( true )
+ImuSolver.SetUseFilter( true )
+
+#------------------------------------------------------------------------------
+# Turn Rate
+#   YawRate   : +deg/sec turning to stbd
+#   RollRate  : +deg/sec turning to port 
+#   PitchRate : +deg/sec turning to up   
+new TAverage( ahrsGYROYfil, 3000 )
+new TAverage( ahrsGYROXfil, 3000 )
+new TAverage( ahrsGYROZfil, 3000 )
+
+new TCopy( ahrsGYROYtrend, GyroY_Input, CalculeVar_050 )
+ahrsGYROYtrend.SetFilter( ahrsGYROYfil )
+new TCopy( ahrsGYROXtrend, GyroX_Input, CalculeVar_050 )
+ahrsGYROXtrend.SetFilter( ahrsGYROXfil )
+new TCopy( ahrsGYROZtrend, GyroZ_Input, CalculeVar_050 )
+ahrsGYROZtrend.SetFilter( ahrsGYROZfil )
+
+new TSubtract( ahrsPITCHRATEm, GyroY_Input, ahrsGYROYtrend, CalculeVar_050 )
+new TSubtract( ahrsROLLRATEm, GyroX_Input, ahrsGYROXtrend, CalculeVar_050 )
+new TSubtract( ahrsYAWRATEm, GyroZ_Input, ahrsGYROZtrend, CalculeVar_050 )
+
+new TCopy( ahrsPITCHRATEorg, ahrsPITCHRATEm, CalculeVar_050 )
+new TCopy( ahrsROLLRATEorg, ahrsROLLRATEm, CalculeVar_050 )
+new TCopy( ahrsYAWRATEorg, ahrsYAWRATEm, CalculeVar_050 )
+
+#------------------------------------------------------------------------------
+# Acceleration 
+#   AccelX   : +m/s^2 toward bow
+#   AccelY   : +m/s^2 toward stbd
+#   AccelZ   : +m/s^2 toward down
+new TCopy( ahrsACCELXm, AccelX_Input, CalculeVar_050 )
+new TCopy( ahrsACCELYm, AccelY_Input, CalculeVar_050 )
+new TCopy( ahrsACCELZm, AccelZ_Input, CalculeVar_050 )
+
+# ... We need apply here corrections to remove the gravity component
+
+new TCopy( ahrsACCELXorg, ahrsACCELXm, CalculeVar_050 )
+new TCopy( ahrsACCELYorg, ahrsACCELYm, CalculeVar_050 )
+new TCopy( ahrsACCELZorg, ahrsACCELZm, CalculeVar_050 )

@@ -1,0 +1,69 @@
+#------------------------------------------------------------------------------
+# Wind used to performance
+new TAverage360( avgTWDPERFfil, 150 )
+new TCopy( perfTWD, TWDeff, CalculeVar_025 )
+perfTWD.SetFilter( avgTWDPERFfil )
+
+new TAverage( avgTWSPERFfil, 150 )
+new TCopy( perfTWS, TWSeff, CalculeVar_025 )
+perfTWS.SetFilter( avgTWSPERFfil )
+
+new TSubtract180( perfTWA, perfTWD, Cse, CalculeVar_025 )
+new TAbs( perfTWAabs, perfTWA, CalculeVar_025 )
+
+#------------------------------------------------------------------------------
+# Performance ,Navigation and start polars 
+load "cfg/Bravo5/data/perfpol.sys"
+load "cfg/Bravo5/data/navpol.sys"
+load "cfg/Bravo5/data/startpol.sys"
+
+new TBSPolar( perfBS, Performance, perfTWA, perfTWS, CalculeVar_025 )
+
+# -----------------------------------------------------------------------------
+# Target Boatspeed
+# - Targert BOATSPEED (Upwind & Downwind)
+new TBSUpWindTarget( perfTBSup, Performance, perfTWS, CalculeVar_025 )
+new TBSDownWindTarget( perfTBSdown, Performance, perfTWS, CalculeVar_025 )
+
+new TChooser( perfTBS, "&perfTWAabs < 90.0", perfTBSup, perfTBSdown, CalculeVar_025 )
+
+# -----------------------------------------------------------------------------
+# Target True Wind Angle
+# - Targert TWA (Upwind & Downwind)
+new TTWAUpWindTarget( perfTTWAup, Performance, perfTWS, CalculeVar_025 )
+new TTWADownWindTarget( perfTTWAdown, Performance, perfTWS, CalculeVar_025 )
+
+new TChooser( perfTTWAabs, "&perfTWAabs < 90.0", perfTTWAup, perfTTWAdown, CalculeVar_025 )
+new TSign( perfTTWA, perfTWA, perfTTWAabs, CalculeVar_025 )
+
+#------------------------------------------------------------------------------
+# Target Apparent Wind Angle
+new TAWArec( perfTAWAcse, perfTWS, perfTTWA, perfTBS, CalculeVar_025 )
+# - Reference AWA to heading
+new TSubtract180( perfTAWA, perfTAWAcse, LWYorg, CalculeVar_025 )
+
+#------------------------------------------------------------------------------
+# Target Apparent Wind Speed
+new TAWSrec( perfTAWS, perfTWS, perfTTWA, perfTBS, CalculeVar_025 )
+
+#------------------------------------------------------------------------------
+# Target Course
+new TSubtract360( perfTCSE, perfTWD, perfTTWA, CalculeVar_025 )
+
+#------------------------------------------------------------------------------
+# Target Opposite Tack 
+new TAdd360( perfTOPPTACK, perfTWD, perfTTWA, CalculeVar_025 )
+
+#------------------------------------------------------------------------------
+# Target Velocity Made Good
+new TVectorCosProjection( perfTVMG, perfTBS, perfTTWA, CalculeVar_025 )
+
+# -----------------------------------------------------------------------------
+# Speed performance ratios
+new TDivide( perfBSratio, SOW, perfBS, CalculeVar_025 )
+new TDivide( perfTBSratio, SOW, perfTBS, CalculeVar_025 )
+new TDivide( perfVMGratio, VMG, perfTVMG, CalculeVar_025 )
+
+#------------------------------------------------------------------------------
+# Velocity Made Good on Wind (Knots)
+new TVectorCosProjection( perfVMG, SOW, TWA, CalculeVar_025 )

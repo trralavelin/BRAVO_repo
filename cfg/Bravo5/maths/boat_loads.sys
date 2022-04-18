@@ -1,0 +1,280 @@
+#------------------------------------------------------------------------------
+# Loads Calculations
+
+new TSetting( E0_coeff, 0.59, 0 )
+new TSetting( E1_coeff, 0.59, 0 )
+
+new TSetting( E4_A0_coeff, 0.59, 0 )
+new TSetting( E4_J1_coeff, 1.5, 0 )
+
+new TSetting( E2_coeff, 1, 0 )
+
+new TSetting( E3_coeff, 0.83, 0 )
+
+new TSetting( Main_Sheet_user_offset, 3000, 0 )
+new TSetting( Jib_Sheet_user_offset, 1000, 0 )
+new TSetting( A0_user_offset, 474, 0 )
+new TMultiply( A0_user_offset_NEG, A0_user_offset, -1, CalculeVar_001 )
+
+
+new TSetting( E0_threshold_10s_mean, 5000, 0 )
+new TSetting( E0_threshold_1s_max, 6250, 0 )
+new TSetting( E1_threshold_10s_mean, 5600, 0 )
+new TSetting( E1_threshold_1s_max, 7000, 0 )
+new TSetting( E2_threshold_10s_mean, 7500, 0 )
+new TSetting( E2_threshold_1s_max, 9375, 0 )
+new TSetting( E4_threshold_10s_mean, 5200, 0 )
+new TSetting( E4_threshold_1s_max, 6250, 0 )
+new TSetting( E3_threshold_10s_mean, 5000, 0 )
+new TSetting( E3_threshold_1s_max, 6250, 0 )
+new TSetting( J1_threshold, 6000, 0 )
+new TSetting( J2_threshold, 7000, 0 )
+new TSetting( J3_threshold, 5000, 0 )
+new TSetting( Mast_Nz_threshold, 37500, 0 )
+new TSetting( Runner_Active_threshold_capelage_1s_max, 6250, 0 )
+new TSetting( Runner_Active_threshold_tete_1s_max, 8125, 0 )
+new TSetting( Runner_Active_threshold_capelage_10s_mean, 5000, 0 )
+new TSetting( Runner_Active_threshold_tete_10s_mean, 6500, 0 )
+new TSetting( Outrigger_Active_threshold_1s_max, 22000, 0 )
+new TSetting( Outrigger_Active_threshold_10s_mean, 19000, 0 )
+new TSetting( Foil_Active_peak_threshold, -4500, 0 )
+
+
+new TCalcule( LuaProcess, 25 )
+new TLuaVar( Mast_Nz_Input, "cfg/Bravo5/maths/nz.lua", LuaProcess )
+Mast_Nz_Input.Params.Add( "MainSheet", Main_Sheet_Input )
+Mast_Nz_Input.Params.Add( "JibSheet", Jib_Sheet_Input )
+Mast_Nz_Input.Params.Add( "E0", E0_Input )
+Mast_Nz_Input.Params.Add( "E1", E1_Input )
+Mast_Nz_Input.Params.Add( "E2", E2_Input )
+Mast_Nz_Input.Params.Add( "E3", E3_Input )
+Mast_Nz_Input.Params.Add( "E4", E4_Input )
+Mast_Nz_Input.Params.Add( "R_Stb", Runner_Stb_Input )
+Mast_Nz_Input.Params.Add( "R_Port", Runner_Port_Input )
+Mast_Nz_Input.Params.Add( "Out_Stb", Outrigger_Stb_Input )
+Mast_Nz_Input.Params.Add( "Out_Port", Outrigger_Port_Input )
+Mast_Nz_Input.Output.Add( "Main_Nz" )
+
+
+new TSetting( E4_LoadCell_ToUse, 1, 0 )
+
+new TExpertSys( E4_ES )
+//
+// ExpertSystem States
+//
+E4_ES.AddState( J1 )
+E4_ES.AddState( A0 )
+//
+// ExpertSystem Conditions
+//
+E4_ES.Stop()
+
+E4_ES.J1.AddCondition( "& E4_LoadCell_ToUse  == 1" )
+
+E4_ES.J1.AddAction( "E4_Input.Source.Set( J1_Input )" )
+E4_ES.J1.AddAction( "E4_Input.Slope.Set( E4_J1_coeff )" )
+
+E4_ES.A0.AddCondition( "& E4_LoadCell_ToUse  == 0" )
+
+E4_ES.A0.AddAction( "E4_Input.Source.Set( A0_Input )" )
+E4_ES.A0.AddAction( "E4_Input.Slope.Set( E4_A0_coeff )" )
+
+E4_ES.Start()
+
+
+
+new TSetting( Capelage_ToUse, 1, 0 )
+
+new TExpertSys( Capelage_ES )
+//
+// ExpertSystem States
+//
+Capelage_ES.AddState( E0 )
+Capelage_ES.AddState( E1 )
+//
+// ExpertSystem Conditions
+//
+Capelage_ES.Stop()
+
+Capelage_ES.E0.AddCondition( "&Capelage_ToUse  == 0" )
+
+Capelage_ES.E0.AddAction( "E0_Input.Source.Set( A0_Input )" )
+
+Capelage_ES.E1.AddCondition( "&Capelage_ToUse  == 1 " )
+
+Capelage_ES.E1.AddAction( "E1_Input.Source.Set( A0_Input)" )
+
+Capelage_ES.Start()
+
+
+
+
+new TLuaVar( E0, "cfg/Bravo5/maths/loadFormater.lua", LuaProcess )
+E0.Params.Add( "input", E0_Input )
+E0.Output.Add( "1s_max" )
+E0.Output.Add( "1s_mean" )
+E0.Output.Add( "10s_max" )
+E0.Output.Add( "10s_mean" )
+E0.Output.Add( "60s_max" )
+E0.Output.Add( "60s_mean" )
+
+new TLuaVar( E1, "cfg/Bravo5/maths/loadFormater.lua", LuaProcess )
+E1.Params.Add( "input", E1_Input )
+E1.Output.Add( "1s_max" )
+E1.Output.Add( "1s_mean" )
+E1.Output.Add( "10s_max" )
+E1.Output.Add( "10s_mean" )
+E1.Output.Add( "60s_max" )
+E1.Output.Add( "60s_mean" )
+
+new TLuaVar( E4, "cfg/Bravo5/maths/loadFormater.lua", LuaProcess )
+E4.Params.Add( "input", E4_Input )
+E4.Output.Add( "1s_max" )
+E4.Output.Add( "1s_mean" )
+E4.Output.Add( "10s_max" )
+E4.Output.Add( "10s_mean" )
+E4.Output.Add( "60s_max" )
+E4.Output.Add( "60s_mean" )
+
+new TLuaVar( E2, "cfg/Bravo5/maths/loadFormater.lua", LuaProcess )
+E2.Params.Add( "input", E2_Input )
+E2.Output.Add( "1s_max" )
+E2.Output.Add( "1s_mean" )
+E2.Output.Add( "10s_max" )
+E2.Output.Add( "10s_mean" )
+E2.Output.Add( "60s_max" )
+E2.Output.Add( "60s_mean" )
+
+new TLuaVar( E3, "cfg/Bravo5/maths/loadFormater.lua", LuaProcess )
+E3.Params.Add( "input", E3_Input )
+E3.Output.Add( "1s_max" )
+E3.Output.Add( "1s_mean" )
+E3.Output.Add( "10s_max" )
+E3.Output.Add( "10s_mean" )
+E3.Output.Add( "60s_max" )
+E3.Output.Add( "60s_mean" )
+
+new TLuaVar( Mast_Nz, "cfg/Bravo5/maths/loadFormater.lua", LuaProcess )
+Mast_Nz.Params.Add( "input", Mast_Nz_Input_Main_Nz )
+Mast_Nz.Output.Add( "1s_max" )
+Mast_Nz.Output.Add( "1s_mean" )
+Mast_Nz.Output.Add( "10s_max" )
+Mast_Nz.Output.Add( "10s_mean" )
+Mast_Nz.Output.Add( "60s_max" )
+Mast_Nz.Output.Add( "60s_mean" )
+
+new TLuaVar( Outrigger_Port, "cfg/Bravo5/maths/loadFormater.lua", LuaProcess )
+Outrigger_Port.Params.Add( "input", Outrigger_Port_Input )
+Outrigger_Port.Output.Add( "1s_max" )
+Outrigger_Port.Output.Add( "1s_mean" )
+Outrigger_Port.Output.Add( "10s_max" )
+Outrigger_Port.Output.Add( "10s_mean" )
+Outrigger_Port.Output.Add( "60s_max" )
+Outrigger_Port.Output.Add( "60s_mean" )
+
+new TLuaVar( Outrigger_Stb, "cfg/Bravo5/maths/loadFormater.lua", LuaProcess )
+Outrigger_Stb.Params.Add( "input", Outrigger_Stb_Input )
+Outrigger_Stb.Output.Add( "1s_max" )
+Outrigger_Stb.Output.Add( "1s_mean" )
+Outrigger_Stb.Output.Add( "10s_max" )
+Outrigger_Stb.Output.Add( "10s_mean" )
+Outrigger_Stb.Output.Add( "60s_max" )
+Outrigger_Stb.Output.Add( "60s_mean" )
+
+new TLuaVar( Runner_Port, "cfg/Bravo5/maths/loadFormater.lua", LuaProcess )
+Runner_Port.Params.Add( "input", Runner_Port_Input )
+Runner_Port.Output.Add( "1s_max" )
+Runner_Port.Output.Add( "1s_mean" )
+Runner_Port.Output.Add( "10s_max" )
+Runner_Port.Output.Add( "10s_mean" )
+Runner_Port.Output.Add( "60s_max" )
+Runner_Port.Output.Add( "60s_mean" )
+
+new TLuaVar( Runner_Stb, "cfg/Bravo5/maths/loadFormater.lua", LuaProcess )
+Runner_Stb.Params.Add( "input", Runner_Stb_Input )
+Runner_Stb.Output.Add( "1s_max" )
+Runner_Stb.Output.Add( "1s_mean" )
+Runner_Stb.Output.Add( "10s_max" )
+Runner_Stb.Output.Add( "10s_mean" )
+Runner_Stb.Output.Add( "60s_max" )
+Runner_Stb.Output.Add( "60s_mean" )
+
+new TLuaVar( Runner_On, "cfg/Bravo5/maths/loadFormater.lua", LuaProcess )
+Runner_On.Params.Add( "input", Runner_Active )
+Runner_On.Output.Add( "1s_max" )
+Runner_On.Output.Add( "1s_mean" )
+Runner_On.Output.Add( "10s_max" )
+Runner_On.Output.Add( "10s_mean" )
+Runner_On.Output.Add( "60s_max" )
+Runner_On.Output.Add( "60s_mean" )
+
+new TLuaVar( Outrigger_On, "cfg/Bravo5/maths/loadFormater.lua", LuaProcess )
+Outrigger_On.Params.Add( "input", Outrigger_Active )
+Outrigger_On.Output.Add( "1s_max" )
+Outrigger_On.Output.Add( "1s_mean" )
+Outrigger_On.Output.Add( "10s_max" )
+Outrigger_On.Output.Add( "10s_mean" )
+Outrigger_On.Output.Add( "60s_max" )
+Outrigger_On.Output.Add( "60s_mean" )
+
+new TLuaVar( bal_high_port, "cfg/Bravo5/maths/lissageFormater.lua", LuaProcess )
+bal_high_port.Params.Add( "input", Ballast_High_Port_Input )
+bal_high_port.Output.Add( "smooth_mean" )
+
+new TLuaVar( bal_low_port, "cfg/Bravo5/maths/lissageFormater.lua", LuaProcess )
+bal_low_port.Params.Add( "input", Ballast_Low_Port_Input )
+bal_low_port.Output.Add( "smooth_mean" )
+
+new TLuaVar( bal_high_stb, "cfg/Bravo5/maths/lissageFormater.lua", LuaProcess )
+bal_high_stb.Params.Add( "input", Ballast_High_Stb_Input )
+bal_high_stb.Output.Add( "smooth_mean" )
+
+new TLuaVar( bal_low_stb, "cfg/Bravo5/maths/lissageFormater.lua", LuaProcess )
+bal_low_stb.Params.Add( "input", Ballast_Low_Stb_Input )
+bal_low_stb.Output.Add( "smooth_mean" )
+
+new TLuaVar( bal_av_high_port, "cfg/Bravo5/maths/lissageFormater.lua", LuaProcess )
+bal_av_high_port.Params.Add( "input", Ballast_AV_High_Port_Input )
+bal_av_high_port.Output.Add( "smooth_mean" )
+
+new TLuaVar( bal_av_low_port, "cfg/Bravo5/maths/lissageFormater.lua", LuaProcess )
+bal_av_low_port.Params.Add( "input", Ballast_AV_Low_Port_Input )
+bal_av_low_port.Output.Add( "smooth_mean" )
+
+new TLuaVar( bal_av_high_stb, "cfg/Bravo5/maths/lissageFormater.lua", LuaProcess )
+bal_av_high_stb.Params.Add( "input", Ballast_AV_High_Stb_Input )
+bal_av_high_stb.Output.Add( "smooth_mean" )
+
+new TLuaVar( bal_av_low_stb, "cfg/Bravo5/maths/lissageFormater.lua", LuaProcess )
+bal_av_low_stb.Params.Add( "input", Ballast_AV_Low_Stb_Input )
+bal_av_low_stb.Output.Add( "smooth_mean" )
+
+new TLuaVar( foil_activ_peak, "cfg/Bravo5/maths/loadFormater.lua", LuaProcess )
+foil_activ_peak.Params.Add( "input", Foil_Active_peak )
+foil_activ_peak.Output.Add( "1s_max" )
+foil_activ_peak.Output.Add( "1s_mean" )
+foil_activ_peak.Output.Add( "10s_max" )
+foil_activ_peak.Output.Add( "10s_mean" )
+foil_activ_peak.Output.Add( "60s_max" )
+foil_activ_peak.Output.Add( "60s_mean" )
+
+new TLuaVar( adr_vmg, "cfg/Bravo5/maths/lissageFormater.lua", LuaProcess )
+adr_vmg.Params.Add( "input", Adr_VMG_Input )
+adr_vmg.Output.Add( "smooth_mean" )
+new TCopy( Adr_VMG_display, adr_vmg_smooth_mean, CalculeVar_025 )
+
+
+new TLuaVar( adr_pvit_cible, "cfg/Bravo5/maths/lissageFormater.lua", LuaProcess )
+adr_pvit_cible.Params.Add( "input", Adr_Pvit_cible_Input )
+adr_pvit_cible.Output.Add( "smooth_mean" )
+new TCopy( Adr_Pvit_cible_display, adr_pvit_cible_smooth_mean, CalculeVar_025 )
+
+
+
+new TSetting( MAX_Outrigger_Alarm_V, 22000, 0 )
+new TSetting( MAX_E1_Alarm_V, 6250, 0 )
+
+new TExpresion( Outrigger_LOAD_P, "&Outrigger_Active * 100 / &MAX_Outrigger_Alarm_V", CalculeVar_025 )
+new TExpresion( J15_LOAD_P, "&E1_Input * 100 / &MAX_E1_Alarm_V", CalculeVar_025 )
+
+new TChooser( MAX_LOAD_ALARM, "&Outrigger_LOAD_P > &J15_LOAD_P", Outrigger_LOAD_P, J15_LOAD_P, CalculeVar_025 )

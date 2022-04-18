@@ -1,0 +1,18 @@
+new TCurve( adjPaddleWheelHeelTable, ctSplineCurve, 11, BS, CalculeVar_025 )
+adjPaddleWheelHeelTable.SetUseAbsX( false )
+//
+// Set points for curve <adjPaddleWheelHeelTable>
+//
+adjPaddleWheelHeelTable.SetValue( 1, -30.00000, 1.00000 )
+adjPaddleWheelHeelTable.SetValue( 2, -20.00000, 1.00000 )
+adjPaddleWheelHeelTable.SetValue( 3, -15.00000, 1.00000 )
+adjPaddleWheelHeelTable.SetValue( 4, -10.00000, 1.00000 )
+adjPaddleWheelHeelTable.SetValue( 5, -5.00000, 1.00000 )
+adjPaddleWheelHeelTable.SetValue( 6, 0.00000, 1.00000 )
+adjPaddleWheelHeelTable.SetValue( 7, 5.00000, 1.00000 )
+adjPaddleWheelHeelTable.SetValue( 8, 10.00000, 1.00000 )
+adjPaddleWheelHeelTable.SetValue( 9, 15.00000, 1.00000 )
+adjPaddleWheelHeelTable.SetValue( 10, 20.00000, 1.00000 )
+adjPaddleWheelHeelTable.SetValue( 11, 30.00000, 1.00000 )
+// Build curve <adjPaddleWheelHeelTable>
+adjPaddleWheelHeelTable.BuildCurve()

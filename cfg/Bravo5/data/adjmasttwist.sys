@@ -1,0 +1,29 @@
+#------------------------------------------------------------------------------
+# Name: 
+# Description:  Table to adjust the mast twist caused by forstay load
+# Inputs:     
+#             ForstayLoad
+#
+# Parameters: 
+# Dependences:
+#
+# Outputs:
+#          adjMastTwist
+#------------------------------------------------------------------------------
+# Author: Samuel Cabrero
+# Date: Jul 1st, 2011
+# Copyright: Bravo Systems SL. All Rights Reserved.
+#------------------------------------------------------------------------------
+
+new TCurve( adjMastTwist, ctLinearCurve, 5, AWA3nke_Input, CalculeVar_025 )
+adjMastTwist.SetUseAbsX( false )
+//
+// Set points for curve <adjMastTwist>
+//
+adjMastTwist.SetValue( 1, 0.00000, 0.00000 )
+adjMastTwist.SetValue( 2, 2.00000, 0.00000 )
+adjMastTwist.SetValue( 3, 4.00000, 0.00000 )
+adjMastTwist.SetValue( 4, 6.00000, 0.00000 )
+adjMastTwist.SetValue( 5, 6.90000, 0.00000 )
+// Build curve <adjMastTwist>
+adjMastTwist.BuildCurve()

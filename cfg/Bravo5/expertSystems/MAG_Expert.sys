@@ -1,0 +1,68 @@
+#------------------------------------------------------------------------------
+#
+# Name: MAG_Expert
+#
+# Description:  Selector for main Heading reference : MAG / TRUE
+#
+# Inputs:
+#
+# Parameters:
+#.             UseMagHdg
+# Dependences:
+#              MagneticVariationManual
+
+#
+# Computed Vars
+#  
+#
+# Outputs:
+#    
+#
+#------------------------------------------------------------------------------
+#
+#------------------------------------------------------------------------------
+new TSetting( UseMagHdg, 0, 0 )
+new TSetting( VariationToUse, 1, 0 )
+
+new TExpertSys( MAG_ES )
+//
+// ExpertSystem States
+//
+MAG_ES.AddState( TRUE )
+MAG_ES.AddState( MAG )
+//
+// ExpertSystem Conditions
+//
+MAG_ES.Stop()
+
+MAG_ES.TRUE.AddCondition( "& UseMagHdg  == 0" )
+
+MAG_ES.TRUE.AddAction( "Hdg.Source.Set( HDT_Input )" )
+
+MAG_ES.MAG.AddCondition( "& UseMagHdg  == 1" )
+
+MAG_ES.MAG.AddAction( "Hdg.Source.Set( HDM_Input )" )
+
+MAG_ES.Start()
+
+
+new TExpertSys( Variation_ES )
+//
+// ExpertSystem States
+//
+Variation_ES.AddState( WMM )
+Variation_ES.AddState( Manual )
+//
+// ExpertSystem Conditions
+//
+Variation_ES.Stop()
+
+Variation_ES.WMM.AddCondition( "& VariationToUse  == 1" )
+
+Variation_ES.WMM.AddAction( "MagneticVariation.Source.Set( wmmMagneticVariation )" )
+
+Variation_ES.Manual.AddCondition( "& VariationToUse  == 0" )
+
+Variation_ES.Manual.AddAction( "MagneticVariation.Source.Set( MagneticVariationManual )" )
+
+Variation_ES.Start()

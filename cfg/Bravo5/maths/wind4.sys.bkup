@@ -1,0 +1,81 @@
+# Apply the calibration angle table
+load "cfg/Bravo5/data/adjwa4.sys"
+
+new TSetting( adjWindAngleUpOffset4, 0, 0 )
+new TSetting( adjWindAngleRchOffset4, 0, 0 )
+new TSetting( adjWindAngleDownOffset4, 0, 0 )
+
+new TChooser( adjWindAngle4Offset1, "&absTWA <= 70", adjWindAngleUpOffset4, cte0, CalculeVar_025 )
+new TChooser( adjWindAngle4Offset2, "&absTWA >= 120", adjWindAngleDownOffset4, cte0, CalculeVar_025 )
+new TChooser( adjWindAngle4Offset3, "&absTWA > 70 and &absTWA < 120", adjWindAngleRchOffset4, cte0, CalculeVar_025 )
+
+new TSumSequence( adjWindAngle4Offset, adjWindAngle4Offset1, adjWindAngle4Offset2, adjWindAngle4Offset3, CalculeVar_025 )
+new TAdd( adjWindAngleWithOffset4, adjWindAngle4, adjWindAngle4Offset, CalculeVar_025 )
+
+# Apply the calibration speed table
+load "cfg/Bravo5/data/adjws4.sys"
+
+
+
+#------------------------------------------------------------------------------
+# Wind Solver
+new TWindSensor( mhuWindSensor4, CalculeVar_025 )
+mhuWindSensor4.SetWindSpeed( nkeAWS4m )
+mhuWindSensor4.SetWindAngle( nkeAWA4ofc )
+mhuWindSensor4.SetHeading( mhuHDGorg )
+mhuWindSensor4.SetHeel( mhuHEELorg )
+mhuWindSensor4.SetTrim( mhuTRIMorg )
+mhuWindSensor4.SetVelocX( 0 )
+mhuWindSensor4.SetVelocY( 0 )
+mhuWindSensor4.SetVelocZ( 0 )
+mhuWindSensor4.SetRollRate( mhu_rollrate )
+mhuWindSensor4.SetPitchRate( mhu_pitchrate )
+mhuWindSensor4.SetYawRate( mhu_yawrate )
+mhuWindSensor4.SetArmX( armMhuToCGX )
+mhuWindSensor4.SetArmY( armMhuToCGY )
+mhuWindSensor4.SetArmZ( armMhuToCGZ )
+mhuWindSensor4.SetUseGyro( true )
+
+new TWindUnit( WindSolver4, CalculeVar_025 )
+WindSolver4.SetAWS( mhuWindSensor4_AWS )
+WindSolver4.SetAWD( mhuWindSensor4_AWD )
+WindSolver4.SetBoatspeed( BSorg )
+WindSolver4.SetHeading( HDGorg )
+WindSolver4.SetLeeway( LWYorg )
+WindSolver4.SetAdjAppWindSpeed( UPWASHSPEEDorg )
+WindSolver4.SetAdjAppWindAngle( UPWASHANGLEorg )
+WindSolver4.SetAdjTrueWindSpeed( adjWindSpeed )
+WindSolver4.SetAdjTrueWindAngle( adjWindAngle )
+WindSolver4.SetRefHeight( 0 )
+WindSolver4.SetEstHeight( 0 )
+WindSolver4.SetWindGradient( 0 )
+WindSolver4.SetDynamicSensorCorrection( false )
+WindSolver4.SetSesnorDistanceConstant( 0.0001 )
+WindSolver4.Damping.SetEnabled( true )
+WindSolver4.Damping.SetDampingTrigger( ImuSolver_Omega )
+WindSolver4.Damping.SetLowDampingLimit( 3 )
+WindSolver4.Damping.SetHighDampingLimit( 6 )
+WindSolver4.Damping.SetLowDamping( 5 )
+WindSolver4.Damping.SetHighDamping( 60 )
+
+new TCopy( mhuAWS4org, WindSolver4_AWS, CalculeVar_025 )
+new TCopy( mhuAWA4org, WindSolver4_AWA, CalculeVar_025 )
+new TCopy( mhuTWS4org, WindSolver4_TWS, CalculeVar_025 )
+new TCopy( mhuTWA4org, WindSolver4_TWA, CalculeVar_025 )
+new TCopy( mhuTWD4org, WindSolver4_TWD, CalculeVar_025 )
+
+#------------------------------------------------------------------------------
+# Wind Weight and Shear
+
+# - True Wind effective (Shear and Weight)
+
+new TAdd360( mhuTWD4eff, TWD4, WindShear, CalculeVar_025 )
+new TAdd180( mhuTWA4eff, TWA4, WindShear, CalculeVar_025 )
+new TMultiply( mhuTWS4eff, TWS4, WindWeight, CalculeVar_025 )
+
+# - Apparent Wind effective to heading
+new TAWSrec( mhuAWS4receff, mhuTWS4eff, mhuTWA4eff, SOWorg, CalculeVar_025 )
+new TAWArec( mhuAWA4receff, mhuTWS4eff, mhuTWA4eff, SOWorg, CalculeVar_025 )
+
+new TCopy( mhuAWS4eff, mhuAWS4receff, CalculeVar_025 )
+new TSubtract180( mhuAWA4eff, mhuAWA4receff, LWYorg, CalculeVar_025 )

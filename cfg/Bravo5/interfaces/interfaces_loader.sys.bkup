@@ -1,0 +1,7 @@
+#------------------------------------------------------------------------------
+# Interfaces_loader
+#   Uncomments each functions needed  for setup
+#
+
+load "cfg/Bravo5/interfaces/adrena_vars.sys"
+load "cfg/Bravo5/interfaces/nmea0183.sys"

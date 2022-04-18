@@ -1,0 +1,79 @@
+#------------------------------------------------------------------------------
+# Attiude
+#   Heading: degress from Magnetic North
+#   Heel   : +deg in stbd tack (port heeled)
+#   Trim   : +deg bow up
+
+new TAhrs( AhrsMastSolver, 0 )
+AhrsMastSolver.SetHeading( MastHdg_Input )
+AhrsMastSolver.SetHeel( MastHeel_Input )
+AhrsMastSolver.SetTrim( MastTrim_Input )
+AhrsMastSolver.SetGyroX( MastGyroX_Input )
+AhrsMastSolver.SetGyroY( MastGyroY_Input )
+AhrsMastSolver.SetGyroZ( MastGyroZ_Input )
+AhrsMastSolver.SetMagneticVariation( MagneticVariation )
+AhrsMastSolver.SetDisaligmentX( 0 )
+AhrsMastSolver.SetDisaligmentY( 0 )
+AhrsMastSolver.SetDisaligmentZ( 0 )
+AhrsMastSolver.SetTypeOfBearing( "Magnetic" )
+
+load "cfg/Bravo5/data/adjahrsmast.sys"
+
+new TAdd360( ahrsmastHDGorg, AhrsMastSolver_MagHdg, adjAHRStable, 0 )
+new TCopy( ahrsmastHEELorg, AhrsMastSolver_Heel, 0 )
+new TCopy( ahrsmastTRIMorg, AhrsMastSolver_Trim, 0 )
+
+# Rates and accelerations
+new TImu( ImuSolver, 0 )
+ImuSolver.SetGyroX( MastGyroX_Input )
+ImuSolver.SetGyroY( MastGyroY_Input )
+ImuSolver.SetGyroZ( MastGyroZ_Input )
+ImuSolver.SetAccelerometerX( MastAccelX_Input )
+ImuSolver.SetAccelerometerY( MastAccelY_Input )
+ImuSolver.SetAccelerometerZ( MastAccelZ_Input )
+ImuSolver.SetGravity( 9.81 )
+ImuSolver.SetGravityX( 0 )
+ImuSolver.SetGravityY( 0 )
+ImuSolver.SetGravityZ( 0 )
+ImuSolver.SetArmX( 0 )
+ImuSolver.SetArmY( 0 )
+ImuSolver.SetArmZ( 0 )
+
+#------------------------------------------------------------------------------
+# Turn Rate
+#   YawRate   : +deg/sec turning to stbd
+#   RollRate  : +deg/sec turning to port 
+#   PitchRate : +deg/sec turning to up   
+new TAverage( ahrsmastGYROYfil, 3000 )
+new TAverage( ahrsmastGYROXfil, 3000 )
+new TAverage( ahrsmastGYROZfil, 3000 )
+
+new TCopy( ahrsmastGYROYtrend, MastGyroY_Input, 0 )
+ahrsmastGYROYtrend.SetFilter( ahrsmastGYROYfil )
+new TCopy( ahrsmastGYROXtrend, MastGyroX_Input, 0 )
+ahrsmastGYROXtrend.SetFilter( ahrsmastGYROXfil )
+new TCopy( ahrsmastGYROZtrend, MastGyroZ_Input, 0 )
+ahrsmastGYROZtrend.SetFilter( ahrsmastGYROZfil )
+
+new TSubtract( ahrsmastPITCHRATEm, MastGyroY_Input, ahrsmastGYROYtrend, 0 )
+new TSubtract( ahrsmastROLLRATEm, MastGyroX_Input, ahrsmastGYROXtrend, 0 )
+new TSubtract( ahrsmastYAWRATEm, MastGyroZ_Input, ahrsmastGYROZtrend, 0 )
+
+new TMultiply( ahrsmastPITCHRATEorg, ahrsmastPitchRateFactor, ahrsmastPITCHRATEm, 0 )
+new TMultiply( ahrsmastROLLRATEorg, ahrsmastRollRateFactor, ahrsmastROLLRATEm, 0 )
+new TMultiply( ahrsmastYAWRATEorg, ahrsmastYawRateFactor, ahrsmastYAWRATEm, 0 )
+
+#------------------------------------------------------------------------------
+# Acceleration 
+#   AccelX   : +m/s^2 toward bow
+#   AccelY   : +m/s^2 toward stbd
+#   AccelZ   : +m/s^2 toward down
+new TCopy( ahrsmastACCELXm, MastAccelX_Input, 0 )
+new TCopy( ahrsmastACCELYm, MastAccelY_Input, 0 )
+new TCopy( ahrsmastACCELZm, MastAccelZ_Input, 0 )
+
+# ... We need apply here corrections to remove the gravity component
+
+new TCopy( ahrsmastACCELXorg, ahrsmastACCELXm, 0 )
+new TCopy( ahrsmastACCELYorg, ahrsmastACCELYm, 0 )
+new TCopy( ahrsmastACCELZorg, ahrsmastACCELZm, 0 )

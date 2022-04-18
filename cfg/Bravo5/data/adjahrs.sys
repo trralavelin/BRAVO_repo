@@ -1,0 +1,46 @@
+new TCurve( adjAHRStable, ctSplineCurve, 19, ahrsHDGm, CalculeVar_025 )
+adjAHRStable.SetUseAbsX( false )
+//
+// Set points for curve <adjAHRStable>
+//
+adjAHRStable.SetValue( 1, 0.00000, 0.00000 )
+adjAHRStable.SetValue( 2, 20.00000, 0.00000 )
+adjAHRStable.SetValue( 3, 40.00000, 0.00000 )
+adjAHRStable.SetValue( 4, 60.00000, 0.00000 )
+adjAHRStable.SetValue( 5, 80.00000, 0.00000 )
+adjAHRStable.SetValue( 6, 100.00000, 0.00000 )
+adjAHRStable.SetValue( 7, 120.00000, 0.00000 )
+adjAHRStable.SetValue( 8, 140.00000, 0.00000 )
+adjAHRStable.SetValue( 9, 160.00000, 0.00000 )
+adjAHRStable.SetValue( 10, 180.00000, 0.00000 )
+adjAHRStable.SetValue( 11, 200.00000, 0.00000 )
+adjAHRStable.SetValue( 12, 220.00000, 0.00000 )
+adjAHRStable.SetValue( 13, 240.00000, 0.00000 )
+adjAHRStable.SetValue( 14, 260.00000, 0.00000 )
+adjAHRStable.SetValue( 15, 280.00000, 0.00000 )
+adjAHRStable.SetValue( 16, 300.00000, 0.00000 )
+adjAHRStable.SetValue( 17, 320.00000, 0.00000 )
+adjAHRStable.SetValue( 18, 340.00000, 0.00000 )
+adjAHRStable.SetValue( 19, 360.00000, 0.00000 )
+// Build curve <adjAHRStable>
+adjAHRStable.BuildCurve()
+
+
+new TCurve( adjTRIMtable, ctLinearCurve, 11, HEELorg, CalculeVar_025 )
+adjTRIMtable.SetUseAbsX( false )
+//
+// Set points for curve <adjTRIMtable>
+//
+adjTRIMtable.SetValue( 1, -30.00000, 0.00000 )
+adjTRIMtable.SetValue( 2, -20.00000, 0.00000 )
+adjTRIMtable.SetValue( 3, -15.00000, 0.00000 )
+adjTRIMtable.SetValue( 4, -10.00000, 0.00000 )
+adjTRIMtable.SetValue( 5, -5.00000, 0.00000 )
+adjTRIMtable.SetValue( 6, 0.00000, 0.00000 )
+adjTRIMtable.SetValue( 7, 5.00000, 0.00000 )
+adjTRIMtable.SetValue( 8, 10.00000, 0.00000 )
+adjTRIMtable.SetValue( 9, 15.00000, 0.00000 )
+adjTRIMtable.SetValue( 10, 20.00000, 0.00000 )
+adjTRIMtable.SetValue( 11, 30.00000, 0.00000 )
+// Build curve <adjTRIMtable>
+adjTRIMtable.BuildCurve()

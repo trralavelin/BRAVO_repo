@@ -1,0 +1,32 @@
+#------------------------------------------------------------------------------
+# NMEA 0183 OUT
+new TNmeaDev( NMEAout, Serial3, B19200, NOPAR, L8, S1, 1.000000, B5 )
+NMEAout.EnableFrame ( FrameVTG, nfVTG )
+NMEAout.SetParam ( FrameVTG, 0, Null )	#Track, degrees true
+NMEAout.SetParam ( FrameVTG, 1, COG )	#Track, degrees magnetic
+NMEAout.SetParam ( FrameVTG, 2, SOG )	#Speed, knots
+NMEAout.SetParam ( FrameVTG, 3, Null )	#Speed, Km/hr
+NMEAout.EnableFrame ( FrameMWD, nfMWD )
+NMEAout.SetParam ( FrameMWD, 0, Null )	#Wind direcction, degrees true
+NMEAout.SetParam ( FrameMWD, 1, TWD )	#Wind direction, degrees magnetic
+NMEAout.SetParam ( FrameMWD, 2, TWS )	#Wind speed, Knots
+NMEAout.SetParam ( FrameMWD, 3, Null )	#Wind speed, meters/second
+NMEAout.EnableFrame ( FrameHDG, nfHDG )
+NMEAout.SetParam ( FrameHDG, 0, HDM )	#Magnetic sensor heading, degrees
+NMEAout.SetParam ( FrameHDG, 1, Null )	#Magnetic deviation, degrees
+NMEAout.SetParam ( FrameHDG, 2, MagneticVariation )	#Magnetic variation, degrees
+NMEAout.EnableFrame ( FrameVHW, nfVHW )
+NMEAout.SetParam ( FrameVHW, 0, HDT )	#Heading, degrees true
+NMEAout.SetParam ( FrameVHW, 1, HDT )	#Heading, degrees magnetic
+NMEAout.SetParam ( FrameVHW, 2, BS )	#Speed, Knots
+NMEAout.SetParam ( FrameVHW, 3, Null )	#Speed Km/hr
+NMEAout.EnableFrame ( FrameTW, nfMWV )
+NMEAout.SetParam ( FrameTW, 0, TWA )	#Wind Angle
+NMEAout.SetParam ( FrameTW, 1, cte1 )	#Referencia. 0=Relative, 1=True
+NMEAout.SetParam ( FrameTW, 2, TWS )	#Wind speed
+NMEAout.SetParam ( FrameTW, 3, cte2 )	#Wind speed units 0=K, 1=M, 2=N
+NMEAout.EnableFrame ( FrameAW, nfMWV )
+NMEAout.SetParam ( FrameAW, 0, AWA )	#Wind Angle
+NMEAout.SetParam ( FrameAW, 1, cte0 )	#Referencia. 0=Relative, 1=True
+NMEAout.SetParam ( FrameAW, 2, AWS )	#Wind speed
+NMEAout.SetParam ( FrameAW, 3, cte2 )	#Wind speed units 0=K, 1=M, 2=N

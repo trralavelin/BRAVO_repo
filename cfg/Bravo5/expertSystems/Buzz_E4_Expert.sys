@@ -1,0 +1,73 @@
+#------------------------------------------------------------------------------
+#
+# Name: Buzz_E4
+#
+# Description: Vérifie si la charge sur E4 est sous les seuils
+#
+# Inputs:
+#		E4_1s_max
+#		E4_10s_mean
+#		DCU_BUZZ_ON
+#
+# Parameters:
+#	
+# Dependences:
+#		E4BuzzCounter
+#
+# Computed Vars:
+#		DCU_BUZZ
+#
+# Outputs:
+#		E4_Buzz_ES_OK
+#		E4_Buzz_ES_KO
+#		E4BuzzCounter_ES_RESET
+#
+#------------------------------------------------------------------------------
+
+
+new TChooser( E4Valid, "&E4_Input > 200", 1, 0, CalculeVar_010 )
+new TChooser( E4_Alarm, "&E4_10s_mean > &E4_threshold_10s_mean or &E4_1s_max > &E4_threshold_1s_max", 1, 0, CalculeVar_010 )
+
+
+new TExpertSys( E4_Buzz_ES )
+//
+// ExpertSystem States
+//
+E4_Buzz_ES.AddState( OK )
+E4_Buzz_ES.AddState( KO )
+//
+// ExpertSystem Conditions
+//
+E4_Buzz_ES.Stop()
+
+E4_Buzz_ES.OK.AddCondition( "&E4Valid or (&DCU_BUZZ_ON == 0) or (&DCU_BUZZ_ON == 1 and &E4Valid == 0 and &E4BuzzCounter == 0) " )
+
+E4_Buzz_ES.OK.AddAction( "DCU_BUZZ.Set( 0 )" )
+E4_Buzz_ES.OK.AddAction( "alarm_nb.SetValue( 0 )" )
+
+E4_Buzz_ES.KO.AddCondition( "(&DCU_BUZZ_ON == 1) and (&E4_Alarm == 1) and (&E4BuzzCounter == 2) " )
+
+E4_Buzz_ES.KO.AddAction( "DCU_BUZZ.Set( 1 )" )
+E4_Buzz_ES.KO.AddAction( "alarm_nb.SetValue( 4 )" )
+
+E4_Buzz_ES.Start()
+
+
+# Buzz counter
+new TAdd( E4BuzzCounter, E4BuzzCounter, 1, CalculeVar_001 )
+
+new TExpertSys( E4BuzzCounter_ES )
+//
+// ExpertSystem States
+//
+E4BuzzCounter_ES.AddState( RESET )
+//
+// ExpertSystem Conditions
+//
+E4BuzzCounter_ES.Stop()
+
+E4BuzzCounter_ES.RESET.AddCondition( "&E4BuzzCounter > 2" )
+
+E4BuzzCounter_ES.RESET.AddAction( "E4BuzzCounter.SetValue( 0 )" )
+
+E4BuzzCounter_ES.Start()

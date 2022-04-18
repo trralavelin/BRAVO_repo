@@ -1,0 +1,49 @@
+#------------------------------------------------------------------------------ 
+new TSetting( SeaStateManual, 0, 0 )
+
+#------------------------------------------------------------------------------ 
+# Pitch RMS (deg rms)
+#    Remove the constant level in trim
+new TCopy( TRIMzero, TRIMorg, 0 )
+TRIMzero.SetFilter( PitchZeroAvg )
+new TAverage( PitchZeroAvg, 1800 )
+new TSubtract( TRIMzc, TRIMorg, TRIMzero, 0 )
+
+new TRMS( seaPITCHRMSorg, TRIMzc, 300, 0 )
+
+#------------------------------------------------------------------------------ 
+# Pitch period (sec)
+#    Remove the constant level in trim
+new TAverage( avgTRIM1min, 600 )
+new TCopy( TRIM1min, TRIMorg, 0 )
+TRIM1min.SetFilter( avgTRIM1min )
+new TSubtract( TRIMwaves, TRIMorg, TRIM1min, 0 )
+#    Count the number of zero crossing
+new TZeroCrossing( PITCHPERIOD1min, TRIMwaves, 600, 0 )
+#    60sec / ZeroCount is the period
+new TSetting( cte60, 60, 0 )
+new TDivide( HalfPitchPeriod, cte60, PITCHPERIOD1min, 0 )
+new TMultiply( seaPITCHPERIODorg, HalfPitchPeriod, cte2, 0 )
+
+#------------------------------------------------------------------------------ 
+# Heave RMS (m rms)
+#    Remove the constant level in heave
+new TCopy( HEAVEzero, HEAVEorg, 0 )
+HEAVEzero.SetFilter( HeaveZeroAvg )
+new TAverage( HeaveZeroAvg, 1800 )
+new TSubtract( HEAVEzc, HEAVEorg, HEAVEzero, 0 )
+
+new TRMS( seaHEAVERMSorg, HEAVEzc, 300, 0 )
+
+#------------------------------------------------------------------------------ 
+# Heave period (sec)
+#    Remove the constant level in trim
+new TAverage( avgHEAVE1min, 600 )
+new TCopy( HEAVE1min, HEAVEorg, 0 )
+HEAVE1min.SetFilter( avgHEAVE1min )
+new TSubtract( HEAVEwaves, HEAVEorg, HEAVE1min, 0 )
+#    Count the number of zero crossing
+new TZeroCrossing( HEAVEPERIOD1min, HEAVEwaves, 600, 0 )
+#    60sec / ZeroCount is the period
+new TDivide( HalfHeavePeriod, cte60, HEAVEPERIOD1min, 0 )
+new TMultiply( seaHEAVEPERIODorg, HalfHeavePeriod, cte2, 0 )

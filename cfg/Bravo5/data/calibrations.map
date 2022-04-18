@@ -1,0 +1,35 @@
+// BRAVO SYSTEMS SL (JJL set-up file).
+#  ***************************************************
+#  ****                    JJL                    ****
+#  ***************************************************
+
+#  System Version : 5.2.3 (rev.: 15808 @ /SailsysV4/branches/jcd-SailsysV5);
+#  Config Version : BRAVO4
+#  Libraries loaded
+#     #          Lib Name version
+#  ----------------------------------
+#     0 -   SystemLibrary 3.9500
+#     1 -      VarLibrary 3.3300
+#     2 -      StdLibrary 3.2440
+#     3 - BravoCommonsLibrary 1.6000
+
+cteRefToCGX.Set( 0 )
+cteRefToCGY.Set( 0 )
+cteRefToCGZ.Set( 0 )
+quadHdgOffset.Set( 0 )
+quadHeelOffset.Set( 0 )
+quadTrimOffset.Set( 0 )
+msHdgOffset.Set( 0 )
+msHeelOffset.Set( 0 )
+msTrimOffset.Set( 0 )
+n2kCompasHdgOffset.Set( 0 )
+n2kCompasHeelOffset.Set( 0 )
+n2kCompasTrimOffset.Set( 0 )
+cteGpsToRefX.Set( 2.99000001 )
+cteGpsToRefY.Set( 0 )
+cteGpsToRefZ.Set( 1.899999976 )
+cteMhuToRefX.Set( 0 )
+cteMhuToRefY.Set( 0 )
+cteMhuToRefZ.Set( 29.96 )
+mastRake.Set( 0 )
+mastCant.Set( 0 )

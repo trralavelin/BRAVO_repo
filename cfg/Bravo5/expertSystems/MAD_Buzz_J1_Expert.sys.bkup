@@ -1,0 +1,70 @@
+#------------------------------------------------------------------------------
+#
+# Name: MAD Brain Buzz
+#
+# Description: Monitor if MADBrain is OK. If the MADBrain is on error, Buzz 
+#
+# Inputs:
+#		MADBRAINvalid
+#		DCU_BUZZ_ON
+#
+# Parameters:
+#	
+# Dependences:
+#		E1BuzzCounter
+#
+# Computed Vars:
+#		DCU_BUZZ
+#
+# Outputs:
+#		E1_Buzz_ES_OK
+#		E1_Buzz_ES_KO
+#		E1BuzzCounter_ES_RESET
+#
+#------------------------------------------------------------------------------
+
+new TChooser( E1Valid, "&E1_Active > 200", 1, 0, CalculeVar_010 )
+new TChooser( E1_Alarm_10s_mean, "&E1_10s_mean > &E1_threshold_10s_mean", 1, 0, CalculeVar_010 )
+new TChooser( E1_Alarm_1s_max, "&E1_1s_max > &E1_threshold_1s_max", 1, 0, CalculeVar_010 )
+
+
+new TExpertSys( E1_Buzz_ES )
+//
+// ExpertSystem States
+//
+E1_Buzz_ES.AddState( OK )
+E1_Buzz_ES.AddState( KO )
+//
+// ExpertSystem Conditions
+//
+E1_Buzz_ES.Stop()
+
+E1_Buzz_ES.OK.AddCondition( "&E1Valid or (&DCU_BUZZ_ON == 0) or (&DCU_BUZZ_ON == 1 and &E1Valid == 0 and &E1BuzzCounter == 0) " )
+
+E1_Buzz_ES.OK.AddAction( "DCU_BUZZ.Set( 0 )" )
+
+E1_Buzz_ES.KO.AddCondition( "(&DCU_BUZZ_ON == 1) and (&E1_Alarm_1s_max or &E1_Alarm_10s_mean) and (&E1BuzzCounter == 2) " )
+
+E1_Buzz_ES.KO.AddAction( "DCU_BUZZ.Set( 1 )" )
+
+E1_Buzz_ES.Start()
+
+
+# Buzz counter
+new TAdd( E1BuzzCounter, E1BuzzCounter, 1, CalculeVar_001 )
+
+new TExpertSys( E1BuzzCounter_ES )
+//
+// ExpertSystem States
+//
+E1BuzzCounter_ES.AddState( RESET )
+//
+// ExpertSystem Conditions
+//
+E1BuzzCounter_ES.Stop()
+
+E1BuzzCounter_ES.RESET.AddCondition( "&E1BuzzCounter > 2" )
+
+E1BuzzCounter_ES.RESET.AddAction( "E1BuzzCounter.SetValue( 0 )" )
+
+E1BuzzCounter_ES.Start()

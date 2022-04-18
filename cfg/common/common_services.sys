@@ -1,0 +1,18 @@
+# SRCP server used to comunicate with RBonDeck's
+new TRemoteComunication ( rCom, 10083, All )
+rCom.AddUser ( jjl, "jjl" )
+rCom.SetServerVersion( 1.20 )
+
+# RBSP server to PDAs
+new TRBSPUdpServer ( rbspCom , 5242, All )
+rbspCom.SetKeepAlive( 300 )
+rbspCom.AddFinalVars()
+// Workaround for Expedition Bug
+rbspCom.DisableRemoteVarsSetValue()
+rbspCom.EnableSending()
+
+new TRBSPServer ( rbspTcp , 5242, All)
+rbspTcp.AddFinalVars()
+// Workaround for Expedition Bug
+rbspTcp.DisableRemoteVarsSetValue()
+rbspTcp.EnableSending()

@@ -1,0 +1,194 @@
+#------------------------------------------------------------------------------
+#
+# Name: MAD_target_Expert
+#
+# Description:  Compas Selector
+#
+# Inputs:
+#
+#		Kvh_Yaw
+#    	        Kvh_Pitch
+#		Kvh_Roll
+#		Kvh_YawRate
+#		
+#		quadHDGm
+#		quadHEELorg
+#		quadTRIMorg
+#		quadYAWRATEorg
+#		quadPITCHRATEorg
+#		quadROLLRATEorg
+#		quadACCELXorg
+#		quadACCELYorg
+#		quadACCELZorg
+#
+#		bn (bluenaute)
+#    
+# Parameters:
+#               CompasToUse
+# Dependences:
+# 
+#
+# Computed Vars
+#  
+#
+# Outputs:
+#    
+#
+#------------------------------------------------------------------------------
+#
+#------------------------------------------------------------------------------
+new TSetting( CompasToUse, 1, 0 )
+new TSetting( CompasAuto, 1, 0 )
+
+new TExpertSys( Compas_ES )
+//
+// ExpertSystem States
+//
+Compas_ES.AddState( KVH )
+Compas_ES.AddState( Quadrans )
+Compas_ES.AddState( QuadransUdp )
+Compas_ES.AddState( GPS )
+Compas_ES.AddState( Bluenaute )
+Compas_ES.AddState( MicroStrain )
+Compas_ES.AddState( n2k )
+//
+// ExpertSystem Conditions
+//
+Compas_ES.Stop()
+
+Compas_ES.KVH.AddCondition( "&CompasToUse  == 2" )
+
+Compas_ES.KVH.AddAction( "HDM_Input.Source.Set( Kvh_Yaw )" )
+Compas_ES.KVH.AddAction( "Heel_Input.Source.Set( Kvh_Pitch )" )
+Compas_ES.KVH.AddAction( "Trim_Input.Source.Set( Kvh_Roll )" )
+Compas_ES.KVH.AddAction( "GyroX_Input.Source.Set( cte0 )" )
+Compas_ES.KVH.AddAction( "GyroY_Input.Source.Set( cte0 )" )
+Compas_ES.KVH.AddAction( "GyroZ_Input.Source.Set( cte0 )" )
+Compas_ES.KVH.AddAction( "AccelX_Input.Source.Set( cte0 )" )
+Compas_ES.KVH.AddAction( "AccelY_Input.Source.Set( cte0 )" )
+Compas_ES.KVH.AddAction( "AccelZ_Input.Source.Set( cte0 )" )
+
+Compas_ES.Quadrans.AddCondition( "&CompasToUse  == 1" )
+
+Compas_ES.Quadrans.AddAction( "HDT_Input.Source.Set( quadHDTorg )" )
+Compas_ES.Quadrans.AddAction( "HDM_Input.Source.Set( quadHDMorg )" )
+Compas_ES.Quadrans.AddAction( "Heel_Input.Source.Set( quadHEELorg )" )
+Compas_ES.Quadrans.AddAction( "Trim_Input.Source.Set( quadTRIMorg )" )
+Compas_ES.Quadrans.AddAction( "GyroX_Input.Source.Set( quadROLLRATEorg )" )
+Compas_ES.Quadrans.AddAction( "GyroY_Input.Source.Set( quadPITCHRATEorg )" )
+Compas_ES.Quadrans.AddAction( "GyroZ_Input.Source.Set( quadYAWRATEorg )" )
+Compas_ES.Quadrans.AddAction( "AccelX_Input.Source.Set( quadACCELXorg )" )
+Compas_ES.Quadrans.AddAction( "AccelY_Input.Source.Set( quadACCELYorg )" )
+Compas_ES.Quadrans.AddAction( "AccelZ_Input.Source.Set( quadACCELZorg )" )
+
+Compas_ES.QuadransUdp.AddCondition( "&CompasToUse  == 6" )
+
+Compas_ES.QuadransUdp.AddAction( "HDT_Input.Source.Set( QuadransUDP2_Hdg )" )
+Compas_ES.QuadransUdp.AddAction( "HDM_Input.Source.Set( QuadransUDP2_Hdg )" )
+Compas_ES.QuadransUdp.AddAction( "Heel.Source.Set(Heel_Input)" )
+Compas_ES.QuadransUdp.AddAction( "Trim.Source.Set( Trim_Input )" )
+Compas_ES.QuadransUdp.AddAction( "Heel_Input.Source.Set( quadHEELorg )" )
+Compas_ES.QuadransUdp.AddAction( "Heel_Input.Slope.Set( cte1 )" )
+Compas_ES.QuadransUdp.AddAction( "Trim_Input.Source.Set( quadTRIMorg )" )
+Compas_ES.QuadransUdp.AddAction( "GyroX_Input.Source.Set( quadROLLRATEorg )" )
+Compas_ES.QuadransUdp.AddAction( "GyroY_Input.Source.Set( quadPITCHRATEorg )" )
+Compas_ES.QuadransUdp.AddAction( "GyroZ_Input.Source.Set( quadYAWRATEorg )" )
+Compas_ES.QuadransUdp.AddAction( "AccelX_Input.Source.Set( quadACCELXorg )" )
+Compas_ES.QuadransUdp.AddAction( "AccelY_Input.Source.Set( quadACCELYorg )" )
+Compas_ES.QuadransUdp.AddAction( "AccelZ_Input.Source.Set( quadACCELZorg )" )
+
+Compas_ES.GPS.AddCondition( "&CompasToUse  == 3" )
+
+Compas_ES.GPS.AddAction( "HDT_Input.Source.Set( COG_Input )" )
+Compas_ES.GPS.AddAction( "HDM_Input.Source.Set( gpsCOGorg )" )
+Compas_ES.GPS.AddAction( "Heel_Input.Source.Set( cte0 )" )
+Compas_ES.GPS.AddAction( "Trim_Input.Source.Set( cte0 )" )
+Compas_ES.GPS.AddAction( "GyroX_Input.Source.Set( cte0 )" )
+Compas_ES.GPS.AddAction( "GyroY_Input.Source.Set( cte0 )" )
+Compas_ES.GPS.AddAction( "GyroZ_Input.Source.Set( cte0 )" )
+Compas_ES.GPS.AddAction( "AccelX_Input.Source.Set( cte0 )" )
+Compas_ES.GPS.AddAction( "AccelY_Input.Source.Set( cte0 )" )
+Compas_ES.GPS.AddAction( "AccelZ_Input.Source.Set( cte0 )" )
+
+Compas_ES.Bluenaute.AddCondition( "&CompasToUse  == 4" )
+
+Compas_ES.Bluenaute.AddAction( "HDT_Input.Source.Set( bnHDGm )" )
+Compas_ES.Bluenaute.AddAction( "HDM_Input.Source.Set( bnHDGm )" )
+Compas_ES.Bluenaute.AddAction( "Heel_Input.Source.Set( bnHEELorg )" )
+Compas_ES.Bluenaute.AddAction( "Trim_Input.Source.Set( bnTRIMorg )" )
+Compas_ES.Bluenaute.AddAction( "GyroX_Input.Source.Set( bnROLLRATEorg )" )
+Compas_ES.Bluenaute.AddAction( "GyroY_Input.Source.Set( bnPITCHRATEorg )" )
+Compas_ES.Bluenaute.AddAction( "GyroZ_Input.Source.Set( bnYAWRATEorg )" )
+Compas_ES.Bluenaute.AddAction( "AccelX_Input.Source.Set( cte0 )" )
+Compas_ES.Bluenaute.AddAction( "AccelY_Input.Source.Set( cte0 )" )
+Compas_ES.Bluenaute.AddAction( "AccelZ_Input.Source.Set( cte0 )" )
+
+Compas_ES.MicroStrain.AddCondition( "&CompasToUse  == 5" )
+
+Compas_ES.MicroStrain.AddAction( "HDT_Input.Source.Set( msHDTorg )" )
+Compas_ES.MicroStrain.AddAction( "HDM_Input.Source.Set( msHDMorg )" )
+Compas_ES.MicroStrain.AddAction( "Heel_Input.Source.Set( msHEELorg )" )
+Compas_ES.MicroStrain.AddAction( "Trim_Input.Source.Set( msTRIMorg )" )
+Compas_ES.MicroStrain.AddAction( "GyroX_Input.Source.Set( msROLLRATEorg )" )
+Compas_ES.MicroStrain.AddAction( "GyroY_Input.Source.Set( msPITCHRATEorg)" )
+Compas_ES.MicroStrain.AddAction( "GyroZ_Input.Source.Set( msYAWRATEorg)" )
+Compas_ES.MicroStrain.AddAction( "AccelX_Input.Source.Set( cte0 )" )
+Compas_ES.MicroStrain.AddAction( "AccelY_Input.Source.Set( cte0 )" )
+Compas_ES.MicroStrain.AddAction( "AccelZ_Input.Source.Set( cte0 )" )
+
+Compas_ES.n2k.AddCondition( "&CompasToUse  == 7" )
+
+Compas_ES.n2k.AddAction( "HDT_Input.Source.Set( n2kCompasHDTorg )" )
+Compas_ES.n2k.AddAction( "HDM_Input.Source.Set( n2kCompasHDMorg )" )
+Compas_ES.n2k.AddAction( "Heel_Input.Source.Set( n2kCompasHEELorg )" )
+Compas_ES.n2k.AddAction( "Trim_Input.Source.Set( n2kCompasTRIMorg )" )
+Compas_ES.n2k.AddAction( "GyroX_Input.Source.Set( cte0 )" )
+Compas_ES.n2k.AddAction( "GyroY_Input.Source.Set( cte0 )" )
+Compas_ES.n2k.AddAction( "GyroZ_Input.Source.Set( n2kCompasYAWRATEorg )" )
+Compas_ES.n2k.AddAction( "AccelX_Input.Source.Set( cte0 )" )
+Compas_ES.n2k.AddAction( "AccelY_Input.Source.Set( cte0 )" )
+Compas_ES.n2k.AddAction( "AccelZ_Input.Source.Set( cte0 )" )
+
+Compas_ES.Start()
+
+# Source auto-switch
+new TExpertSys( Compas_AUTO )
+//
+// ExpertSystem States
+//
+Compas_AUTO.AddState( Compas1 )
+Compas_AUTO.AddState( Compas2 )
+Compas_AUTO.AddState( Compas3 )
+Compas_AUTO.AddState( Compas4 )
+Compas_AUTO.AddState( CompasOK )
+Compas_AUTO.AddState( CompasKO )
+//
+// ExpertSystem Conditions
+//
+Compas_AUTO.Stop()
+
+Compas_AUTO.Compas1.AddCondition( "(&CompasAuto == 1) and (&quadCOMPASvalid == 1)" )
+
+Compas_AUTO.Compas1.AddAction( "CompasToUse.SetValue( 1 )" )
+
+Compas_AUTO.Compas2.AddCondition( "(&CompasAuto == 1) and (&quadCOMPASvalid == 0) and (&msCOMPASvalid == 1)" )
+
+Compas_AUTO.Compas2.AddAction( "CompasToUse.SetValue( 5 )" )
+
+Compas_AUTO.Compas3.AddCondition( "(&CompasAuto == 1) and (&quadCOMPASvalid == 0) and (&msCOMPASvalid == 0) and (&n2kCompasValid == 1)" )
+
+Compas_AUTO.Compas3.AddAction( "CompasToUse.SetValue( 7 )" )
+
+Compas_AUTO.Compas4.AddCondition( "(&CompasAuto == 1) and (&quadCOMPASvalid == 0) and (&msCOMPASvalid == 0) and (&n2kCompasValid == 0) and (&gpsCOMPASvalid == 1)" )
+
+Compas_AUTO.Compas4.AddAction( "CompasToUse.SetValue( 3 )" )
+
+Compas_AUTO.CompasOK.AddCondition( "(&quadCOMPASvalid == 1) or (&msCOMPASvalid == 1) or (&n2kCompasValid == 1) or (&gpsCOMPASvalid == 1)" )
+
+Compas_AUTO.CompasOK.AddAction( "MAD_YawValid.SetValue( 1 )" )
+
+Compas_AUTO.CompasKO.AddCondition( "(&quadCOMPASvalid == 0) and (&msCOMPASvalid == 0) and (&n2kCompasValid == 0) and (&gpsCOMPASvalid == 0)" )
+
+Compas_AUTO.CompasKO.AddAction( "MAD_YawValid.SetValue( 0 )" )
+
+Compas_AUTO.Start()

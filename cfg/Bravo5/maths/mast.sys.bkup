@@ -1,0 +1,61 @@
+#------------------------------------------------------------------------------
+# MastTip Attitude 
+#
+# Heel + when tip mast goes to stbd
+# Trim + when tip mast goes to aft
+#
+# BE SURE TO BE COHERENT. THIS AFFECT TO WIND CALCULATION
+
+new TCopy( mhuTRIMorg, TRIMorg, CalculeVar_025 )
+new TCopy( mhuHEELorg, HEELorg, CalculeVar_025 )
+new TAdd360( mhuHDGorg, HDGorg, MASTROTATIONorg, CalculeVar_025 )
+
+#------------------------------------------------------------------------------
+# MastTwit estimation
+load "cfg/Bravo5/data/adjmasttwist.sys"
+new TSign( MASTTWISTest, AWAorg, adjMastTwist, CalculeVar_025 )
+
+#------------------------------------------------------------------------------
+# mhu Rates Of Turn
+#
+# in deg/sec
+new TCopy( mhuPITCHRATEorg, ahrsPITCHRATEorg, CalculeVar_025 )
+new TCopy( mhuROLLRATEorg, ahrsROLLRATEorg, CalculeVar_025 )
+new TCopy( mhuYAWRATEorg, ahrsYAWRATEorg, CalculeVar_025 )
+
+# in rad/sec
+new TCopy( mhuPITCHRATErad, mhuPITCHRATEorg, CalculeVar_025 )
+mhuPITCHRATErad.SetCalibration( Deg2RadCal )
+
+new TCopy( mhuROLLRATErad, mhuROLLRATEorg, CalculeVar_025 )
+mhuROLLRATErad.SetCalibration( Deg2RadCal )
+
+new TCopy( mhuYAWRATErad, mhuYAWRATEorg, CalculeVar_025 )
+mhuYAWRATErad.SetCalibration( Deg2RadCal )
+
+# absolute values (deg/sec)
+new TAbs( mhuPITCHRATEabs, mhuPITCHRATEorg, CalculeVar_025 )
+new TAbs( mhuROLLRATEabs, mhuROLLRATEorg, CalculeVar_025 )
+new TAbs( mhuYAWRATEabs, mhuYAWRATEorg, CalculeVar_025 )
+
+#------------------------------------------------------------------------------
+# mhu Velocities 
+
+# Mast Tip from Reference point
+new TSetting( cteMhuToRefX, "CalsFile", 0 )
+new TSetting( cteMhuToRefY, "CalsFile", 0 )
+new TSetting( cteMhuToRefZ, "CalsFile", 0 )
+
+# Arm from the MHU to the CoG = Arm from MHU to Reference + Arm from Reference to CoG
+new TAdd( armMhuToCGX, cteMhuToRefX, cteRefToCGX, CalculeVar_025 )
+new TAdd( armMhuToCGY, cteMhuToRefY, cteRefToCGY, CalculeVar_025 )
+new TAdd( armMhuToCGZ, cteMhuToRefZ, cteRefToCGZ, CalculeVar_025 )
+
+# Velocity on mhu
+new TVectorCrossProductX( mhuVELOCXgyro, mhuROLLRATErad, mhuPITCHRATErad, mhuYAWRATErad, armMhuToCGX, armMhuToCGY, armMhuToCGZ, CalculeVar_025 )
+new TVectorCrossProductY( mhuVELOCYgyro, mhuROLLRATErad, mhuPITCHRATErad, mhuYAWRATErad, armMhuToCGX, armMhuToCGY, armMhuToCGZ, CalculeVar_025 )
+new TVectorCrossProductZ( mhuVELOCZgyro, mhuROLLRATErad, mhuPITCHRATErad, mhuYAWRATErad, armMhuToCGX, armMhuToCGY, armMhuToCGZ, CalculeVar_025 )
+
+new TCopy( mhuVELOCXorg, mhuVELOCXgyro, CalculeVar_025 )
+new TCopy( mhuVELOCYorg, mhuVELOCYgyro, CalculeVar_025 )
+new TCopy( mhuVELOCZorg, mhuVELOCZgyro, CalculeVar_025 )

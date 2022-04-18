@@ -1,0 +1,114 @@
+#------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
+# Attiude
+#   Heading: degress from Magnetic North
+#   Heel   : +deg in stbd tack (port heeled)
+#   Trim   : +deg bow up
+
+new TSetting( quadHeelFactor, -1, 0 )
+new TSetting( quadTrimFactor, 1, 0 )
+new TSetting( quadPitchRateFactor, 1, 0 )
+new TSetting( quadRollRateFactor, 1, 0 )
+new TSetting( quadYawRateFactor, 1, 0 )
+
+new TCopy( quadHDGi, QuadransImu_Hdg, CalculeVar_050 )
+new TMultiply( quadHEELi, quadHeelFactor, QuadransImu_Roll, CalculeVar_050 )
+new TMultiply( quadTRIMi, quadTrimFactor, QuadransImu_Pitch, CalculeVar_050 )
+
+new TSetting( quadHdgOffset, "CalsFile", 0 )
+new TSetting( quadHeelOffset, "CalsFile", 0 )
+new TSetting( quadTrimOffset, "CalsFile", 0 )
+
+new TAdd360( quadHDTm, quadHDGi, quadHdgOffset, CalculeVar_050 )
+new TAdd( quadHEELm, quadHEELi, quadHeelOffset, CalculeVar_050 )
+new TAdd( quadTRIMm, quadTRIMi, quadTrimOffset, CalculeVar_050 )
+
+new TSubtract360( quadHDMm, quadHDTm, MagneticVariation, CalculeVar_050 )
+
+new TCopy( quadHDMorg, quadHDMm, CalculeVar_050 )
+new TCopy( quadHDTorg, quadHDTm, CalculeVar_050 )
+new TCopy( quadHEELorg, quadHEELm, CalculeVar_050 )
+new TCopy( quadTRIMorg, quadTRIMm, CalculeVar_050 )
+
+
+#------------------------------------------------------------------------------
+# Turn Rate
+#   YawRate   : +deg/sec turning to stbd
+#   RollRate  : +deg/sec turning to port 
+#   PitchRate : +deg/sec turning to up   
+new TAverage( quadGYROYfil, 3000 )
+new TAverage( quadGYROXfil, 3000 )
+new TAverage( quadGYROZfil, 3000 )
+
+new TCopy( quadGYROYtrend, QuadransImu_GyroY, CalculeVar_050 )
+quadGYROYtrend.SetFilter( quadGYROYfil )
+new TCopy( quadGYROXtrend, QuadransImu_GyroX, CalculeVar_050 )
+quadGYROXtrend.SetFilter( quadGYROXfil )
+new TCopy( quadGYROZtrend, QuadransImu_GyroZ, CalculeVar_050 )
+quadGYROZtrend.SetFilter( quadGYROZfil )
+
+new TSubtract( quadPITCHRATEm, QuadransImu_GyroY, quadGYROYtrend, CalculeVar_050 )
+new TSubtract( quadROLLRATEm, QuadransImu_GyroX, quadGYROXtrend, CalculeVar_050 )
+new TSubtract( quadYAWRATEm, QuadransImu_GyroZ, quadGYROZtrend, CalculeVar_050 )
+
+new TMultiply( quadPITCHRATEorg, quadPitchRateFactor, quadPITCHRATEm, CalculeVar_050 )
+new TMultiply( quadROLLRATEorg, quadRollRateFactor, quadROLLRATEm, CalculeVar_050 )
+new TMultiply( quadYAWRATEorg, quadYawRateFactor, quadYAWRATEm, CalculeVar_050 )
+
+#------------------------------------------------------------------------------
+# Acceleration 
+#   AccelX   : +m/s^2 toward bow
+#   AccelY   : +m/s^2 toward stbd
+#   AccelZ   : +m/s^2 toward down
+new TCopy( quadACCELXm, QuadransImu_AccelX, CalculeVar_050 )
+new TCopy( quadACCELYm, QuadransImu_AccelY, CalculeVar_050 )
+new TCopy( quadACCELZm, QuadransImu_AccelZ, CalculeVar_050 )
+
+new TCopy( quadACCELXorg, quadACCELXm, CalculeVar_050 )
+new TCopy( quadACCELYorg, quadACCELYm, CalculeVar_050 )
+new TCopy( quadACCELZorg, quadACCELZm, CalculeVar_050 )
+
+new TCopy( quadLATi, QuadransUDP_Positi_Calculed_Lat, CalculeVar_050 )
+new TCopy( quadLONi, QuadransUDP_Positi_Calculed_Lon, CalculeVar_050 )
+new TCopy( quadHEIGHTi, QuadransUDP_Positi_Altitude, CalculeVar_050 )
+new TCopy( quadQUALITYi, QuadransUDP_Gpsin_QI, CalculeVar_050 )
+new TCopy( quadPOSFIXTIMEi, QuadransUDP_Gpsin_PosFixTime, CalculeVar_050 )
+new TCopy( quadSOGi, QuadransUDP_Speed_Calculed_SOG, CalculeVar_050 )
+new TCopy( quadCOGi, QuadransUDP_Speed_Calculed_COG, CalculeVar_050 )
+
+new TCopy( quadLATorg, quadLATi, CalculeVar_050 )
+new TCopy( quadLONorg, quadLONi, CalculeVar_050 )
+new TCopy( quadHEIGHTorg, quadHEIGHTi, CalculeVar_050 )
+new TCopy( quadPOSFIXTIMEorg, quadPOSFIXTIMEi, CalculeVar_050 )
+new TCopy( quadQUALITYorg, quadQUALITYi, CalculeVar_050 )
+new TCopy( quadSOGorg, quadSOGi, CalculeVar_050 )
+new TSubtract360( quadCOGorg, quadCOGi, MagneticVariation, CalculeVar_050 )
+
+#------------------------------------------------------------------------------
+# Displacament
+#   Surge : m
+#   Sway  : m
+#   Heave : m
+new TCopy( quadHEAVEi, QuadransUDP_Heave_Heave, CalculeVar_050 )
+new TCopy( quadSWAYi, QuadransUDP_Heave_Sway, CalculeVar_050 )
+new TCopy( quadSURGEi, QuadransUDP_Heave_Surge, CalculeVar_050 )
+
+new TCopy( quadHEAVEorg, quadHEAVEi, CalculeVar_050 )
+new TCopy( quadSWAYorg, quadSWAYi, CalculeVar_050 )
+new TCopy( quadSURGEorg, quadSURGEi, CalculeVar_050 )
+#------------------------------------------------------------------------------
+# Diagnotic: 
+#	Compas
+new TSetting( quadUpdateDuration, 5, 0 )
+new TIsUpdating( quadRxUpdating, QuadransImu_RxByteCount, quadUpdateDuration, CalculeVar_010 )
+
+new TChooser( quadCOMPASvalid, "&QuadransImu_Status == -1 and &quadRxUpdating ==1", 1, 0, CalculeVar_010 )
+
+#------------------------------------------------------------------------------
+# Diagnotic: 
+#	GPS
+new TIsUpdating( quadGpsTimeUpdating, QuadransUDP_Gpsin_PosFixTime, quadUpdateDuration, CalculeVar_010 )
+new TChooser( quadGPSvalid, "&quadGpsTimeUpdating == 1 and &quadCOMPASvalid ==1", 1, 0, CalculeVar_010 )

@@ -1,0 +1,4 @@
+#------------------------------------------------------------------------------
+# KVH Input from converter Input 
+# Insert hardware.sys
+#new TDevKVH( Kvh, Serial3, B4800, NOPAR, L8, S1, kfKvhFormat )

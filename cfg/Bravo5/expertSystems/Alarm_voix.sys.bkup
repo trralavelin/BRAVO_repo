@@ -1,0 +1,184 @@
+#------------------------------------------------------------------------------
+#
+# Name: Alarm_voix_Expert
+#
+# Description:  sortie relais pour alarmes voix
+#
+# Inputs:
+#
+# Parameters:
+#	
+#	
+#
+# Dependences:
+#	
+#
+# Computed Vars
+#  
+#
+# Outputs:
+#    
+#
+#------------------------------------------------------------------------------
+# 0 == pas d'alarmes
+# 1 == E1
+# 2 == E2
+# 3 == E3
+# 4 == E4
+# 5 == Foil
+# 6 == tension J3 min
+# 7 == bastaques
+# 8 == tirants
+# 9 == pilote
+# 10 == Arbalette
+# 11 == SPECIAL
+#------------------------------------------------------------------------------
+new TSetting( DCU_BUZZ, 0, 0 )
+new TSetting( DCU_BUZZ2, 0, 0 )
+new TSetting( DCU_K11, 0, 0 )
+new TSetting( DCU_K12, 0, 0 )
+new TSetting( DCU_K21, 0, 0 )
+new TSetting( DCU_K22, 0, 0 )
+new TSetting( alarm_nb, 0, 0 )
+
+
+
+
+new TExpertSys( alarm_nb_ES )
+//
+// ExpertSystem States
+//
+alarm_nb_ES.AddState( zero )
+alarm_nb_ES.AddState( un )
+alarm_nb_ES.AddState( deux )
+alarm_nb_ES.AddState( trois )
+alarm_nb_ES.AddState( quatre )
+alarm_nb_ES.AddState( cinq )
+alarm_nb_ES.AddState( six )
+alarm_nb_ES.AddState( sept )
+alarm_nb_ES.AddState( huit )
+alarm_nb_ES.AddState( neuf )
+alarm_nb_ES.AddState( dix )
+alarm_nb_ES.AddState( onze )
+alarm_nb_ES.AddState( douze )
+alarm_nb_ES.AddState( treize )
+alarm_nb_ES.AddState( quatorze )
+alarm_nb_ES.AddState( quinze )
+//
+// ExpertSystem Conditions
+//
+alarm_nb_ES.Stop()
+
+alarm_nb_ES.zero.AddCondition( "&alarm_nb == 0 or &DCU_BUZZ == 0" )
+
+alarm_nb_ES.zero.AddAction( "DCU_K11.Set( 0 )" )
+alarm_nb_ES.zero.AddAction( "DCU_K12.Set( 0 )" )
+alarm_nb_ES.zero.AddAction( "DCU_K21.Set( 0 )" )
+alarm_nb_ES.zero.AddAction( "DCU_K22.Set( 0 )" )
+
+alarm_nb_ES.un.AddCondition( "&alarm_nb == 1 and &DCU_BUZZ == 1" )
+
+alarm_nb_ES.un.AddAction( "DCU_K11.Set( 1 )" )
+alarm_nb_ES.un.AddAction( "DCU_K12.Set( 0 )" )
+alarm_nb_ES.un.AddAction( "DCU_K21.Set( 0 )" )
+alarm_nb_ES.un.AddAction( "DCU_K22.Set( 0 )" )
+
+alarm_nb_ES.deux.AddCondition( "&alarm_nb == 2 and &DCU_BUZZ == 1" )
+
+alarm_nb_ES.deux.AddAction( "DCU_K11.Set( 0 )" )
+alarm_nb_ES.deux.AddAction( "DCU_K12.Set( 1 )" )
+alarm_nb_ES.deux.AddAction( "DCU_K21.Set( 0 )" )
+alarm_nb_ES.deux.AddAction( "DCU_K22.Set( 0 )" )
+
+alarm_nb_ES.trois.AddCondition( "&alarm_nb == 3 and &DCU_BUZZ == 1" )
+
+alarm_nb_ES.trois.AddAction( "DCU_K11.Set( 1 )" )
+alarm_nb_ES.trois.AddAction( "DCU_K12.Set( 1 )" )
+alarm_nb_ES.trois.AddAction( "DCU_K21.Set( 0 )" )
+alarm_nb_ES.trois.AddAction( "DCU_K22.Set( 0 )" )
+
+alarm_nb_ES.quatre.AddCondition( "&alarm_nb == 4 and &DCU_BUZZ == 1" )
+
+alarm_nb_ES.quatre.AddAction( "DCU_K11.Set( 0 )" )
+alarm_nb_ES.quatre.AddAction( "DCU_K12.Set( 0 )" )
+alarm_nb_ES.quatre.AddAction( "DCU_K21.Set( 1 )" )
+alarm_nb_ES.quatre.AddAction( "DCU_K22.Set( 0 )" )
+
+alarm_nb_ES.cinq.AddCondition( "&alarm_nb == 5 and &DCU_BUZZ == 1" )
+
+alarm_nb_ES.cinq.AddAction( "DCU_K11.Set( 1 )" )
+alarm_nb_ES.cinq.AddAction( "DCU_K12.Set( 0 )" )
+alarm_nb_ES.cinq.AddAction( "DCU_K21.Set( 1 )" )
+alarm_nb_ES.cinq.AddAction( "DCU_K22.Set( 0 )" )
+
+alarm_nb_ES.six.AddCondition( "&alarm_nb == 6 and &DCU_BUZZ == 1" )
+
+alarm_nb_ES.six.AddAction( "DCU_K11.Set( 0 )" )
+alarm_nb_ES.six.AddAction( "DCU_K12.Set( 1 )" )
+alarm_nb_ES.six.AddAction( "DCU_K21.Set( 1 )" )
+alarm_nb_ES.six.AddAction( "DCU_K22.Set( 0 )" )
+
+alarm_nb_ES.sept.AddCondition( "&alarm_nb == 7 and &DCU_BUZZ == 1" )
+
+alarm_nb_ES.sept.AddAction( "DCU_K11.Set( 1 )" )
+alarm_nb_ES.sept.AddAction( "DCU_K12.Set( 1 )" )
+alarm_nb_ES.sept.AddAction( "DCU_K21.Set( 1 )" )
+alarm_nb_ES.sept.AddAction( "DCU_K22.Set( 0 )" )
+
+alarm_nb_ES.huit.AddCondition( "&alarm_nb == 8 and &DCU_BUZZ == 1" )
+
+alarm_nb_ES.huit.AddAction( "DCU_K11.Set( 0 )" )
+alarm_nb_ES.huit.AddAction( "DCU_K12.Set( 0 )" )
+alarm_nb_ES.huit.AddAction( "DCU_K21.Set( 0 )" )
+alarm_nb_ES.huit.AddAction( "DCU_K22.Set( 1 )" )
+
+alarm_nb_ES.neuf.AddCondition( "&alarm_nb == 9 and &DCU_BUZZ == 1" )
+
+alarm_nb_ES.neuf.AddAction( "DCU_K11.Set( 1 )" )
+alarm_nb_ES.neuf.AddAction( "DCU_K12.Set( 0 )" )
+alarm_nb_ES.neuf.AddAction( "DCU_K21.Set( 0 )" )
+alarm_nb_ES.neuf.AddAction( "DCU_K22.Set( 1 )" )
+
+alarm_nb_ES.dix.AddCondition( "&alarm_nb == 10 and &DCU_BUZZ == 1" )
+
+alarm_nb_ES.dix.AddAction( "DCU_K11.Set( 0 )" )
+alarm_nb_ES.dix.AddAction( "DCU_K12.Set( 1 )" )
+alarm_nb_ES.dix.AddAction( "DCU_K21.Set( 0 )" )
+alarm_nb_ES.dix.AddAction( "DCU_K22.Set( 1 )" )
+
+alarm_nb_ES.onze.AddCondition( "&alarm_nb == 11 and &DCU_BUZZ == 1" )
+
+alarm_nb_ES.onze.AddAction( "DCU_K11.Set( 1 )" )
+alarm_nb_ES.onze.AddAction( "DCU_K12.Set( 1 )" )
+alarm_nb_ES.onze.AddAction( "DCU_K21.Set( 0 )" )
+alarm_nb_ES.onze.AddAction( "DCU_K22.Set( 1 )" )
+
+alarm_nb_ES.douze.AddCondition( "&alarm_nb == 12 and &DCU_BUZZ == 1" )
+
+alarm_nb_ES.douze.AddAction( "DCU_K11.Set( 0 )" )
+alarm_nb_ES.douze.AddAction( "DCU_K12.Set( 0 )" )
+alarm_nb_ES.douze.AddAction( "DCU_K21.Set( 1 )" )
+alarm_nb_ES.douze.AddAction( "DCU_K22.Set( 1 )" )
+
+alarm_nb_ES.treize.AddCondition( "&alarm_nb == 13 and &DCU_BUZZ == 1" )
+
+alarm_nb_ES.treize.AddAction( "DCU_K11.Set( 1 )" )
+alarm_nb_ES.treize.AddAction( "DCU_K12.Set( 0 )" )
+alarm_nb_ES.treize.AddAction( "DCU_K21.Set( 1 )" )
+alarm_nb_ES.treize.AddAction( "DCU_K22.Set( 1 )" )
+
+alarm_nb_ES.quatorze.AddCondition( "&alarm_nb == 14 and &DCU_BUZZ == 1" )
+
+alarm_nb_ES.quatorze.AddAction( "DCU_K11.Set( 0 )" )
+alarm_nb_ES.quatorze.AddAction( "DCU_K12.Set( 1 )" )
+alarm_nb_ES.quatorze.AddAction( "DCU_K21.Set( 1 )" )
+alarm_nb_ES.quatorze.AddAction( "DCU_K22.Set( 1 )" )
+
+alarm_nb_ES.quinze.AddCondition( "&alarm_nb == 15 and &DCU_BUZZ == 1" )
+
+alarm_nb_ES.quinze.AddAction( "DCU_K11.Set( 1 )" )
+alarm_nb_ES.quinze.AddAction( "DCU_K12.Set( 1 )" )
+alarm_nb_ES.quinze.AddAction( "DCU_K21.Set( 1 )" )
+alarm_nb_ES.quinze.AddAction( "DCU_K22.Set( 1 )" )
+
+alarm_nb_ES.Start()

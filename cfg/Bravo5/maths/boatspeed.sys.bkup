@@ -1,0 +1,34 @@
+#------------------------------------------------------------------------------
+# KALMAN FILTER
+# En fonction de la gite et d'une vitesse bateau max
+
+new TSetting( ErrorPadOnAir, 1000, 0 )
+new TSetting( ErrorPadOnWater, 0.1, 0 )
+new TSetting( SwitchGPS_Speed, 20, 0 )
+new TSetting( SwitchSpeedo_Heel, 5, 0 )
+new TSetting( GPS_error, 0.5, 0 )
+new TSetting( SwitchBulb_Speed, 25, 0 )
+
+new TChooser( padBS_STBD_error, "&Heel >  & SwitchSpeedo_Heel or &SOG > & SwitchGPS_Speed", ErrorPadOnAir, ErrorPadOnWater, CalculeVar_025 )
+new TChooser( padBS_PORT_error, "&Heel < -& SwitchSpeedo_Heel or &SOG > & SwitchGPS_Speed", ErrorPadOnAir, ErrorPadOnWater, CalculeVar_025 )
+new TChooser( padBS_Central_error, "&SOG > & SwitchBulb_Speed", ErrorPadOnAir, ErrorPadOnWater, CalculeVar_025 )
+new TChooser( padBS_Hull_error, "&SOG > & SwitchSpeedo_Heel", ErrorPadOnAir, ErrorPadOnWater, CalculeVar_025 )
+
+new TChooser( Speedometer_Active, "& Heel_Input > 0", Speedometer_Stb_Input, Speedometer_Port_Input, CalculeVar_025 )
+
+new TBoatSpeedUnit( HeelSpeedSolver, SOG_Input, DaggerSpeedometer_Input, Speedometer_Active, CalculeVar_025 )
+HeelSpeedSolver.SetAcceleration( 0 )
+HeelSpeedSolver.SetAccelFactor( 0 )
+HeelSpeedSolver.SetPredictionError( 1000 )
+HeelSpeedSolver.SetSpeed1Error( 1000 )
+HeelSpeedSolver.SetSpeed2Error( 1000 )
+HeelSpeedSolver.SetSpeed3Error( 1000 )
+
+
+new TBoatSpeedUnit( BoatSpeedSolver, SOG_Input, Speedometer_Stb_Input, Speedometer_Port_Input, CalculeVar_025 )
+BoatSpeedSolver.SetAcceleration( AccelX_Input )
+BoatSpeedSolver.SetAccelFactor( cteMeterSec2Knot )
+BoatSpeedSolver.SetPredictionError( 1 )
+BoatSpeedSolver.SetSpeed1Error( GPS_error )
+BoatSpeedSolver.SetSpeed2Error( padBS_STBD_error )
+BoatSpeedSolver.SetSpeed3Error( padBS_PORT_error )

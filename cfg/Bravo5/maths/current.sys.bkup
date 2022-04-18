@@ -1,0 +1,39 @@
+#------------------------------------------------------------------------------
+# Manual Current 
+new TSetting( CurrDriftManual, 0, 0 )
+new TSetting( CurrSetManual, 0, 0 )
+
+#------------------------------------------------------------------------------
+# Current estimation as difference of vectors
+new TVectorSubtractMod( CURRDRIFTm, SOG, COG, SOW, Cse, CalculeVar_025 )
+CURRDRIFTm.SetFilter( dampCURRDRIFTdfil )
+new TDynamicExponential( dampCURRDRIFTdfil, absYawRate, 1.000000, 0.003333, 4.000000, 0.001667 )
+
+new TVectorSubtractArg( CURRSET180, SOG, COG, SOW, Cse, false, CalculeVar_025 )
+new TAdd360( CURRSETm, cte0, CURRSET180, CalculeVar_025 )
+CURRSETm.SetFilter( dampCURRSETdfil )
+new TDynamicExponential360( dampCURRSETdfil, absYawRate, 1.000000, 0.003330, 4.000000, 0.001667 )
+
+#------------------------------------------------------------------------------
+# Current estimation as difference of positions
+# Estimation from difference in dead-recknoning between GPS and BOAT sensors
+new TDifference( drCURRDRIFTtime, TimeTodaySeconds, false, CalculeVarForCurrent )
+drCURRDRIFTtime.SetCalibration( Sec2HourCal )
+
+new TCopy( LatForDR, Lat, CalculeVarForCurrent )
+new TCopy( LonForDR, Lon, CalculeVarForCurrent )
+
+new TDeadReckoning( DR_GPS, LatForDR, LonForDR, COG, SOG, MagneticVariation, CalculeVar_025 )
+new TDeadReckoning( DR_BOAT, LatForDR, LonForDR, Cse, SOW, MagneticVariation, CalculeVar_025 )
+
+new TRange( drCURRDRIFTrng, DR_BOAT_Lat, DR_BOAT_Lon, DR_GPS_Lat, DR_GPS_Lon, MagneticVariation, CalculeVarForCurrent )
+new TDivide( drCURRDRIFTm, drCURRDRIFTrng, drCURRDRIFTtime, CalculeVarForCurrent )
+
+new TBearing( drCURRSETm, DR_BOAT_Lat, DR_BOAT_Lon, DR_GPS_Lat, DR_GPS_Lon, MagneticVariation, CalculeVarForCurrent )
+
+
+#------------------------------------------------------------------------------
+new TCopy( CurrDriftMeasured, CURRDRIFTm, CalculeVar_025 )
+new TCopy( CurrSetMeasured, CURRSETm, CalculeVar_025 )
+
+new TCalcule( CalculeVarForCurrent, 0.05 )

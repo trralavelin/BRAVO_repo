@@ -1,0 +1,48 @@
+#------------------------------------------------------------------------------
+#
+# Name: Buzz_Special_Expert
+#
+# Description:  
+#
+# Inputs:
+#
+# Parameters:
+#	
+#	
+#
+# Dependences:
+#	
+#
+# Computed Vars
+#  
+#
+# Outputs:
+#    
+#
+#------------------------------------------------------------------------------
+
+
+
+new TChooser( WS_Alarm, "&Alarm_WS1_Input == 1 or &Alarm_WS2_Input == 1 or &Alarm_WS3_Input == 1 or &Alarm_WS4_Input == 1 or &Alarm_WS5_Input == 1 or &Alarm_WS6_Input == 1 ", 1, 0, CalculeVar_010 )
+
+
+new TExpertSys( WS_Alarm_Buzz_ES )
+//
+// ExpertSystem States
+//
+WS_Alarm_Buzz_ES.AddState( OK )
+WS_Alarm_Buzz_ES.AddState( KO )
+//
+// ExpertSystem Conditions
+//
+WS_Alarm_Buzz_ES.Stop()
+
+WS_Alarm_Buzz_ES.OK.AddCondition( "&WS_Alarm == 0" )
+
+WS_Alarm_Buzz_ES.OK.AddAction( "alarm_nb.SetValue( 0 )" )
+
+WS_Alarm_Buzz_ES.KO.AddCondition( "&WS_Alarm == 1" )
+
+WS_Alarm_Buzz_ES.KO.AddAction( "alarm_nb.SetValue( 11 )" )
+
+WS_Alarm_Buzz_ES.Start()

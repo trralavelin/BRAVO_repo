@@ -1,0 +1,144 @@
+#------------------------------------------------------------------------------
+# Name: 
+# Description:  Adjust wind angle
+# Inputs:     
+#             TWS
+#             TWA
+#
+# Parameters: 
+# Dependences:
+#
+# Outputs:
+#          Adjust Wind Angle
+#------------------------------------------------------------------------------
+# Author: JL.Vela
+# Date: Aphril 20th, 2011
+# Copyright: Bravo Systems SL. All Rights Reserved.
+#------------------------------------------------------------------------------
+
+new TWtpTable( adjWindAngleStartTable , ttWtpLinearLinearTable,8, TWS, absTWA, 0 )
+adjWindAngleStartTable.SetUseAbsX( false )
+adjWindAngleStartTable.SetUseAbsY( false )
+//
+// Points for table adjWindAngleStartTable
+//
+adjWindAngleStartTable.AddRow( 2.000000 )
+adjWindAngleStartTable.SetPoint( 0, 0, 0.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 0, 1, 20.000000, -5.000000 )
+adjWindAngleStartTable.SetPoint( 0, 2, 60.000000, -5.000000 )
+adjWindAngleStartTable.SetPoint( 0, 3, 90.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 0, 4, 120.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 0, 5, 150.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 0, 6, 180.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 0, 7, 0.000000, 0.000000 )
+//--
+adjWindAngleStartTable.AddRow( 4.000000 )
+adjWindAngleStartTable.SetPoint( 1, 0, 0.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 1, 1, 20.000000, -6.000000 )
+adjWindAngleStartTable.SetPoint( 1, 2, 60.000000, -6.000000 )
+adjWindAngleStartTable.SetPoint( 1, 3, 90.000000, -5.000000 )
+adjWindAngleStartTable.SetPoint( 1, 4, 120.000000, -5.000000 )
+adjWindAngleStartTable.SetPoint( 1, 5, 160.000000, -4.000000 )
+adjWindAngleStartTable.SetPoint( 1, 6, 180.000000, -10.000000 )
+adjWindAngleStartTable.SetPoint( 1, 7, 0.000000, 0.000000 )
+//--
+adjWindAngleStartTable.AddRow( 6.000000 )
+adjWindAngleStartTable.SetPoint( 2, 0, 0.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 2, 1, 20.000000, -6.000000 )
+adjWindAngleStartTable.SetPoint( 2, 2, 60.000000, -6.000000 )
+adjWindAngleStartTable.SetPoint( 2, 3, 90.000000, -5.000000 )
+adjWindAngleStartTable.SetPoint( 2, 4, 120.000000, -5.000000 )
+adjWindAngleStartTable.SetPoint( 2, 5, 160.000000, -5.000000 )
+adjWindAngleStartTable.SetPoint( 2, 6, 180.000000, -10.000000 )
+adjWindAngleStartTable.SetPoint( 2, 7, 0.000000, 0.000000 )
+//--
+adjWindAngleStartTable.AddRow( 8.000000 )
+adjWindAngleStartTable.SetPoint( 3, 0, 0.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 3, 1, 20.000000, -4.000000 )
+adjWindAngleStartTable.SetPoint( 3, 2, 60.000000, -4.000000 )
+adjWindAngleStartTable.SetPoint( 3, 3, 90.000000, -5.000000 )
+adjWindAngleStartTable.SetPoint( 3, 4, 120.000000, -5.000000 )
+adjWindAngleStartTable.SetPoint( 3, 5, 150.000000, -5.000000 )
+adjWindAngleStartTable.SetPoint( 3, 6, 180.000000, -8.000000 )
+adjWindAngleStartTable.SetPoint( 3, 7, 0.000000, 0.000000 )
+//--
+adjWindAngleStartTable.AddRow( 10.000000 )
+adjWindAngleStartTable.SetPoint( 4, 0, 0.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 4, 1, 20.000000, -2.000000 )
+adjWindAngleStartTable.SetPoint( 4, 2, 50.000000, -2.000000 )
+adjWindAngleStartTable.SetPoint( 4, 3, 90.000000, -5.000000 )
+adjWindAngleStartTable.SetPoint( 4, 4, 120.000000, -5.000000 )
+adjWindAngleStartTable.SetPoint( 4, 5, 150.000000, -4.000000 )
+adjWindAngleStartTable.SetPoint( 4, 6, 180.000000, -5.000000 )
+adjWindAngleStartTable.SetPoint( 4, 7, 0.000000, 0.000000 )
+//--
+adjWindAngleStartTable.AddRow( 12.000000 )
+adjWindAngleStartTable.SetPoint( 5, 0, 0.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 5, 1, 20.000000, -1.500000 )
+adjWindAngleStartTable.SetPoint( 5, 2, 50.000000, -2.000000 )
+adjWindAngleStartTable.SetPoint( 5, 3, 90.000000, -5.000000 )
+adjWindAngleStartTable.SetPoint( 5, 4, 120.000000, -5.000000 )
+adjWindAngleStartTable.SetPoint( 5, 5, 150.000000, -2.000000 )
+adjWindAngleStartTable.SetPoint( 5, 6, 180.000000, -1.000000 )
+adjWindAngleStartTable.SetPoint( 5, 7, 0.000000, 0.000000 )
+//--
+adjWindAngleStartTable.AddRow( 14.000000 )
+adjWindAngleStartTable.SetPoint( 6, 0, 0.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 6, 1, 20.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 6, 2, 50.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 6, 3, 90.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 6, 4, 120.000000, -1.000000 )
+adjWindAngleStartTable.SetPoint( 6, 5, 150.000000, -3.000000 )
+adjWindAngleStartTable.SetPoint( 6, 6, 180.000000, -2.000000 )
+adjWindAngleStartTable.SetPoint( 6, 7, 0.000000, 0.000000 )
+//--
+adjWindAngleStartTable.AddRow( 16.000000 )
+adjWindAngleStartTable.SetPoint( 7, 0, 0.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 7, 1, 20.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 7, 2, 50.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 7, 3, 90.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 7, 4, 120.000000, -2.000000 )
+adjWindAngleStartTable.SetPoint( 7, 5, 150.000000, -2.500000 )
+adjWindAngleStartTable.SetPoint( 7, 6, 180.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 7, 7, 0.000000, 0.000000 )
+//--
+adjWindAngleStartTable.AddRow( 20.000000 )
+adjWindAngleStartTable.SetPoint( 8, 0, 0.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 8, 1, 20.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 8, 2, 50.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 8, 3, 90.000000, -1.000000 )
+adjWindAngleStartTable.SetPoint( 8, 4, 120.000000, -2.000000 )
+adjWindAngleStartTable.SetPoint( 8, 5, 150.000000, -2.000000 )
+adjWindAngleStartTable.SetPoint( 8, 6, 180.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 8, 7, 0.000000, 0.000000 )
+//--
+adjWindAngleStartTable.AddRow( 24.000000 )
+adjWindAngleStartTable.SetPoint( 9, 0, 0.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 9, 1, 20.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 9, 2, 50.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 9, 3, 90.000000, -1.000000 )
+adjWindAngleStartTable.SetPoint( 9, 4, 120.000000, -3.000000 )
+adjWindAngleStartTable.SetPoint( 9, 5, 150.000000, -2.000000 )
+adjWindAngleStartTable.SetPoint( 9, 6, 180.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 9, 7, 0.000000, 0.000000 )
+//--
+adjWindAngleStartTable.AddRow( 28.000000 )
+adjWindAngleStartTable.SetPoint( 10, 0, 0.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 10, 1, 20.000000, 1.000000 )
+adjWindAngleStartTable.SetPoint( 10, 2, 50.000000, 1.000000 )
+adjWindAngleStartTable.SetPoint( 10, 3, 90.000000, -1.000000 )
+adjWindAngleStartTable.SetPoint( 10, 4, 120.000000, -5.000000 )
+adjWindAngleStartTable.SetPoint( 10, 5, 150.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 10, 6, 180.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 10, 7, 0.000000, 0.000000 )
+//--
+adjWindAngleStartTable.AddRow( 32.000000 )
+adjWindAngleStartTable.SetPoint( 11, 0, 0.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 11, 1, 20.000000, 3.000000 )
+adjWindAngleStartTable.SetPoint( 11, 2, 50.000000, 3.000000 )
+adjWindAngleStartTable.SetPoint( 11, 3, 90.000000, -1.000000 )
+adjWindAngleStartTable.SetPoint( 11, 4, 120.000000, -5.000000 )
+adjWindAngleStartTable.SetPoint( 11, 5, 150.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 11, 6, 180.000000, 0.000000 )
+adjWindAngleStartTable.SetPoint( 11, 7, 0.000000, 0.000000 )
+//--

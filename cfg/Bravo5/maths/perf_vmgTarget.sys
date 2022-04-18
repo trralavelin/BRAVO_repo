@@ -1,0 +1,36 @@
+new TCurve( perf_vmg_upTarget_org, ctLinearCurve, 11, TWSorg, CalculeVar_025 )
+perf_vmg_upTarget_org.SetUseAbsX( false )
+//
+// Set points for curve <perf_vmg_upTarget_org>
+//
+perf_vmg_upTarget_org.SetValue( 1, 2.00000, 65.00000 )
+perf_vmg_upTarget_org.SetValue( 2, 4.00000, 60.00000 )
+perf_vmg_upTarget_org.SetValue( 3, 6.00000, 55.00000 )
+perf_vmg_upTarget_org.SetValue( 4, 8.00000, 50.00000 )
+perf_vmg_upTarget_org.SetValue( 5, 10.00000, 50.00000 )
+perf_vmg_upTarget_org.SetValue( 6, 12.00000, 45.00000 )
+perf_vmg_upTarget_org.SetValue( 7, 14.00000, 45.00000 )
+perf_vmg_upTarget_org.SetValue( 8, 16.00000, 45.00000 )
+perf_vmg_upTarget_org.SetValue( 9, 18.00000, 45.00000 )
+perf_vmg_upTarget_org.SetValue( 10, 20.00000, 45.00000 )
+perf_vmg_upTarget_org.SetValue( 11, 45.00000, 45.00000 )
+// Build curve <perf_vmg_upTarget_org>
+perf_vmg_upTarget_org.BuildCurve()
+
+new TCurve( perf_vmg_downTarget_org, ctLinearCurve, 8, TWSorg, CalculeVar_025 )
+perf_vmg_downTarget_org.SetUseAbsX( false )
+//
+// Set points for curve <perf_vmg_downTarget_org>
+//
+perf_vmg_downTarget_org.SetValue( 1, 2.00000, 120.00000 )
+perf_vmg_downTarget_org.SetValue( 2, 4.00000, 125.00000 )
+perf_vmg_downTarget_org.SetValue( 3, 6.00000, 135.00000 )
+perf_vmg_downTarget_org.SetValue( 4, 10.00000, 140.00000 )
+perf_vmg_downTarget_org.SetValue( 5, 14.00000, 145.00000 )
+perf_vmg_downTarget_org.SetValue( 6, 16.00000, 145.00000 )
+perf_vmg_downTarget_org.SetValue( 7, 18.00000, 145.00000 )
+perf_vmg_downTarget_org.SetValue( 8, 20.00000, 145.00000 )
+// Build curve <perf_vmg_downTarget_org>
+perf_vmg_downTarget_org.BuildCurve()
+
+new TChooser( perf_vmg_target_org, "& perfTWAabs < 90", perf_vmg_upTarget_org, perf_vmg_downTarget_org, CalculeVar_025 )

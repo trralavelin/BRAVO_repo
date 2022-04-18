@@ -1,0 +1,48 @@
+#------------------------------------------------------------------------------
+#
+# Name: Logs_Expert
+#
+# Description:  Auto Start & GPS Sync for Datalogging
+#
+# Inputs:
+#    
+#
+# Parameters:
+#
+#
+# Dependences:
+#
+#    VariableMng.SetTimeSyncEnabled( true )
+#    VariableMng.SetTimeSyncSource( GpsRMC )
+#    VariableMng.SetTimeSyncMaxDrift( 0.01 )
+#
+# Computed Vars
+#
+# Outputs:
+#    Logs_ES_TimeSync ( Time Synchronised )
+#
+#------------------------------------------------------------------------------
+# Author: Hugo Kerhascoet
+# Date: Sept, 2018
+# Copyright: Madintec
+#------------------------------------------------------------------------------
+
+new TExpertSys( Logs_ES )
+//
+// ExpertSystem States
+//
+Logs_ES.AddState( TimeSync )
+//
+// ExpertSystem Conditions
+//
+Logs_ES.Stop()
+
+Logs_ES.TimeSync.AddCondition( "(&SyncTimeUpdateCount >= 1) and (&QI_Input > 0) and (&SyncTimeDiff < 1.0) and (&SyncTimeDiff > -1.0) or (&QI_Input >= 2)" )
+
+Logs_ES.TimeSync.AddAction( "PerformanceLog.Pause()" )
+Logs_ES.TimeSync.AddAction( "PerformanceLog.EndLogFile()" )
+Logs_ES.TimeSync.AddAction( "PerformanceLog.Start()" )
+Logs_ES.TimeSync.AddAction( "wmmMagneticVariation.Lat.SetValue(Lat)" )
+Logs_ES.TimeSync.AddAction( "wmmMagneticVariation.Lon.SetValue(Lon)" )
+
+Logs_ES.Start()

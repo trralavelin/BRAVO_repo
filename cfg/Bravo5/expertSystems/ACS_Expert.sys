@@ -1,0 +1,51 @@
+new TAbs( Trimabs, Trim, 0 )
+
+
+new TSetting( ACS_MainSail_Pitch_threshold, 12, 0 )
+new TSetting( ACS_MainSail_Roll_threshold, 18, 0 )
+new TSetting( ACS_HeadSail_Pitch_threshold, 0, 0 )
+new TSetting( ACS_HeadSail_Roll_threshold, 2, 0 )
+
+new TSetting( ACS_Activate_MainSail, 0, 0 )
+new TSetting( ACS_Activate_HeadSail, 1, 0 )
+
+new TSetting( ACS_MainSail_For_Pitch, 1, 0 )
+new TSetting( ACS_MainSail_For_Roll, 1, 0 )
+new TSetting( ACS_HeadSail_For_Pitch, 0, 0 )
+new TSetting( ACS_HeadSail_For_Roll, 0, 0 )
+new TExpertSys( ACS_ES )
+//
+// ExpertSystem States
+//
+ACS_ES.AddState( Droping_MainSail )
+ACS_ES.AddState( Nodding_MainSail )
+ACS_ES.AddState( Droping_HeadSail )
+ACS_ES.AddState( Nodding_HeadSail )
+ACS_ES.AddState( MainSail_Over_Pitch )
+ACS_ES.AddState( MainSail_Over_Roll )
+ACS_ES.AddState( HeadSail_Over_Pitch )
+ACS_ES.AddState( HeadSail_Over_Roll )
+//
+// ExpertSystem Conditions
+//
+ACS_ES.Stop()
+
+ACS_ES.Droping_MainSail.AddCondition( " &ACS_Activate_MainSail  == 1" )
+ACS_ES.Droping_MainSail.AddCondition( "(( (&ACS_MainSail_For_Pitch == 1) and (&ACS_ES_MainSail_Over_Pitch == 1) ) or ( (&ACS_MainSail_For_Roll  == 1) and (&ACS_ES_MainSail_Over_Roll == 1) ) ) " )
+
+ACS_ES.Nodding_MainSail.AddCondition( "(&ACS_Activate_MainSail  == 0) or ( (((&ACS_MainSail_For_Pitch == 1) and (&ACS_ES_MainSail_Over_Pitch == 0)) or (&ACS_MainSail_For_Pitch == 0)) and (((&ACS_MainSail_For_Roll  == 1) and (&ACS_ES_MainSail_Over_Roll  == 0)) or (&ACS_MainSail_For_Roll  == 0)) ) " )
+
+ACS_ES.Droping_HeadSail.AddCondition( " &ACS_Activate_HeadSail  == 1" )
+ACS_ES.Droping_HeadSail.AddCondition( "(( (&ACS_HeadSail_For_Pitch == 1) and (&ACS_ES_HeadSail_Over_Pitch == 1) ) or ( (&ACS_HeadSail_For_Roll  == 1) and (&ACS_ES_HeadSail_Over_Roll == 1) ) ) " )
+
+ACS_ES.Nodding_HeadSail.AddCondition( "(&ACS_Activate_HeadSail  == 0) or ( (((&ACS_HeadSail_For_Pitch == 1) and (&ACS_ES_HeadSail_Over_Pitch == 0)) or (&ACS_HeadSail_For_Pitch == 0)) and (((&ACS_HeadSail_For_Roll  == 1) and (&ACS_ES_HeadSail_Over_Roll  == 0)) or (&ACS_HeadSail_For_Roll  == 0)) ) " )
+
+ACS_ES.MainSail_Over_Pitch.AddCondition( "&Trimabs > &ACS_MainSail_Pitch_threshold" )
+
+ACS_ES.MainSail_Over_Roll.AddCondition( "&Heelabs > &ACS_MainSail_Roll_threshold" )
+
+ACS_ES.HeadSail_Over_Pitch.AddCondition( "&Trimabs > &ACS_HeadSail_Pitch_threshold" )
+
+ACS_ES.HeadSail_Over_Roll.AddCondition( "&Heelabs > &ACS_HeadSail_Roll_threshold" )
+
+ACS_ES.Start()

@@ -1,0 +1,52 @@
+#------------------------------------------------------------------------------
+#
+# Name: TWA_Expert
+#
+# Description:  Activate / Deactivate TWA Correction tables
+#
+# Inputs:
+#
+# Parameters:
+#.             UseTWATables
+# Dependences:
+# 
+#
+# Computed Vars
+#  
+#
+# Outputs:
+#    
+#
+#------------------------------------------------------------------------------
+#
+#------------------------------------------------------------------------------
+new TSetting( UseTWATables, "ExpertsFile", 0 )
+
+new TExpertSys( TWA_ES )
+//
+// ExpertSystem States
+//
+TWA_ES.AddState( OFF )
+TWA_ES.AddState( TABLE1 )
+TWA_ES.AddState( TABLE2 )
+//
+// ExpertSystem Conditions
+//
+TWA_ES.Stop()
+
+TWA_ES.OFF.AddCondition( "& UseTWATables  == 0" )
+
+TWA_ES.OFF.AddAction( "WindSolver.SetAdjTrueWindSpeed( cte0 )" )
+TWA_ES.OFF.AddAction( "WindSolver.SetAdjTrueWindAngle( cte0 )" )
+
+TWA_ES.TABLE1.AddCondition( "& UseTWATables  == 1" )
+
+TWA_ES.TABLE1.AddAction( "WindSolver.SetAdjTrueWindSpeed( adjWindSpeed )" )
+TWA_ES.TABLE1.AddAction( "WindSolver.SetAdjTrueWindAngle( adjWindAngle )" )
+
+TWA_ES.TABLE2.AddCondition( "& UseTWATables  == 2" )
+
+TWA_ES.TABLE2.AddAction( "WindSolver.SetAdjTrueWindSpeed( adjWindSpeed2 )" )
+TWA_ES.TABLE2.AddAction( "WindSolver.SetAdjTrueWindAngle( adjWindAngle2 )" )
+
+TWA_ES.Start()

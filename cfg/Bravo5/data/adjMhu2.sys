@@ -1,0 +1,20 @@
+new TCurve( adjMhu2Table, ctSplineCurve, 13, bg213AWA2i, 0 )
+adjMhu2Table.SetUseAbsX( false )
+//
+// Set points for curve <adjMhu2Table>
+//
+adjMhu2Table.SetValue( 1, -180.00000, 0.00000 )
+adjMhu2Table.SetValue( 2, -150.00000, 0.00000 )
+adjMhu2Table.SetValue( 3, -120.00000, 0.00000 )
+adjMhu2Table.SetValue( 4, -90.00000, 0.00000 )
+adjMhu2Table.SetValue( 5, -60.00000, 0.00000 )
+adjMhu2Table.SetValue( 6, -30.00000, 0.00000 )
+adjMhu2Table.SetValue( 7, 0.00000, 0.00000 )
+adjMhu2Table.SetValue( 8, 30.00000, 0.00000 )
+adjMhu2Table.SetValue( 9, 60.00000, 0.00000 )
+adjMhu2Table.SetValue( 10, 90.00000, 0.00000 )
+adjMhu2Table.SetValue( 11, 120.00000, 0.00000 )
+adjMhu2Table.SetValue( 12, 150.00000, 0.00000 )
+adjMhu2Table.SetValue( 13, 180.00000, 0.00000 )
+// Build curve <adjMhu2Table>
+adjMhu2Table.BuildCurve()

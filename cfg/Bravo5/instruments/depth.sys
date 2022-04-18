@@ -1,0 +1,19 @@
+#------------------------------------------------------------------------------
+# Name: depth.sys
+# Description:  
+# Inputs:  
+#
+# Parameters: 
+#
+# Dependences:
+# 
+# Outputs: 
+#------------------------------------------------------------------------------
+# Author: JL.Vela
+# Date: May 19th, 2010
+# Copyright: Bravo Systems SL. All Rights Reserved.
+#------------------------------------------------------------------------------
+
+new TSetting( DepthOffset, "CalsFile", 0 )
+
+new TAdd( senDEPTHorg, Depth_NMEA_Dbt_DepthInMeters, DepthOffset,  0 )

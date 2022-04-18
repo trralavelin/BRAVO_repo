@@ -1,0 +1,63 @@
+#------------------------------------------------------------------------------
+#
+# Name: Mast_Expert
+#
+# Description:  Mast Selector
+#
+# Inputs:
+#
+# Parameters:
+#.             MastRotToUse
+# Dependences:
+#              MastRotationManual
+#              MastRotation1_Input
+#              MastRotation2_Input
+#
+# Computed Vars
+#  
+#
+# Outputs:
+#    
+#
+#------------------------------------------------------------------------------
+#
+#------------------------------------------------------------------------------
+new TSetting( MastRotToUse, 1, 0 )
+new TSetting( MastRotationManual, 0, 0 )
+new TChooser( MastRotationAuto, "&MastRotToUse ==0", 0, 1, CalculeVar_10 )
+
+new TExpertSys( Mast_Angle_ES )
+//
+// ExpertSystem States
+//
+Mast_Angle_ES.AddState( MadMast_angle1 )
+Mast_Angle_ES.AddState( MadMast_angle2 )
+Mast_Angle_ES.AddState( MadMast_angle3 )
+Mast_Angle_ES.AddState( MadMast_angle4 )
+Mast_Angle_ES.AddState( Manual )
+//
+// ExpertSystem Conditions
+//
+Mast_Angle_ES.Stop()
+
+Mast_Angle_ES.MadMast_angle1.AddCondition( "& MastRotToUse  == 1" )
+
+Mast_Angle_ES.MadMast_angle1.AddAction( "MastRotation.Source.Set( MastRotation1_Input )" )
+
+Mast_Angle_ES.MadMast_angle2.AddCondition( "& MastRotToUse  == 2" )
+
+Mast_Angle_ES.MadMast_angle2.AddAction( "MastRotation.Source.Set( MastRotation2_Input )" )
+
+Mast_Angle_ES.MadMast_angle3.AddCondition( "& MastRotToUse  == 3" )
+
+Mast_Angle_ES.MadMast_angle3.AddAction( "MastRotation.Source.Set( MastRotation3_Input )" )
+
+Mast_Angle_ES.MadMast_angle4.AddCondition( "& MastRotToUse  == 4" )
+
+Mast_Angle_ES.MadMast_angle4.AddAction( "MastRotation.Source.Set( MastRotation4_Input )" )
+
+Mast_Angle_ES.Manual.AddCondition( "& MastRotToUse  == 0" )
+
+Mast_Angle_ES.Manual.AddAction( "MastRotation.Source.Set( MastRotationManual )" )
+
+Mast_Angle_ES.Start()

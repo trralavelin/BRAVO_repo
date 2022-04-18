@@ -1,0 +1,130 @@
+#------------------------------------------------------------------------------
+#
+# Name: Mhu_Expert
+#
+# Description:  Mhu Selector
+#
+# Inputs:
+#
+# Parameters:
+#.             MhuToUse
+# Dependences:
+# 
+#
+# Computed Vars
+#  
+#
+# Outputs:
+#    
+#
+#------------------------------------------------------------------------------
+#
+#------------------------------------------------------------------------------
+new TSetting( MhuToUse, 1, 0 )
+new TSetting( MhuAuto, 1, 0 )
+new TSetting( MhuSpare, 1, 0 )
+
+new TExpertSys( Mhu_ES )
+//
+// ExpertSystem States
+//
+Mhu_ES.AddState( Mhu1 )
+Mhu_ES.AddState( Mhu2 )
+Mhu_ES.AddState( Mhu3 )
+Mhu_ES.AddState( Mhu4 )
+Mhu_ES.AddState( MhuArriereTb )
+Mhu_ES.AddState( MhuArriereBb )
+//
+// ExpertSystem Conditions
+//
+Mhu_ES.Stop()
+
+Mhu_ES.Mhu1.AddCondition( "&MhuToUse  == 1 " )
+
+Mhu_ES.Mhu1.AddAction( "mhuAWSm.Source.Set( nkeAWSm )" )
+Mhu_ES.Mhu1.AddAction( "mhuAWAm.Source.Set( nkeAWAofc )" )
+Mhu_ES.Mhu1.AddAction( "cteMhuToRefZ.SetValue( 29.96 )" )
+
+Mhu_ES.Mhu2.AddCondition( "&MhuToUse  == 2 " )
+
+Mhu_ES.Mhu2.AddAction( "mhuAWSm.Source.Set( nkeAWS2m )" )
+Mhu_ES.Mhu2.AddAction( "mhuAWAm.Source.Set( nkeAWA2ofc )" )
+Mhu_ES.Mhu2.AddAction( "cteMhuToRefZ.SetValue( 29.0 )" )
+
+Mhu_ES.Mhu3.AddCondition( "& MhuToUse  == 3 and &MhuSpare == 0 " )
+
+Mhu_ES.Mhu3.AddAction( "mhuAWSm.Source.Set( nkeAWS3m )" )
+Mhu_ES.Mhu3.AddAction( "mhuAWAm.Source.Set( nkeAWA3ofc )" )
+Mhu_ES.Mhu3.AddAction( "cteMhuToRefZ.SetValue( 29.0 )" )
+
+Mhu_ES.Mhu4.AddCondition( "& MhuToUse  == 4 and &MhuSpare == 0 " )
+
+Mhu_ES.Mhu4.AddAction( "mhuAWSm.Source.Set( nkeAWS4m )" )
+Mhu_ES.Mhu4.AddAction( "mhuAWAm.Source.Set( nkeAWA4ofc )" )
+Mhu_ES.Mhu4.AddAction( "cteMhuToRefZ.SetValue( 5 )" )
+
+Mhu_ES.MhuArriereTb.AddCondition( "& MhuToUse  == 3 and &MhuSpare == 1 " )
+
+Mhu_ES.MhuArriereTb.AddAction( "mhuAWSm.Source.Set( nkeAWS3m )" )
+Mhu_ES.MhuArriereTb.AddAction( "mhuAWAm.Source.Set( nkeAWA3ofc )" )
+Mhu_ES.MhuArriereTb.AddAction( "cteMhuToRefZ.SetValue( 3.3 )" )
+
+Mhu_ES.MhuArriereBb.AddCondition( "& MhuToUse  == 4 and &MhuSpare == 1 " )
+
+Mhu_ES.MhuArriereBb.AddAction( "mhuAWSm.Source.Set( nkeAWS4m )" )
+Mhu_ES.MhuArriereBb.AddAction( "mhuAWAm.Source.Set( nkeAWA4ofc )" )
+Mhu_ES.MhuArriereBb.AddAction( "cteMhuToRefZ.SetValue( 3.3 )" )
+
+Mhu_ES.Start()
+
+# Source auto-switch
+new TExpertSys( Mhu_AUTO )
+//
+// ExpertSystem States
+//
+Mhu_AUTO.AddState( Mhu1 )
+Mhu_AUTO.AddState( Mhu2 )
+Mhu_AUTO.AddState( Mhu3 )
+Mhu_AUTO.AddState( Mhu4 )
+Mhu_AUTO.AddState( MhuArriereTb )
+Mhu_AUTO.AddState( MhuArriereBb )
+Mhu_AUTO.AddState( MhuOK )
+Mhu_AUTO.AddState( MhuKO )
+//
+// ExpertSystem Conditions
+//
+Mhu_AUTO.Stop()
+
+Mhu_AUTO.Mhu1.AddCondition( "(&MhuAuto == 1) and (&AWnke1valid == 1)" )
+
+Mhu_AUTO.Mhu1.AddAction( "MhuToUse.SetValue( 1 )" )
+
+Mhu_AUTO.Mhu2.AddCondition( "(&MhuAuto == 1) and (&AWnke1valid == 0) and (&AWnke2valid == 1)" )
+
+Mhu_AUTO.Mhu2.AddAction( "MhuToUse.SetValue( 2 )" )
+
+Mhu_AUTO.Mhu3.AddCondition( "(&MhuAuto == 1) and (&AWnke1valid == 0) and (&AWnke2valid == 0)and (&AWnke3valid == 1)" )
+
+Mhu_AUTO.Mhu3.AddAction( "MhuToUse.SetValue( 3 )" )
+
+Mhu_AUTO.Mhu4.AddCondition( "(&MhuAuto == 1) and (&AWnke1valid == 0) and (&AWnke2valid == 0)and (&AWnke3valid == 0) and (&AWnke4valid == 1)" )
+
+Mhu_AUTO.Mhu4.AddAction( "MhuToUse.SetValue( 4 )" )
+
+Mhu_AUTO.MhuArriereTb.AddCondition( "(&MhuAuto == 1) and (&MhuSpare == 1) and (&AWnke1valid == 0) and (&AWnke2valid == 0)and (&AWnke3valid == 1) and (&Heel > 0)" )
+
+Mhu_AUTO.MhuArriereTb.AddAction( "MhuToUse.SetValue( 3 )" )
+
+Mhu_AUTO.MhuArriereBb.AddCondition( "(&MhuAuto == 1) and (&MhuSpare == 1) and (&AWnke1valid == 0) and (&AWnke2valid == 0) and (&AWnke4valid == 1) and (&Heel < 0)" )
+
+Mhu_AUTO.MhuArriereBb.AddAction( "MhuToUse.SetValue( 4 )" )
+
+Mhu_AUTO.MhuOK.AddCondition( "(&AWnke1valid == 1) or (&AWnke2valid == 1) or (&AWnke3valid == 1) or (&AWnke4valid == 1)" )
+
+Mhu_AUTO.MhuOK.AddAction( "MAD_AwaValid.SetValue( 1 )" )
+
+Mhu_AUTO.MhuKO.AddCondition( "(&AWnke1valid == 0) and (&AWnke2valid == 0) and (&AWnke3valid == 0) and (&AWnke4valid == 0)" )
+
+Mhu_AUTO.MhuKO.AddAction( "MAD_AwaValid.SetValue( 0 )" )
+
+Mhu_AUTO.Start()

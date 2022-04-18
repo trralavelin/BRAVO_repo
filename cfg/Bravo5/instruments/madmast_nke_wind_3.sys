@@ -1,0 +1,21 @@
+#------------------------------------------------------------------------------
+# Apparent Wind Angle Measured
+#------------------------------------------------------------------------------
+new TSetting( NkeOffset_3, -4, 0 )
+new TAdd180( nkeAWA3ofc, AWA3nke_Input, NkeOffset_3, CalculeVar_025 )
+
+#------------------------------------------------------------------------------
+# Apparent Wind Speed Measured
+#------------------------------------------------------------------------------
+new TCopy( nkeAWS3m, AWS3nke_Input, CalculeVar_025 )
+
+
+#------------------------------------------------------------------------------
+# Apparent Wind Validation checks
+#------------------------------------------------------------------------------
+new TSetting( AWnke3UpdateDuration, 10, 0 )
+new TIsUpdating( AWAnke3updating, MadintecCan_MAD_Interface_MAST_AWA3, AWnke1UpdateDuration, CalculeVar_010 )
+new TIsUpdating( AWSnke3updating, MadintecCan_MAD_Interface_MAST_AWS3, AWnke1UpdateDuration, CalculeVar_010 )
+
+
+new TChooser( AWnke3valid, "(&AWAnke3updating) and (&AWSnke3updating)", 1, 0, CalculeVar_010 )

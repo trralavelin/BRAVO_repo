@@ -1,0 +1,117 @@
+#------------------------------------------------------------------------------
+#
+# Name: MAD_target_Expert
+#
+# Description:  Autopilot IHM Target Formater
+#
+# Inputs:
+#    MadintecCan_MAD_Brain_Pilote_Target
+#    MadintecCan_MAD_Brain_Pilote_Mode
+#    MadintecCan_MAD_Brain_Pilote_State
+#
+# Parameters:
+#
+# Dependences:
+#    RudderAngle
+#    MAD_Yaw
+#    MAD_Awa
+#    MAD_Twa
+#    MAD_TargetTwa
+#
+# Computed Vars
+#    MAD_TargetIHM
+#    MAD_ValueForTarget
+#    MAD_offcet
+#
+# Outputs:
+#    MAD_TGT_ES_OFF
+#    MAD_TGT_ES_RUDDER
+#    MAD_TGT_ES_HEADING
+#    MAD_TGT_ES_AWA
+#    MAD_TGT_ES_TWA
+#    MAD_TGT_ES_POLAR
+#    MAD_TGT_ES_SUPPERF
+#    MAD_TGT_ES_SUPSECU
+#
+#------------------------------------------------------------------------------
+# Author: Hugo Kerhascoet
+# Date: June, 2018
+# Copyright: Madintec
+#------------------------------------------------------------------------------
+new TCopy( MAD_TargetIHM, cte888, CalculeVar_0010 )
+new TCopy( MAD_ValueForTarget, MAD_Yaw, CalculeVar_0010 )
+new TCopy( MAD_offcet, MadintecCan_MAD_Brain_Pilote_SupPerf_ofc, CalculeVar_0010 )
+
+new TSetting( cte888, 888, 0 )
+
+new TExpertSys( MAD_TGT_ES )
+//
+// ExpertSystem States
+//
+MAD_TGT_ES.AddState( OFF )
+MAD_TGT_ES.AddState( RUDDER )
+MAD_TGT_ES.AddState( HEADING )
+MAD_TGT_ES.AddState( AWA )
+MAD_TGT_ES.AddState( TWA )
+MAD_TGT_ES.AddState( POLAR )
+MAD_TGT_ES.AddState( SUPPERF )
+MAD_TGT_ES.AddState( SUPSECU )
+//
+// ExpertSystem Conditions
+//
+MAD_TGT_ES.Stop()
+
+MAD_TGT_ES.OFF.AddCondition( "&MadintecCan_MAD_Brain_Pilote_State  == 0" )
+
+MAD_TGT_ES.OFF.AddAction( "MAD_ValueForTarget.Source.Set( MAD_Yaw )" )
+MAD_TGT_ES.OFF.AddAction( "N2k.Out.BGTextUser1.SetShortName( 'off' )" )
+MAD_TGT_ES.OFF.AddAction( "N2k.Out.BGTextUser6.SetShortName( 'Heading' )" )
+MAD_TGT_ES.OFF.AddAction( "MAD_TargetIHM.Source.Set( cte888 )" )
+MAD_TGT_ES.OFF.AddAction( "MAD_offcet.Source.Set( MadintecCan_MAD_Brain_Pilote_SupPerf_ofc )" )
+
+MAD_TGT_ES.RUDDER.AddCondition( "(&MadintecCan_MAD_Brain_Pilote_State  == 1) and (&MadintecCan_MAD_Brain_Pilote_Mode == 1)" )
+
+MAD_TGT_ES.RUDDER.AddAction( "MAD_TargetIHM.Source.Set( MadintecCan_MAD_Brain_Pilote_Target_Target )" )
+MAD_TGT_ES.RUDDER.AddAction( "MAD_ValueForTarget.Source.Set( rudder_angle_org )" )
+MAD_TGT_ES.RUDDER.AddAction( "N2k.Out.BGTextUser1.SetShortName( 'R Target' )" )
+MAD_TGT_ES.RUDDER.AddAction( "N2k.Out.BGTextUser6.SetShortName( 'Rudder' )" )
+
+MAD_TGT_ES.HEADING.AddCondition( "(&MadintecCan_MAD_Brain_Pilote_State  == 1) and (&MadintecCan_MAD_Brain_Pilote_Mode == 2)" )
+
+MAD_TGT_ES.HEADING.AddAction( "MAD_TargetIHM.Source.Set( MadintecCan_MAD_Brain_Pilote_Target_Target )" )
+MAD_TGT_ES.HEADING.AddAction( "MAD_ValueForTarget.Source.Set( MAD_Yaw )" )
+MAD_TGT_ES.HEADING.AddAction( "N2k.Out.BGTextUser1.SetShortName( 'H Target' )" )
+MAD_TGT_ES.HEADING.AddAction( "N2k.Out.BGTextUser6.SetShortName( 'MAD HDG' )" )
+
+MAD_TGT_ES.AWA.AddCondition( "(&MadintecCan_MAD_Brain_Pilote_State  == 1) and (&MadintecCan_MAD_Brain_Pilote_Mode == 3)" )
+
+MAD_TGT_ES.AWA.AddAction( "MAD_TargetIHM.Source.Set( MadintecCan_MAD_Brain_Pilote_Target_Target )" )
+MAD_TGT_ES.AWA.AddAction( "MAD_ValueForTarget.Source.Set( MAD_Awa )" )
+MAD_TGT_ES.AWA.AddAction( "N2k.Out.BGTextUser1.SetShortName( 'A Target' )" )
+MAD_TGT_ES.AWA.AddAction( "N2k.Out.BGTextUser6.SetShortName( 'MAD AWA' )" )
+
+MAD_TGT_ES.TWA.AddCondition( "(&MadintecCan_MAD_Brain_Pilote_State  == 1) and (&MadintecCan_MAD_Brain_Pilote_Mode == 4)" )
+
+MAD_TGT_ES.TWA.AddAction( "MAD_TargetIHM.Source.Set( MadintecCan_MAD_Brain_Pilote_Target_Target )" )
+MAD_TGT_ES.TWA.AddAction( "MAD_ValueForTarget.Source.Set( MadintecCan_MAD_Brain_Pilote_windFusion )" )
+MAD_TGT_ES.TWA.AddAction( "N2k.Out.BGTextUser1.SetShortName( 'W Target' )" )
+MAD_TGT_ES.TWA.AddAction( "N2k.Out.BGTextUser6.SetShortName( 'MAD TWA' )" )
+
+MAD_TGT_ES.POLAR.AddCondition( "(&MadintecCan_MAD_Brain_Pilote_State  == 1) and (&MadintecCan_MAD_Brain_Pilote_Mode == 5)" )
+
+MAD_TGT_ES.POLAR.AddAction( "MAD_TargetIHM.Source.Set( MadintecCan_MAD_Brain_Pilote_Target_Target )" )
+MAD_TGT_ES.POLAR.AddAction( "MAD_ValueForTarget.Source.Set( MAD_TargetTwa )" )
+MAD_TGT_ES.POLAR.AddAction( "N2k.Out.BGTextUser1.SetShortName( 'P Target' )" )
+MAD_TGT_ES.POLAR.AddAction( "N2k.Out.BGTextUser6.SetShortName( 'MAD VMG' )" )
+
+MAD_TGT_ES.SUPPERF.AddCondition( "&MadintecCan_MAD_Brain_Pilote_SupSecu_ofc  == 0" )
+
+MAD_TGT_ES.SUPPERF.AddAction( "MAD_offcet.Source.Set( MadintecCan_MAD_Brain_Pilote_SupPerf_ofc )" )
+MAD_TGT_ES.SUPPERF.AddAction( "N2k.Out.BGTextUser10.SetShortName( 'MAD Perf' )" )
+
+MAD_TGT_ES.SUPSECU.AddCondition( "not &MAD_TGT_ES_SUPPERF" )
+
+MAD_TGT_ES.SUPSECU.AddAction( "MAD_offcet.Source.Set( MadintecCan_MAD_Brain_Pilote_SupSecu_ofc )" )
+MAD_TGT_ES.SUPSECU.AddAction( "N2k.Out.BGTextUser10.SetShortName( 'Mad Secu' )" )
+
+MAD_TGT_ES.Start()

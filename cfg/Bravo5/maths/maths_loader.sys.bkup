@@ -1,0 +1,23 @@
+#------------------------------------------------------------------------------
+# Maths_loader
+#   Uncomments each functions needed  for setup
+#
+
+load "cfg/Bravo5/maths/boatspeed.sys"
+load "cfg/Bravo5/maths/leeway.sys"
+load "cfg/Bravo5/maths/mast.sys"
+load "cfg/Bravo5/maths/upwash.sys"
+load "cfg/Bravo5/maths/mhu.sys"
+load "cfg/Bravo5/maths/wind.sys"
+load "cfg/Bravo5/maths/wind1.sys"
+load "cfg/Bravo5/maths/wind2.sys"
+load "cfg/Bravo5/maths/wind3.sys"
+load "cfg/Bravo5/maths/wind4.sys"
+load "cfg/Bravo5/maths/current.sys"
+#load "cfg/Bravo5/maths/seastate.sys"
+load "cfg/Bravo5/maths/performance.sys"
+load "cfg/Bravo5/maths/bravo_calcs.sys"
+load "cfg/Bravo5/maths/boat_loads.sys"
+load "cfg/Bravo5/maths/foils_loads.sys"
+load "cfg/Bravo5/maths/perf_vmgTarget.sys"
+load "cfg/Bravo5/maths/amure.sys"

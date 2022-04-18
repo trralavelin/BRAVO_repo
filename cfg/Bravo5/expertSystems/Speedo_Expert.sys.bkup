@@ -1,0 +1,61 @@
+#------------------------------------------------------------------------------
+#
+# Name: Speedo_Expert
+#
+# Description:  Speedo To Use
+# Inputs:
+#
+#        DaggerSpeedometer_Input
+#        SOG_Input
+#        BoatSpeedSolver_Speed
+# Parameters:
+#        BSToUse
+#    
+# Dependences:
+#
+# Computed Vars
+#   
+#
+#
+#
+#------------------------------------------------------------------------------
+# May 2019
+# 
+#------------------------------------------------------------------------------
+new TSetting( BSToUse, 2, 0 )
+
+new TExpertSys( BS_selector_ES )
+//
+// ExpertSystem States
+//
+BS_selector_ES.AddState( Central )
+BS_selector_ES.AddState( SOG )
+BS_selector_ES.AddState( Fusion )
+BS_selector_ES.AddState( Port )
+BS_selector_ES.AddState( Starboard )
+//
+// ExpertSystem Conditions
+//
+BS_selector_ES.Stop()
+
+BS_selector_ES.Central.AddCondition( "(&BSToUse == 1)" )
+
+BS_selector_ES.Central.AddAction( "SOW_Input.Source.Set(DaggerSpeedometer_Input)" )
+
+BS_selector_ES.SOG.AddCondition( "(&BSToUse == 2)" )
+
+BS_selector_ES.SOG.AddAction( "SOW_Input.Source.Set(SOG_Input)" )
+
+BS_selector_ES.Fusion.AddCondition( "(&BSToUse == 3)" )
+
+BS_selector_ES.Fusion.AddAction( "SOW_Input.Source.Set(BoatSpeedSolver_Speed)" )
+
+BS_selector_ES.Port.AddCondition( "(&BSToUse == 4)" )
+
+BS_selector_ES.Port.AddAction( "SOW_Input.Source.Set(Speedometer_Port_Input)" )
+
+BS_selector_ES.Starboard.AddCondition( "(&BSToUse == 5)" )
+
+BS_selector_ES.Starboard.AddAction( "SOW_Input.Source.Set(Speedometer_Stb_Input)" )
+
+BS_selector_ES.Start()

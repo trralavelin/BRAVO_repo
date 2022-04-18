@@ -1,0 +1,70 @@
+#------------------------------------------------------------------------------
+#
+# Name: Buzz_J3min_Expert
+#
+# Description: alarme si pas assez de tension dans l'étai de J3 si une voile de tête est en place
+#
+# Inputs:
+#		
+#
+# Parameters:
+#	
+# Dependences:
+#		J3minBuzzCounter
+#
+# Computed Vars:
+#		DCU_BUZZ
+#
+# Outputs:
+#		J3min_Buzz_ES_OK
+#		J3min_Buzz_ES_KO
+#		J3minBuzzCounter_ES_RESET
+#
+#------------------------------------------------------------------------------
+
+new TChooser( J3minValid, "&E3_Input > 200 and &E1_Input > 200", 1, 0, CalculeVar_010 )
+new TChooser( J3min_Alarm, "&E3_1s_mean < 500 and &E1_1s_mean > 1400", 1, 0, CalculeVar_010 )
+
+
+new TExpertSys( J3min_Buzz_ES )
+//
+// ExpertSystem States
+//
+J3min_Buzz_ES.AddState( OK )
+J3min_Buzz_ES.AddState( KO )
+//
+// ExpertSystem Conditions
+//
+J3min_Buzz_ES.Stop()
+
+J3min_Buzz_ES.OK.AddCondition( "&J3minValid or (&DCU_BUZZ_ON == 0) or (&DCU_BUZZ_ON == 1 and &J3minValid == 0 and &J3minBuzzCounter == 0)" )
+
+J3min_Buzz_ES.OK.AddAction( "DCU_BUZZ.Set( 0 )" )
+J3min_Buzz_ES.OK.AddAction( "alarm_nb.SetValue( 0 )" )
+
+J3min_Buzz_ES.KO.AddCondition( "(&DCU_BUZZ_ON == 1) and (&J3min_Alarm == 1) and (&J3minBuzzCounter == 2) " )
+
+J3min_Buzz_ES.KO.AddAction( "DCU_BUZZ.Set( 1 )" )
+J3min_Buzz_ES.KO.AddAction( "alarm_nb.SetValue( 6 )" )
+
+J3min_Buzz_ES.Start()
+
+
+# Buzz counter
+new TAdd( J3minBuzzCounter, J3minBuzzCounter, 1, CalculeVar_001 )
+
+new TExpertSys( J3minBuzzCounter_ES )
+//
+// ExpertSystem States
+//
+J3minBuzzCounter_ES.AddState( RESET )
+//
+// ExpertSystem Conditions
+//
+J3minBuzzCounter_ES.Stop()
+
+J3minBuzzCounter_ES.RESET.AddCondition( "&J3minBuzzCounter > 2" )
+
+J3minBuzzCounter_ES.RESET.AddAction( "J3minBuzzCounter.SetValue( 0 )" )
+
+J3minBuzzCounter_ES.Start()

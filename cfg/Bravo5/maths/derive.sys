@@ -1,0 +1,15 @@
+#--------------------------------------------------------------------------------
+# derive
+#créer Cog_hdg dans bravo5.sys
+
+new TExponential180( delta_fond_surface_filter, 0.00066 )
+
+new TSubtract( Derivesanssigne, HDT, COG_Input, CalculeVar_025 )
+
+new TAbs( Heelabs, Heel, CalculeVar_050 )
+
+new TDivide( HEELSIGN, Heel, Heelabs, CalculeVar_050 )
+new TMultiply( invHEELSIGN, -1, HEELSIGN, CalculeVar_025 )
+
+new TMultiply( derive, Derivesanssigne, HEELSIGN, CalculeVar_025 )
+derive.SetFilter( delta_fond_surface_filter )

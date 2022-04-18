@@ -1,0 +1,32 @@
+
+# Pour l'instant en settings
+new TSetting( mastRake, "CalsFile", 0 )
+new TSetting( mastCant, "CalsFile", 0 )
+new TAdd180( mhuHEELorg_Neg, Heel, mastCant, CalculeVar_050 )
+
+# Vitesses de giration du mat
+
+new TSin( sin_masRot, MastRotation, CalculeVar_050 )
+new TCos( cos_masRot, MastRotation, CalculeVar_050 )
+
+new TMultiply( mhu_pitchrate_1, GyroY_Input, cos_masRot, CalculeVar_050 )
+new TMultiply( mhu_pitchrate_2, GyroX_Input, sin_masRot, CalculeVar_050 )
+new TAdd( mhu_pitchrate, mhu_pitchrate_1, mhu_pitchrate_2, CalculeVar_050 )
+
+new TMultiply( mhu_rollrate_1, GyroX_Input, cos_masRot, CalculeVar_050 )
+new TMultiply( mhu_rollrate_2, GyroY_Input, sin_masRot, CalculeVar_050 )
+new TSubtract( mhu_rollrate, mhu_rollrate_1, mhu_rollrate_2, CalculeVar_050 )
+
+
+new TCopy( mhu_yawrate, GyroZ_Input, CalculeVar_050 )
+
+# Absolute values of acceleration (deg/sec)
+new TAbs( dotHeelabs, dotHeel, CalculeVar_025 )
+new TAbs( dotTrimabs, dotTrim, CalculeVar_025 )
+new TAdd( sumAccelGyr, dotHeelabs, dotHeelabs, CalculeVar_025 )
+# 10 times
+new TMultiply( sum10TimeAccelGyr, sumAccelGyr, cteHalf, CalculeVar_025 )
+
+# Ref For total Giration speed & accel representation
+new TAbs( dotHdgabs, dotHdg, CalculeVar_050 )
+new TAdd( totalGirRef, dotHdgabs, sum10TimeAccelGyr, CalculeVar_025 )

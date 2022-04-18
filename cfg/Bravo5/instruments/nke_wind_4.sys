@@ -1,0 +1,28 @@
+#------------------------------------------------------------------------------
+# Apparent Wind Angle Measured
+#------------------------------------------------------------------------------
+new TSetting( NkeOffset_4, 0, 0 )
+new TAdd180( nkeAWA4ofc, AWA4nke_Input, NkeOffset_4, CalculeVar_025 )
+
+#------------------------------------------------------------------------------
+# Apparent Wind Speed Measured
+#------------------------------------------------------------------------------
+new TCopy( nkeAWS4m, AWS4nke_Input, CalculeVar_025 )
+
+#------------------------------------------------------------------------------
+# Apparent Wind Validation checks
+#------------------------------------------------------------------------------
+new TSetting( AW4UpdateDuration, 5, 0 )
+
+new TLuaVar( AWAnke4updating, "cfg/Bravo5/maths/checker.lua", CalculeVar_001 )
+AWAnke4updating.Params.Add( "x", AWA4nke_Input )
+AWAnke4updating.Params.Add( "N", AW4UpdateDuration )
+AWAnke4updating.Output.Add( "status" )
+
+new TLuaVar( AWSnke4updating, "cfg/Bravo5/maths/checker.lua", CalculeVar_001 )
+AWSnke4updating.Params.Add( "x", AWS4nke_Input )
+AWSnke4updating.Params.Add( "N", AW4UpdateDuration )
+AWSnke4updating.Output.Add( "status" )
+
+
+new TChooser( AWnke4valid, "(&AWAnke4updating_status) and (&AWSnke4updating_status)", 1, 0, CalculeVar_001 )

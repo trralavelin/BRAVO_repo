@@ -1,0 +1,115 @@
+#------------------------------------------------------------------------------
+# Name: 
+# Description:  Adjust wind Speed
+# Inputs:     
+#             TWS2
+#             TWA2
+#
+# Parameters: 
+# Dependences:
+#
+# Outputs:
+#          Adjust Wind Speed
+#------------------------------------------------------------------------------
+# Author: JL.Vela
+# Date: May 19th, 2010
+# Copyright: Bravo Systems SL. All Rights Reserved.
+#------------------------------------------------------------------------------
+
+new TWtpTable( adjWindSpeedTable1_v1 , ttWtpLinearLinearTable,5, TWS, TWA, CalculeVar_025 )
+adjWindSpeedTable1_v1.SetUseAbsX( true )
+adjWindSpeedTable1_v1.SetUseAbsY( true )
+//
+// Points for table adjWindSpeedTable1_v1
+//
+adjWindSpeedTable1_v1.AddRow( 4.000000 )
+adjWindSpeedTable1_v1.SetPoint( 0, 0, 20.000000, 0.000000 )
+adjWindSpeedTable1_v1.SetPoint( 0, 1, 63.000000, 0.000000 )
+adjWindSpeedTable1_v1.SetPoint( 0, 2, 100.000000, 0.000000 )
+adjWindSpeedTable1_v1.SetPoint( 0, 3, 120.000000, 0.000000 )
+adjWindSpeedTable1_v1.SetPoint( 0, 4, 170.000000, 0.000000 )
+//--
+adjWindSpeedTable1_v1.AddRow( 6.000000 )
+adjWindSpeedTable1_v1.SetPoint( 1, 0, 20.000000, 0.000000 )
+adjWindSpeedTable1_v1.SetPoint( 1, 1, 60.000000, 0.000000 )
+adjWindSpeedTable1_v1.SetPoint( 1, 2, 100.000000, 0.000000 )
+adjWindSpeedTable1_v1.SetPoint( 1, 3, 125.000000, -1.000000 )
+adjWindSpeedTable1_v1.SetPoint( 1, 4, 170.000000, -0.500000 )
+//--
+adjWindSpeedTable1_v1.AddRow( 8.000000 )
+adjWindSpeedTable1_v1.SetPoint( 2, 0, 20.000000, 0.000000 )
+adjWindSpeedTable1_v1.SetPoint( 2, 1, 59.000000, 0.000000 )
+adjWindSpeedTable1_v1.SetPoint( 2, 2, 100.000000, 0.000000 )
+adjWindSpeedTable1_v1.SetPoint( 2, 3, 127.000000, -1.000000 )
+adjWindSpeedTable1_v1.SetPoint( 2, 4, 170.000000, -0.500000 )
+//--
+adjWindSpeedTable1_v1.AddRow( 10.000000 )
+adjWindSpeedTable1_v1.SetPoint( 3, 0, 20.000000, -0.500000 )
+adjWindSpeedTable1_v1.SetPoint( 3, 1, 58.000000, -0.500000 )
+adjWindSpeedTable1_v1.SetPoint( 3, 2, 100.000000, -1.000000 )
+adjWindSpeedTable1_v1.SetPoint( 3, 3, 130.000000, -1.500000 )
+adjWindSpeedTable1_v1.SetPoint( 3, 4, 170.000000, -0.800000 )
+//--
+adjWindSpeedTable1_v1.AddRow( 12.000000 )
+adjWindSpeedTable1_v1.SetPoint( 4, 0, 20.000000, -1.000000 )
+adjWindSpeedTable1_v1.SetPoint( 4, 1, 58.000000, -1.000000 )
+adjWindSpeedTable1_v1.SetPoint( 4, 2, 100.000000, -1.000000 )
+adjWindSpeedTable1_v1.SetPoint( 4, 3, 132.000000, -2.000000 )
+adjWindSpeedTable1_v1.SetPoint( 4, 4, 170.000000, -1.000000 )
+//--
+adjWindSpeedTable1_v1.AddRow( 14.000000 )
+adjWindSpeedTable1_v1.SetPoint( 5, 0, 20.000000, -1.000000 )
+adjWindSpeedTable1_v1.SetPoint( 5, 1, 58.000000, -1.000000 )
+adjWindSpeedTable1_v1.SetPoint( 5, 2, 100.000000, -1.500000 )
+adjWindSpeedTable1_v1.SetPoint( 5, 3, 135.000000, -2.500000 )
+adjWindSpeedTable1_v1.SetPoint( 5, 4, 170.000000, -1.400000 )
+//--
+adjWindSpeedTable1_v1.AddRow( 16.000000 )
+adjWindSpeedTable1_v1.SetPoint( 6, 0, 20.000000, -1.000000 )
+adjWindSpeedTable1_v1.SetPoint( 6, 1, 58.000000, -1.000000 )
+adjWindSpeedTable1_v1.SetPoint( 6, 2, 100.000000, -1.000000 )
+adjWindSpeedTable1_v1.SetPoint( 6, 3, 135.000000, -3.000000 )
+adjWindSpeedTable1_v1.SetPoint( 6, 4, 170.000000, -1.800000 )
+//--
+adjWindSpeedTable1_v1.AddRow( 18.000000 )
+adjWindSpeedTable1_v1.SetPoint( 7, 0, 20.000000, -1.000000 )
+adjWindSpeedTable1_v1.SetPoint( 7, 1, 58.000000, -1.000000 )
+adjWindSpeedTable1_v1.SetPoint( 7, 2, 100.000000, -1.000000 )
+adjWindSpeedTable1_v1.SetPoint( 7, 3, 135.000000, -3.500000 )
+adjWindSpeedTable1_v1.SetPoint( 7, 4, 170.000000, -2.000000 )
+//--
+adjWindSpeedTable1_v1.AddRow( 20.000000 )
+adjWindSpeedTable1_v1.SetPoint( 8, 0, 20.000000, -1.000000 )
+adjWindSpeedTable1_v1.SetPoint( 8, 1, 55.000000, -1.000000 )
+adjWindSpeedTable1_v1.SetPoint( 8, 2, 100.000000, -1.000000 )
+adjWindSpeedTable1_v1.SetPoint( 8, 3, 135.000000, -3.500000 )
+adjWindSpeedTable1_v1.SetPoint( 8, 4, 170.000000, -2.000000 )
+//--
+adjWindSpeedTable1_v1.AddRow( 24.000000 )
+adjWindSpeedTable1_v1.SetPoint( 9, 0, 20.000000, 0.000000 )
+adjWindSpeedTable1_v1.SetPoint( 9, 1, 55.000000, 0.000000 )
+adjWindSpeedTable1_v1.SetPoint( 9, 2, 100.000000, 0.000000 )
+adjWindSpeedTable1_v1.SetPoint( 9, 3, 145.000000, -3.000000 )
+adjWindSpeedTable1_v1.SetPoint( 9, 4, 170.000000, -1.500000 )
+//--
+adjWindSpeedTable1_v1.AddRow( 28.000000 )
+adjWindSpeedTable1_v1.SetPoint( 10, 0, 20.000000, 0.000000 )
+adjWindSpeedTable1_v1.SetPoint( 10, 1, 55.000000, 0.000000 )
+adjWindSpeedTable1_v1.SetPoint( 10, 2, 100.000000, 0.000000 )
+adjWindSpeedTable1_v1.SetPoint( 10, 3, 145.000000, -2.000000 )
+adjWindSpeedTable1_v1.SetPoint( 10, 4, 170.000000, -1.000000 )
+//--
+adjWindSpeedTable1_v1.AddRow( 32.000000 )
+adjWindSpeedTable1_v1.SetPoint( 11, 0, 20.000000, 0.000000 )
+adjWindSpeedTable1_v1.SetPoint( 11, 1, 55.000000, 0.000000 )
+adjWindSpeedTable1_v1.SetPoint( 11, 2, 100.000000, 0.000000 )
+adjWindSpeedTable1_v1.SetPoint( 11, 3, 150.000000, -1.000000 )
+adjWindSpeedTable1_v1.SetPoint( 11, 4, 170.000000, -0.500000 )
+//--
+adjWindSpeedTable1_v1.AddRow( 50.000000 )
+adjWindSpeedTable1_v1.SetPoint( 12, 0, 20.000000, 0.000000 )
+adjWindSpeedTable1_v1.SetPoint( 12, 1, 55.000000, 0.000000 )
+adjWindSpeedTable1_v1.SetPoint( 12, 2, 100.000000, 0.000000 )
+adjWindSpeedTable1_v1.SetPoint( 12, 3, 150.000000, 0.000000 )
+adjWindSpeedTable1_v1.SetPoint( 12, 4, 170.000000, 0.000000 )
+//--
