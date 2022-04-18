@@ -1,6 +1,6 @@
 #------------------------------------------------------------------------------
 # NMEA 0183 OUT
-new TNmeaDev( NMEAout, Serial3, B19200, NOPAR, L8, S1, 1.000000, B5 )
+new TNmeaDev( NMEAout, Serial3, B38400, NOPAR, L8, S1, 1.000000, B5 )
 NMEAout.EnableFrame ( FrameVTG, nfVTG )
 NMEAout.SetParam ( FrameVTG, 0, Null )	#Track, degrees true
 NMEAout.SetParam ( FrameVTG, 1, COG )	#Track, degrees magnetic

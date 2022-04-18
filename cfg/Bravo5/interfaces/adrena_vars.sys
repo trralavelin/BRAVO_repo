@@ -1,7 +1,6 @@
 #------------------------------------------------------------------------------
 # Adrena
 new TAdrenaUdpClient( Adrena, 2992 )
-Adrena.AddVar( "" )
 Adrena.AddVar( "Baro" )
 Adrena.AddVar( "Bt_Dehors" )
 Adrena.AddVar( "Heel" )
@@ -20,9 +19,8 @@ Adrena.AddVar( "Rud_Angle" )
 Adrena.AddVar( "Run_Port" )
 Adrena.AddVar( "Run_Stb" )
 Adrena.AddVar( "Solo" )
-Adrena.AddVar( "TWA_CMGci" )
+Adrena.AddVar( "Temp_Ext" )
 Adrena.AddVar( "Temp__int_" )
 Adrena.AddVar( "VMG" )
-Adrena.AddVar( "Vit_ci_CMG" )
 Adrena.AddVar( "dir__WP" )
 Adrena.AddVar( "dist__WP" )

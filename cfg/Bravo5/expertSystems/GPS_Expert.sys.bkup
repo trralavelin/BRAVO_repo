@@ -20,9 +20,9 @@
 #------------------------------------------------------------------------------
 #
 #------------------------------------------------------------------------------
-new TSetting( GPSToUse, 1, 0 )
+new TSetting( GPSToUse, 2, 0 )
 new TSetting( GPSAuto, 1, 0 )
-new TSetting( GPSValid, 0, 0 )
+new TSetting( GPSValid, 1, 0 )
 
 new TExpertSys( GPS_ES )
 //

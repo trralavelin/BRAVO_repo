@@ -2,7 +2,7 @@
 # Amure
 
 
-new TSetting( tack, -1, 0 )
+new TSetting( tack, 1, 0 )
 
 new TExpertSys( amure_ES )
 //

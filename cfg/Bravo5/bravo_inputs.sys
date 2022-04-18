@@ -33,8 +33,9 @@ new TInputVar( Depth_Input, "m", "Depth", "BravoInputs", CalculeVar_010 )
 new TInputVar( WaterTemp_Input, "deg", "Water Temp", "BravoInputs", CalculeVar_001 )
 new TInputVar( InsideTemp_Input, "deg", "Inside Temp", "BravoInputs", CalculeVar_001 )
 
-#Baro
+#Baro / Température
 new TInputVar( Baro_Input, "hPa", "Pression atm", "BravoInputs", CalculeVar_010 )
+new TInputVar( OutsideTemp_Input, "deg", "Outside Temp", "BravoInputs", CalculeVar_001 )
 
 #AHRS/IMU
 new TInputVar( HDT_Input, "deg", "True Heading", "BravoInputs", CalculeVar_050 )
@@ -80,6 +81,7 @@ new TInputVar( Adr_Baro_Input, "hPa", "Baro_Adrena", "BravoInputs", CalculeVar_0
 
 #Keel
 new TInputVar( KeelAngle_Input, "deg", "Keel Angle", "BravoInputs", CalculeVar_025 )
+new TInputVar( KeelAngle2_Input, "deg", "Keel Angle 2", "BravoInputs", CalculeVar_025 )
 new TInputVar( Keel_Press_Stem_Input, "bars", "Pression tige", "BravoInputs", CalculeVar_025 )
 new TInputVar( Keel_Press_Barrel_Input, "bars", "Pression fut", "BravoInputs", CalculeVar_025 )
 

@@ -34,7 +34,7 @@ new TExponentialFilter( MAD_Bs, SOW_Input, linear, MAD_dampBs, MAD_Vars )
 # AWA
 new TSetting( MAD_dampAwa, 0.3, 0 )
 new TExponentialFilter( MAD_Awa, AWAorg, circ180, MAD_dampAwa, MAD_Vars )
-new TSetting( MAD_AwaValid, 0, 0 )
+new TSetting( MAD_AwaValid, 1, 0 )
 
 # AWS
 new TSetting( MAD_dampAws, 0.6, 0 )
