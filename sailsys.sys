@@ -15,7 +15,7 @@
 //    1 -           VarLibrary 15808 @ /SailsysV4/branches/jcd-SailsysV5/libraries/varlib
 //    2 -           StdLibrary 15808 @ /SailsysV4/branches/jcd-SailsysV5/libraries/stdlib
 //    3 -  BravoCommonsLibrary 15808 @ /SailsysV4/branches/jcd-SailsysV5/libraries/bravocommonslib
-//
+//test git
 
 System.CfgVersion( "BRAVO4")
 System.SetErrorDir( "./" )
@@ -33,7 +33,7 @@ RaceCutterEventMng.RegisterRangeEvent( "Warning" )
 RaceMng.SetEnabled( false )
 RaceMng.SetLogEnabled( false )
 RaceMng.SetSourceOfTime( "Default","Default" )
-LogMng.SetDefaultDataDir("./")
+LogMng.SetDefaultDataDir("./") 
 
 #------------------------------------------------------------------------------
 # CPU, NET and DISK performance monitor
