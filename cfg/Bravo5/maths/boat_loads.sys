@@ -13,7 +13,7 @@ new TSetting( E3_coeff, 0.83, 0 )
 
 new TSetting( Main_Sheet_user_offset, 3000, 0 )
 new TSetting( Jib_Sheet_user_offset, 1000, 0 )
-new TSetting( A0_user_offset, 474, 0 )
+new TSetting( A0_user_offset, 0, 0 )
 new TMultiply( A0_user_offset_NEG, A0_user_offset, -1, CalculeVar_001 )
 
 
@@ -83,7 +83,7 @@ E4_ES.Start()
 
 
 
-new TSetting( Capelage_ToUse, 1, 0 )
+new TSetting( Capelage_ToUse, 0, 0 )
 
 new TExpertSys( Capelage_ES )
 //
@@ -261,13 +261,18 @@ foil_activ_peak.Output.Add( "60s_mean" )
 new TLuaVar( adr_vmg, "cfg/Bravo5/maths/lissageFormater.lua", LuaProcess )
 adr_vmg.Params.Add( "input", Adr_VMG_Input )
 adr_vmg.Output.Add( "smooth_mean" )
-new TCopy( Adr_VMG_display, adr_vmg_smooth_mean, CalculeVar_025 )
+new TCopy( Adr_VMG_display, adr_vmg_smooth_mean, CalculeVar_005 )
+
+new TLuaVar( adr_cmg, "cfg/Bravo5/maths/lissageFormater.lua", LuaProcess )
+adr_cmg.Params.Add( "input", Adr_CMG_Input )
+adr_cmg.Output.Add( "smooth_mean" )
+new TCopy( Adr_CMG_display, adr_cmg_smooth_mean, CalculeVar_005 )
 
 
 new TLuaVar( adr_pvit_cible, "cfg/Bravo5/maths/lissageFormater.lua", LuaProcess )
 adr_pvit_cible.Params.Add( "input", Adr_Pvit_cible_Input )
 adr_pvit_cible.Output.Add( "smooth_mean" )
-new TCopy( Adr_Pvit_cible_display, adr_pvit_cible_smooth_mean, CalculeVar_025 )
+new TCopy( Adr_Pvit_cible_display, adr_pvit_cible_smooth_mean, CalculeVar_005 )
 
 
 

@@ -24,7 +24,7 @@
 #------------------------------------------------------------------------------
 
 new TChooser( RunnerValid, "&Runner_Active > 200", 1, 0, CalculeVar_010 )
-new TSetting( Arbalette, 1, 0 )
+new TSetting( Arbalette, 0, 0 )
 new TChooser( Runner_Active_threshold_1s_max, "&Arbalette == 1", Runner_Active_threshold_capelage_1s_max, Runner_Active_threshold_tete_1s_max, CalculeVar_001 )
 new TChooser( Runner_Active_threshold_10s_mean, "&Arbalette == 1", Runner_Active_threshold_capelage_10s_mean, Runner_Active_threshold_tete_10s_mean, CalculeVar_001 )
 new TChooser( Runner_Alarm, "&Runner_On_1s_max > &Runner_Active_threshold_1s_max or &Runner_On_10s_mean > &Runner_Active_threshold_10s_mean", 1, 0, CalculeVar_010 )

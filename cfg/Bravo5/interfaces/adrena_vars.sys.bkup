@@ -3,6 +3,7 @@
 new TAdrenaUdpClient( Adrena, 2992 )
 Adrena.AddVar( "Baro" )
 Adrena.AddVar( "Bt_Dehors" )
+Adrena.AddVar( "CMG" )
 Adrena.AddVar( "Heel" )
 Adrena.AddVar( "J15" )
 Adrena.AddVar( "J2" )

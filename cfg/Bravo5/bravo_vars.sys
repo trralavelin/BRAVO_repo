@@ -201,7 +201,8 @@ new TFinalVar( Foil_Port_Pos_Input_Final, "BravoVars", "%", "linear", 0, "", "",
 new TFinalVar( n2k_Baro_Pa_Final, "BravoVars", "Pa", "linear", 0, "", "", 0, CalculeVar_025 )
 new TFinalVar( n2k_Baro_Temp_Final, "BravoVars", "°C", "linear", 0, "", "", 0, CalculeVar_025 )
 new TFinalVar( Adr_Pvit_cible_Final, "BravoVars", "%", "linear", 0, "", "", 0, CalculeVar_025 )
-new TFinalVar( Adr_VMG_Final, "BravoVars", "%", "linear", 0, "", "", 0, CalculeVar_025 )
+new TFinalVar( Adr_VMG_Final, "BravoVars", "kts", "linear", 0, "", "", 0, CalculeVar_025 )
+new TFinalVar( Adr_CMG_Final, "BravoVars", "kts", "linear", 0, "", "", 0, CalculeVar_025 )
 
 
 

@@ -78,6 +78,7 @@ new TInputVar( Adr_WP_DIR_Input, "deg", "Direction WP", "BravoInputs", CalculeVa
 new TInputVar( Adr_Pvit_cible_Input, "%", "% Polaire ", "BravoInputs", CalculeVar_025 )
 new TInputVar( Adr_VMG_Input, "kts", "VMG_Adrena", "BravoInputs", CalculeVar_025 )
 new TInputVar( Adr_Baro_Input, "hPa", "Baro_Adrena", "BravoInputs", CalculeVar_025 )
+new TInputVar( Adr_CMG_Input, "kts", "CMG_Adrena", "BravoInputs", CalculeVar_025 )
 
 #Keel
 new TInputVar( KeelAngle_Input, "deg", "Keel Angle", "BravoInputs", CalculeVar_025 )
