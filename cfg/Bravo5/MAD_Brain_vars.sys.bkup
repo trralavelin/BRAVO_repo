@@ -5,7 +5,7 @@
 # Yaw
 new TSetting( MAD_dampYaw, 0.15, 0 )
 new TExponentialFilter( MAD_Yaw, HDT_Input, circ360, MAD_dampYaw, MAD_Vars )
-new TSetting( MAD_YawValid, 1, 0 )
+new TSetting( MAD_YawValid, 0, 0 )
 
 # Pitch
 new TSetting( MAD_dampPitch, 0.3, 0 )
@@ -34,7 +34,7 @@ new TExponentialFilter( MAD_Bs, SOW_Input, linear, MAD_dampBs, MAD_Vars )
 # AWA
 new TSetting( MAD_dampAwa, 0.3, 0 )
 new TExponentialFilter( MAD_Awa, AWAorg, circ180, MAD_dampAwa, MAD_Vars )
-new TSetting( MAD_AwaValid, 1, 0 )
+new TSetting( MAD_AwaValid, 0, 0 )
 
 # AWS
 new TSetting( MAD_dampAws, 0.6, 0 )

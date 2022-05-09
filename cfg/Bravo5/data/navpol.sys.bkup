@@ -14,7 +14,7 @@
 # Copyright: Bravo Systems SL. All Rights Reserved.
 #------------------------------------------------------------------------------
 
-new TWtpPolar( Navigation , 6 )
+new TWtpPolar( Navigation, 6 )
 Navigation.AddRow( 0.000000 )
 Navigation.SetPoint( 0, 0, 0.000000, 0.000000 )
 Navigation.SetPoint( 0, 1, 70.000000, 0.000000 )

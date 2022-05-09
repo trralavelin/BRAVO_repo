@@ -1,26 +1,27 @@
 //
 // BRAVO SYSTEMS SL (JJL set-up file).
-//  Architecture  : Not defined
+//  Architecture  : 32 bits
 //  Processor     : Intel
-//  OS            : Linux
-//  Compiler      : GCC
-//  Build Type    : Relese
+//  OS            : Windows
+//  Compiler      : Clang - Embarcadero
+//  Build Type    : Release
 // 
-//  System Version: 5.2.3 (rev.: 15808 @ /SailsysV4/branches/jcd-SailsysV5);
-//  Config Version: BRAVO4
+//  System Version: 5.2.4 (rev.: 18791 @ /SailsysV4/trunk);
+//  Config Version: BRAVO5
 //  Libraries loaded
 //      #                 Name Revision @ Repo
 //  ---------------------------------------------------------------------
-//    0 -        SystemLibrary 15808 @ /SailsysV4/branches/jcd-SailsysV5/libraries/systemlib
-//    1 -           VarLibrary 15808 @ /SailsysV4/branches/jcd-SailsysV5/libraries/varlib
-//    2 -           StdLibrary 15808 @ /SailsysV4/branches/jcd-SailsysV5/libraries/stdlib
-//    3 -  BravoCommonsLibrary 15808 @ /SailsysV4/branches/jcd-SailsysV5/libraries/bravocommonslib
+//    0 -        SystemLibrary 18791 @ /SailsysV4/trunk/libraries/systemlib
+//    1 -           VarLibrary 18791 @ /SailsysV4/trunk/libraries/varlib
+//    2 -           StdLibrary 18791 @ /SailsysV4/trunk/libraries/stdlib
 //
 
-System.CfgVersion( "BRAVO4")
-System.SetErrorDir( "./" )
+System.CfgVersion( "BRAVO5")
+System.SetErrorDir( "./data/" )
+VariableMng.SetVariableDefFilePath( "./data/VariableMng.xml" )
 VariableMng.SetTimeSyncEnabled( true )
 VariableMng.SetTimeSyncSource( GPS_1RMC )
+RaceCutterEventMng.CreateLogger( Xml, RaceCutterXmlEventLogger, "./data/Events.xml" )
 RaceCutterEventMng.RegisterSingleEvent( "BravoWarningStarted" )
 RaceCutterEventMng.RegisterSingleEvent( "BravoErrorStarted" )
 RaceCutterEventMng.RegisterSingleEvent( "BravoWarning" )
@@ -31,9 +32,9 @@ RaceCutterEventMng.RegisterRangeEvent( "BravoError" )
 RaceCutterEventMng.RegisterRangeEvent( "Warning" )
 // WayPointMng Configuration.
 RaceMng.SetEnabled( false )
+RaceMng.SetRoundingCoherenceCheckEnabled( false )
 RaceMng.SetLogEnabled( false )
-RaceMng.SetSourceOfTime( "Default","Default" )
-LogMng.SetDefaultDataDir("./")
+LogMng.SetDefaultDataDir("./data/")
 
 #------------------------------------------------------------------------------
 # CPU, NET and DISK performance monitor
@@ -50,4 +51,5 @@ new TCalcule( CalculeVar_005, 10 )
 new TCalcule( CalculeVar_10, 10 )
 
 // WayPointMng variables Configuration.
+RaceMng.SetSourceOfTime( "Default","Default" )
 DeviceMng.WakeUp()

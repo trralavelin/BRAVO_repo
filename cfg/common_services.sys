@@ -3,7 +3,6 @@
 new TRemoteComunication ( rCom, 1083, All )
 rCom.AddUser ( jjl, "jjl" )
 rCom.AddUser ( bravo4, "bravo4" )
-rCom.SetServerVersion( 1.20 )
 
 # RBSP server to PDAs
 new TRBSPUdpServer ( rbspCom , 5242, All )
