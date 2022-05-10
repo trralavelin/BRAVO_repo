@@ -1,0 +1,49 @@
+//
+// BRAVO SYSTEMS SL (JJL set-up file).
+//  Architecture  : Not defined
+//  Processor     : Intel
+//  OS            : Linux
+//  Compiler      : GCC
+//  Build Type    : Relese
+// 
+//  System Version: 5.2.3 (rev.: 15808 @ /SailsysV4/branches/jcd-SailsysV5);
+//  Config Version: BRAVO4
+//  Libraries loaded
+//      #                 Name Revision @ Repo
+//  ---------------------------------------------------------------------
+//    0 -        SystemLibrary 15808 @ /SailsysV4/branches/jcd-SailsysV5/libraries/systemlib
+//    1 -           VarLibrary 15808 @ /SailsysV4/branches/jcd-SailsysV5/libraries/varlib
+//    2 -           StdLibrary 15808 @ /SailsysV4/branches/jcd-SailsysV5/libraries/stdlib
+//    3 -  BravoCommonsLibrary 15808 @ /SailsysV4/branches/jcd-SailsysV5/libraries/bravocommonslib
+//
+
+System.CfgVersion( "BRAVO4")
+System.SetErrorDir( "./data/" )
+VariableMng.SetTimeSyncEnabled( true )
+VariableMng.SetTimeSyncSource( GPS_1RMC )
+RaceCutterEventMng.RegisterSingleEvent( "BravoWarningStarted" )
+RaceCutterEventMng.RegisterSingleEvent( "BravoErrorStarted" )
+RaceCutterEventMng.RegisterSingleEvent( "BravoWarning" )
+RaceCutterEventMng.RegisterSingleEvent( "BravoErrorTerminated" )
+RaceCutterEventMng.RegisterSingleEvent( "BravoWarningTerminated" )
+RaceCutterEventMng.RegisterRangeEvent( "BravoWarning" )
+RaceCutterEventMng.RegisterRangeEvent( "BravoError" )
+RaceCutterEventMng.RegisterRangeEvent( "Warning" )
+// WayPointMng Configuration.
+RaceMng.SetEnabled( false )
+RaceMng.SetLogEnabled( false )
+RaceMng.SetSourceOfTime( "Default","Default" )
+LogMng.SetDefaultDataDir("./data/")
+
+#------------------------------------------------------------------------------
+# CPU, NET and DISK performance monitor
+new TCPUPerf( Bravo4_PC, 0.5 )
+new TDf( Bravo4_DISK, "/dev/sda3", 0.2 )
+
+#------------------------------------------------------------------------------
+load "cfg/common_services.sys"
+load "cfg/basic_constants.sys"
+load "cfg/Bravo5/Bravo5.sys"
+
+// WayPointMng variables Configuration.
+DeviceMng.WakeUp()

@@ -1,0 +1,44 @@
+#------------------------------------------------------------------------------
+# Load the hardware setup to use. Analogs, pulses, serials ...
+load "cfg/Bravo5/bravo_hardware.sys"
+
+# Load the instruments setup files
+load "cfg/Bravo5/bravo_inputs.sys"
+load "cfg/Bravo5/bravo_vars.sys"
+
+# Interfaces
+load "cfg/Bravo5/interfaces/interfaces_loader.sys"
+
+# Load instruments
+load "cfg/Bravo5/instruments/instruments_loader.sys"
+
+# Load maths Functions
+load "cfg/Bravo5/maths/maths_loader.sys"
+
+# Load Pilot
+load "cfg/Bravo5/pilots/pilots_loader.sys"
+
+# DataLogging
+load "cfg/Bravo5/logs.sys"
+
+# Load MAD_Brain
+load "cfg/Bravo5/MAD_Brain_vars.sys"
+
+# Load Experts
+load "cfg/Bravo5/expertSystems/expertSystems_loader.sys"
+
+#------------------------------------------------------------------------------
+new TSetting( cteDistanceToRun, 1, 0 )
+
+new TCalcule( CalculeVar_050, 50 )
+
+
+new TCalcule( CalculeVar_025, 25 )
+
+
+new TCalcule( CalculeVar_0010, 10 )
+
+
+new TCalcule( CalculeVar_001, 1 )
+
+new TCalcule( CalculeVar_missings, 5 )
