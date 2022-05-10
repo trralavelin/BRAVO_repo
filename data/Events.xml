@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RaceCutterEvents>
+  <Header>
+    <Version>1.0</Version>
+  </Header>
+  <Data>
+      <!--  Event log Start  -->
+      <Event EVENTTYPE="Single" EVENTNAME="BravoWarningStarted" THEDATETIME="09/May/2022 21:37:50.686" OBJECT="VariableMng" COMMENTS="VarMng GmtOffsetValue(0.000000) does not match current OS UTC Offset (2.000000)." />
+      <Event EVENTTYPE="Single" EVENTNAME="BravoErrorStarted" THEDATETIME="09/May/2022 21:37:50.861" OBJECT="n2kGpsValid" COMMENTS="n2kGpsValid: Eval error - Shell::ValueOf: Object &lt;Dev_Precision_9_Compass_1081815_Pgn129025_IsValid&gt; not found" />
+      <Event EVENTTYPE="Single" EVENTNAME="BravoErrorStarted" THEDATETIME="09/May/2022 21:37:50.861" OBJECT="gpsN2kTimeValid" COMMENTS="gpsN2kTimeValid: Eval error - Shell::ValueOf: Object &lt;Dev_Zeus3_7_iGPS_1441847_Pgn129025_IsValid&gt; not found" />
+  </Data>
+</RaceCutterEvents>

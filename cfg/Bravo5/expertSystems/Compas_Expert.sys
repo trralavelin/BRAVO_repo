@@ -37,7 +37,7 @@
 #------------------------------------------------------------------------------
 #
 #------------------------------------------------------------------------------
-new TSetting( CompasToUse, 3, 0 )
+new TSetting( CompasToUse, 1, 0 )
 new TSetting( CompasAuto, 1, 0 )
 
 new TExpertSys( Compas_ES )

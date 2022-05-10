@@ -1,4 +1,13 @@
 
+#------------------------------------------------------------------------------
+# We create the device from hardware.sys
+##new T3DMGX4_45( MicroStrain, Serial1, B115200, NOPAR, L8, S1 )
+
+#------------------------------------------------------------------------------
+# We create the device
+
+new T3DMGX4_45( MicroStrain, Serial5, B115200, NOPAR, L8, S1 )
+
 
 new TSetting( msHeelFactor, -1, 0 )
 new TSetting( msTrimFactor, 1, 0 )
