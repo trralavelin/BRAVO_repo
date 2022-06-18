@@ -69,7 +69,7 @@ adjWindSpeedTable.SetPoint( 6, 0, 20.000000, -1.000000 )
 adjWindSpeedTable.SetPoint( 6, 1, 58.000000, -1.000000 )
 adjWindSpeedTable.SetPoint( 6, 2, 100.000000, -1.000000 )
 adjWindSpeedTable.SetPoint( 6, 3, 135.000000, -2.000000 )
-adjWindSpeedTable.SetPoint( 6, 4, 170.000000, -0.500000 )
+adjWindSpeedTable.SetPoint( 6, 4, 170.000000, -2.000000 )
 //--
 adjWindSpeedTable.AddRow( 18.000000 )
 adjWindSpeedTable.SetPoint( 7, 0, 20.000000, -1.000000 )

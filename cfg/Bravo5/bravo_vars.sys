@@ -25,7 +25,7 @@ new TFinalVar( CurrDrift, "BravoVars", "kts", "linear", 1, "Current speed", "", 
 new TFinalVar( CurrSet, "BravoVars", "deg", "circ360", 0, "Current direction", "", 0, CalculeVar_025 )
 new TFinalVar( WindShear, "BravoVars", "deg", "linear", 0, "Wind shear offset", "", 0, CalculeVar_025 )
 new TFinalVar( WindWeight, "BravoVars", "[0..1]", "linear", 2, "Wind weight factor", "", 0, CalculeVar_025 )
-
+new TFinalVar( Depth, "BravoVars", "[0..1]", "linear", 2, "Depth", "", 0, CalculeVar_001 )
 new TFinalVar( Lat, "BravoVars", "ddmm.m", "position", 7, "Latitude", "", 0, CalculeVar_025 )
 new TFinalVar( Lon, "BravoVars", "ddmm.m", "position", 7, "Longitude", "", 0, CalculeVar_025 )
 new TFinalVar( PosFixTime, "BravoVars", "hhmmss", "linear", 2, "Position fix time", "", 0, CalculeVar_025 )
@@ -43,7 +43,7 @@ new TFinalVar( Heel, "BravoVars", "deg", "circ180", 1, "Heel (+ stbd tack)", "",
 new TFinalVar( Trim, "BravoVars", "deg", "circ180", 1, "Trim (+ bow up)", "", 0, CalculeVar_050 )
 new TFinalVar( BS, "BravoVars", "kts", "linear", 2, "Boatspeed", "", 0, CalculeVar_050 )
 new TFinalVar( Yaw, "BravoVars", "deg", "circ180", 2, "Leeway from GPS", "", 0, CalculeVar_050 )
-new TFinalVar( Lwy, "BravoVars", "deg", "circ180", 2, "Leeway", "", 0, CalculeVar_025 )
+new TFinalVar( Lwy, "BravoVars", "deg", "circ180", 2, "Leeway", "", 3, CalculeVar_025 )
 new TFinalVar( Cse, "BravoVars", "deg", "circ360", 0, "Course Over Water", "", 0, CalculeVar_025 )
 new TFinalVar( SOW, "BravoVars", "kts", "linear", 2, "Speed Over Water", "", 0, CalculeVar_025 )
 
@@ -57,6 +57,7 @@ new TFinalVar( TWA, "BravoVars", "deg", "circ180", 1, "True Wind Angle", "", 0, 
 new TFinalVar( TWS, "BravoVars", "kts", "linear", 1, "True Wind Speed", "", 0, CalculeVar_025 )
 new TFinalVar( TWD, "BravoVars", "deg", "circ360", 0, "True Wind Direction", "", 0, CalculeVar_025 )
 
+
 new TFinalVar( AWA1, "BravoVars", "deg", "circ180", 1, "Apparent Wind Angle", "", 0, CalculeVar_025 )
 new TFinalVar( AWS1, "BravoVars", "kts", "linear", 1, "Apparent Wind Speed", "", 0, CalculeVar_025 )
 new TFinalVar( TWA1, "BravoVars", "deg", "circ180", 1, "True Wind Angle", "", 0, CalculeVar_025 )
@@ -68,7 +69,6 @@ new TFinalVar( AWS2, "BravoVars", "kts", "linear", 1, "Apparent Wind Speed", "",
 new TFinalVar( TWA2, "BravoVars", "deg", "circ180", 1, "True Wind Angle", "", 0, CalculeVar_025 )
 new TFinalVar( TWS2, "BravoVars", "kts", "linear", 1, "True Wind Speed", "", 0, CalculeVar_025 )
 new TFinalVar( TWD2, "BravoVars", "deg", "circ360", 0, "True Wind Direction", "", 0, CalculeVar_025 )
-
 
 
 new TFinalVar( AWA3, "BravoVars", "deg", "circ180", 1, "Apparent Wind Angle", "", 0, CalculeVar_025 )

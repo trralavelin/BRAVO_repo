@@ -1,14 +1,19 @@
 #------------------------------------------------------------------------------
 # Apparent Wind Angle Measured
 #------------------------------------------------------------------------------
-new TSetting( NkeOffset, -3, 0 )
-new TAdd180( nkeAWAofc, AWAnke_Input, NkeOffset, CalculeVar_025 )
+new TSetting( NkeOffset, -2, 0 )
+
+
+new TAdd180( nkeAWAofcWS, AWAnke_Input, WindShear, CalculeVar_025 )
+new TAdd180( nkeAWAofc, nkeAWAofcWS, NkeOffset, CalculeVar_025 )
 
 #------------------------------------------------------------------------------
 # Apparent Wind Speed Measured
 #------------------------------------------------------------------------------
 new TCopy( nkeAWSm, AWSnke_Input, CalculeVar_025 )
-
+# Copie de NkeAWARaw, mais avec la rotation -> utilisée pour la calibration 
+new TAdd180( nke1AWAca, AWAnke_Input, MASTROTATIONorg, CalculeVar_025 )
+new TAdd180( nke1AWAcalib, nke1AWAca, NkeOffset, CalculeVar_025 )
 
 #------------------------------------------------------------------------------
 # Apparent Wind Validation checks

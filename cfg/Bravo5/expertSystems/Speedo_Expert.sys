@@ -22,7 +22,7 @@
 # May 2019
 # 
 #------------------------------------------------------------------------------
-new TSetting( BSToUse, 1, 0 )
+new TSetting( BSToUse, 2, 0 )
 
 new TExpertSys( BS_selector_ES )
 //

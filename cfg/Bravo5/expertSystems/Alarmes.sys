@@ -1,0 +1,933 @@
+#------------------------------------------------------------------------------
+#
+# Name: Alarmes
+#
+# Description:  
+#
+# Inputs:
+#		
+#
+# Parameters:
+#	
+# Dependences:
+#		
+#
+# Computed Vars:
+#		
+#
+# Outputs:
+#		
+#
+#------------------------------------------------------------------------------
+new TSetting( DCU_BUZZ_ON, "ExpertsFile", 0 )
+new TSetting( Tag_Time, "ExpertsFile", 0 )
+new TSetting( delay_react_Buzz, "ExpertsFile", 0 )
+new TCopy( BUZZ_State, DCU_BUZZ_ON, CalculeVar_001 )
+
+
+#
+#
+#
+new TExpertSys( TimeTag_Buzz_ES )
+//
+// ExpertSystem States
+//
+TimeTag_Buzz_ES.AddState( OK )
+//
+// ExpertSystem Conditions
+//
+TimeTag_Buzz_ES.Stop()
+
+TimeTag_Buzz_ES.OK.AddCondition( "&BUZZ_State == 0" )
+
+TimeTag_Buzz_ES.OK.AddAction( "Tag_Time.SetValue( &TimeTodaySeconds )" )
+
+TimeTag_Buzz_ES.Start()
+#
+#
+#
+new TSubtract( Delta_Time, TimeTodaySeconds, Tag_Time, CalculeVar_001 )
+#
+#
+#
+new TExpertSys( SW_Buzz_ON_ES )
+//
+// ExpertSystem States
+//
+SW_Buzz_ON_ES.AddState( OK )
+SW_Buzz_ON_ES.AddState( KO )
+//
+// ExpertSystem Conditions
+//
+SW_Buzz_ON_ES.Stop()
+
+SW_Buzz_ON_ES.OK.AddCondition( " &Delta_Time > &delay_react_Buzz " )
+
+SW_Buzz_ON_ES.OK.AddAction( "DCU_BUZZ_ON.Set( 1 )" )
+
+SW_Buzz_ON_ES.KO.AddCondition( " &Delta_Time < &delay_react_Buzz and &DCU_BUZZ_ON == 0" )
+
+SW_Buzz_ON_ES.KO.AddAction( "DCU_BUZZ_ON.Set( 0 )" )
+
+SW_Buzz_ON_ES.Start()
+
+
+
+#----------------------------------------------------------------------#
+#
+#
+#
+
+
+
+
+#---Bastaques---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#
+new TChooser( RunnerValid, "&Runner_Active > 200", 1, 0, CalculeVar_001 )
+new TSetting( Arbalette, 0, 0 )
+new TChooser( Runner_Active_threshold_1s_max, "&Arbalette == 1", Runner_Active_threshold_capelage_1s_max, Runner_Active_threshold_tete_1s_max, CalculeVar_001 )
+new TChooser( Runner_Active_threshold_10s_mean, "&Arbalette == 1", Runner_Active_threshold_capelage_10s_mean, Runner_Active_threshold_tete_10s_mean, CalculeVar_001 )
+new TChooser( Runner_Alarm, "&Runner_On_1s_max > &Runner_Active_threshold_1s_max or &Runner_On_10s_mean > &Runner_Active_threshold_10s_mean", 1, 0, CalculeVar_001 )
+new TSetting( DCU_BUZZ_ON_Runner, "ExpertsFile", 0 )
+new TSetting( Tag_Time_Runner, "ExpertsFile", 0 )
+new TSetting( delay_react_Buzz_Runner, "ExpertsFile", 0 )
+new TCopy( BUZZ_State_Runner, DCU_BUZZ_ON_Runner, CalculeVar_001 )
+
+new TExpertSys( Runner_Buzz_ES )
+//
+// ExpertSystem States
+//
+Runner_Buzz_ES.AddState( OK )
+Runner_Buzz_ES.AddState( KO )
+//
+// ExpertSystem Conditions
+//
+Runner_Buzz_ES.Stop()
+
+Runner_Buzz_ES.OK.AddCondition( "&alarm_nb == 7 and (&DCU_BUZZ_ON == 0 or &Runner_Alarm == 0) " )
+
+Runner_Buzz_ES.OK.AddAction( "DCU_BUZZ.Set( 0 )" )
+Runner_Buzz_ES.OK.AddAction( "alarm_nb.SetValue( 0 )" )
+
+Runner_Buzz_ES.KO.AddCondition( "&DCU_BUZZ_ON == 1 and &Runner_Alarm == 1 " )
+
+Runner_Buzz_ES.KO.AddAction( "DCU_BUZZ.Set( 1 )" )
+Runner_Buzz_ES.KO.AddAction( "alarm_nb.SetValue( 7 )" )
+
+Runner_Buzz_ES.Start()
+#
+#
+new TExpertSys( Runner_TimeTag_Buzz_ES )
+//
+// ExpertSystem States
+//
+Runner_TimeTag_Buzz_ES.AddState( OK )
+//
+// ExpertSystem Conditions
+//
+Runner_TimeTag_Buzz_ES.Stop()
+
+Runner_TimeTag_Buzz_ES.OK.AddCondition( "&BUZZ_State_Runner == 0" )
+
+Runner_TimeTag_Buzz_ES.OK.AddAction( "Tag_Time_Runner.SetValue( &TimeTodaySeconds )" )
+
+Runner_TimeTag_Buzz_ES.Start()
+#
+#
+new TSubtract( Delta_Time_Runner, TimeTodaySeconds, Tag_Time_Runner, CalculeVar_001 )
+#
+#
+new TExpertSys( Runner_SW_Buzz_ON_ES )
+//
+// ExpertSystem States
+//
+Runner_SW_Buzz_ON_ES.AddState( OK )
+Runner_SW_Buzz_ON_ES.AddState( KO )
+//
+// ExpertSystem Conditions
+//
+Runner_SW_Buzz_ON_ES.Stop()
+
+Runner_SW_Buzz_ON_ES.OK.AddCondition( " &Delta_Time_Runner > &delay_react_Buzz_Runner " )
+
+Runner_SW_Buzz_ON_ES.OK.AddAction( "DCU_BUZZ_ON_Runner.Set( 1 )" )
+
+Runner_SW_Buzz_ON_ES.KO.AddCondition( " &Delta_Time_Runner < &delay_react_Buzz_Runner and &DCU_BUZZ_ON_Runner == 0" )
+
+Runner_SW_Buzz_ON_ES.KO.AddAction( "DCU_BUZZ_ON_Runner.Set( 0 )" )
+
+Runner_SW_Buzz_ON_ES.Start()
+#
+#
+#
+#
+#---Outrigger----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#
+new TChooser( OutriggerValid, "&Outrigger_Active > 200", 1, 0, CalculeVar_010 )
+new TChooser( Outrigger_Alarm, "&Outrigger_On_1s_max > &Outrigger_Active_threshold_1s_max or &Outrigger_On_10s_mean > &Outrigger_Active_threshold_10s_mean", 1, 0, CalculeVar_010 )
+new TSetting( DCU_BUZZ_ON_Outrigger, "ExpertsFile", 0 )
+new TSetting( Tag_Time_Outrigger, "ExpertsFile", 0 )
+new TSetting( delay_react_Buzz_Outrigger, "ExpertsFile", 0 )
+new TCopy( BUZZ_State_Outrigger, DCU_BUZZ_ON_Outrigger, CalculeVar_001 )
+
+new TExpertSys( Outrigger_Buzz_ES )
+//
+// ExpertSystem States
+//
+Outrigger_Buzz_ES.AddState( OK )
+Outrigger_Buzz_ES.AddState( KO )
+//
+// ExpertSystem Conditions
+//
+Outrigger_Buzz_ES.Stop()
+
+Outrigger_Buzz_ES.OK.AddCondition( "&DCU_BUZZ_ON == 0 or &Outrigger_Alarm == 0 " )
+
+Outrigger_Buzz_ES.OK.AddAction( "DCU_BUZZ.Set( 0 )" )
+Outrigger_Buzz_ES.OK.AddAction( "alarm_nb.SetValue( 0 )" )
+
+Outrigger_Buzz_ES.KO.AddCondition( "&DCU_BUZZ_ON == 1 and &Outrigger_Alarm == 1 " )
+
+Outrigger_Buzz_ES.KO.AddAction( "DCU_BUZZ.Set( 1 )" )
+Outrigger_Buzz_ES.KO.AddAction( "alarm_nb.SetValue( 8 )" )
+
+Outrigger_Buzz_ES.Start()
+#
+#
+new TExpertSys( Outrigger_TimeTag_Buzz_ES )
+//
+// ExpertSystem States
+//
+Outrigger_TimeTag_Buzz_ES.AddState( OK )
+//
+// ExpertSystem Conditions
+//
+Outrigger_TimeTag_Buzz_ES.Stop()
+
+Outrigger_TimeTag_Buzz_ES.OK.AddCondition( "&BUZZ_State_Outrigger == 0" )
+
+Outrigger_TimeTag_Buzz_ES.OK.AddAction( "Tag_Time_Outrigger.SetValue( &TimeTodaySeconds )" )
+
+Outrigger_TimeTag_Buzz_ES.Start()
+#
+#
+new TSubtract( Delta_Time_Outrigger, TimeTodaySeconds, Tag_Time_Outrigger, CalculeVar_001 )
+#
+#
+new TExpertSys( Outrigger_SW_Buzz_ON_ES )
+//
+// ExpertSystem States
+//
+Outrigger_SW_Buzz_ON_ES.AddState( OK )
+Outrigger_SW_Buzz_ON_ES.AddState( KO )
+//
+// ExpertSystem Conditions
+//
+Outrigger_SW_Buzz_ON_ES.Stop()
+
+Outrigger_SW_Buzz_ON_ES.OK.AddCondition( " &Delta_Time_Outrigger > &delay_react_Buzz_Outrigger " )
+
+Outrigger_SW_Buzz_ON_ES.OK.AddAction( "DCU_BUZZ_ON_Outrigger.Set( 1 )" )
+
+Outrigger_SW_Buzz_ON_ES.KO.AddCondition( " &Delta_Time_Outrigger < &delay_react_Buzz_Outrigger and &DCU_BUZZ_ON_Outrigger == 0" )
+
+Outrigger_SW_Buzz_ON_ES.KO.AddAction( "DCU_BUZZ_ON_Outrigger.Set( 0 )" )
+
+Outrigger_SW_Buzz_ON_ES.Start()
+#
+#
+#
+#
+#---Foil----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#
+new TChooser( FoilPeakValid, "&Foil_Port_peak < -100 or &Foil_Stb_peak < -100", 1, 0, CalculeVar_010 )
+new TChooser( FoilPeak_Alarm, "(&foil_activ_peak_1s_mean < &Foil_Active_peak_threshold) and (&Foil_Active_peak > -7000)", 1, 0, CalculeVar_010 )
+new TSetting( DCU_BUZZ_ON_Foil, "ExpertsFile", 0 )
+new TSetting( Tag_Time_Foil, "ExpertsFile", 0 )
+new TSetting( delay_react_Buzz_Foil, "ExpertsFile", 0 )
+new TCopy( BUZZ_State_Foil, DCU_BUZZ_ON_Foil, CalculeVar_001 )
+
+new TExpertSys( Foil_Buzz_ES )
+//
+// ExpertSystem States
+//
+Foil_Buzz_ES.AddState( OK )
+Foil_Buzz_ES.AddState( KO )
+//
+// ExpertSystem Conditions
+//
+Foil_Buzz_ES.Stop()
+
+Foil_Buzz_ES.OK.AddCondition( "&alarm_nb == 5 and (&DCU_BUZZ_ON == 0 or &FoilPeak_Alarm == 0)  " )
+
+Foil_Buzz_ES.OK.AddAction( "DCU_BUZZ.Set( 0 )" )
+Foil_Buzz_ES.OK.AddAction( "alarm_nb.SetValue( 0 )" )
+
+Foil_Buzz_ES.KO.AddCondition( "&DCU_BUZZ_ON == 1 and &FoilPeak_Alarm == 1 " )
+
+Foil_Buzz_ES.KO.AddAction( "DCU_BUZZ.Set( 1 )" )
+Foil_Buzz_ES.KO.AddAction( "alarm_nb.SetValue( 5 )" )
+
+Foil_Buzz_ES.Start()
+#
+#
+new TExpertSys( Foil_TimeTag_Buzz_ES )
+//
+// ExpertSystem States
+//
+Foil_TimeTag_Buzz_ES.AddState( OK )
+//
+// ExpertSystem Conditions
+//
+Foil_TimeTag_Buzz_ES.Stop()
+
+Foil_TimeTag_Buzz_ES.OK.AddCondition( "&BUZZ_State_Foil == 0" )
+
+Foil_TimeTag_Buzz_ES.OK.AddAction( "Tag_Time_Foil.SetValue( &TimeTodaySeconds )" )
+
+Foil_TimeTag_Buzz_ES.Start()
+#
+#
+new TSubtract( Delta_Time_Foil, TimeTodaySeconds, Tag_Time_Foil, CalculeVar_001 )
+#
+#
+new TExpertSys( Foil_SW_Buzz_ON_ES )
+//
+// ExpertSystem States
+//
+Foil_SW_Buzz_ON_ES.AddState( OK )
+Foil_SW_Buzz_ON_ES.AddState( KO )
+//
+// ExpertSystem Conditions
+//
+Foil_SW_Buzz_ON_ES.Stop()
+
+Foil_SW_Buzz_ON_ES.OK.AddCondition( " &Delta_Time_Foil > &delay_react_Buzz_Foil " )
+
+Foil_SW_Buzz_ON_ES.OK.AddAction( "DCU_BUZZ_ON_Foil.Set( 1 )" )
+
+Foil_SW_Buzz_ON_ES.KO.AddCondition( " &Delta_Time_Foil < &delay_react_Buzz_Foil and &DCU_BUZZ_ON_Foil == 0" )
+
+Foil_SW_Buzz_ON_ES.KO.AddAction( "DCU_BUZZ_ON_Foil.Set( 0 )" )
+
+Foil_SW_Buzz_ON_ES.Start()
+#
+#
+#
+#
+#---E4------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#
+new TChooser( E4Valid, "&E4_Input > 200", 1, 0, CalculeVar_010 )
+new TChooser( E4_Alarm, "&E4_10s_mean > &E4_threshold_10s_mean or &E4_1s_max > &E4_threshold_1s_max", 1, 0, CalculeVar_010 )
+new TSetting( DCU_BUZZ_ON_E4, "ExpertsFile", 0 )
+new TSetting( Tag_Time_E4, "ExpertsFile", 0 )
+new TSetting( delay_react_Buzz_E4, "ExpertsFile", 0 )
+new TCopy( BUZZ_State_E4, DCU_BUZZ_ON_E4, CalculeVar_001 )
+
+new TExpertSys( E4_Buzz_ES )
+//
+// ExpertSystem States
+//
+E4_Buzz_ES.AddState( OK )
+E4_Buzz_ES.AddState( KO )
+//
+// ExpertSystem Conditions
+//
+E4_Buzz_ES.Stop()
+
+E4_Buzz_ES.OK.AddCondition( "&alarm_nb == 4 and (&DCU_BUZZ_ON == 0 or &E4_Alarm == 0 ) " )
+
+E4_Buzz_ES.OK.AddAction( "DCU_BUZZ.Set( 0 )" )
+E4_Buzz_ES.OK.AddAction( "alarm_nb.SetValue( 0 )" )
+
+E4_Buzz_ES.KO.AddCondition( "&DCU_BUZZ_ON == 1 and &E4_Alarm == 1 " )
+
+E4_Buzz_ES.KO.AddAction( "DCU_BUZZ.Set( 1 )" )
+E4_Buzz_ES.KO.AddAction( "alarm_nb.SetValue( 4 )" )
+
+E4_Buzz_ES.Start()
+#
+#
+new TExpertSys( E4_TimeTag_Buzz_ES )
+//
+// ExpertSystem States
+//
+E4_TimeTag_Buzz_ES.AddState( OK )
+//
+// ExpertSystem Conditions
+//
+E4_TimeTag_Buzz_ES.Stop()
+
+E4_TimeTag_Buzz_ES.OK.AddCondition( "&BUZZ_State_E4 == 0" )
+
+E4_TimeTag_Buzz_ES.OK.AddAction( "Tag_Time_E4.SetValue( &TimeTodaySeconds )" )
+
+E4_TimeTag_Buzz_ES.Start()
+#
+#
+new TSubtract( Delta_Time_E4, TimeTodaySeconds, Tag_Time_E4, CalculeVar_001 )
+#
+#
+new TExpertSys( E4_SW_Buzz_ON_ES )
+//
+// ExpertSystem States
+//
+E4_SW_Buzz_ON_ES.AddState( OK )
+E4_SW_Buzz_ON_ES.AddState( KO )
+//
+// ExpertSystem Conditions
+//
+E4_SW_Buzz_ON_ES.Stop()
+
+E4_SW_Buzz_ON_ES.OK.AddCondition( " &Delta_Time_E4 > &delay_react_Buzz_E4 " )
+
+E4_SW_Buzz_ON_ES.OK.AddAction( "DCU_BUZZ_ON_E4.Set( 1 )" )
+
+E4_SW_Buzz_ON_ES.KO.AddCondition( " &Delta_Time_E4 < &delay_react_Buzz_E4 and &DCU_BUZZ_ON_E4 == 0" )
+
+E4_SW_Buzz_ON_ES.KO.AddAction( "DCU_BUZZ_ON_E4.Set( 0 )" )
+
+E4_SW_Buzz_ON_ES.Start()
+#
+#
+#
+#
+#---E3----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#
+new TChooser( E3Valid, "&E3_Input > 200", 1, 0, CalculeVar_010 )
+new TChooser( E3_Alarm, "&E3_1s_max > &E3_threshold_1s_max or &E3_10s_mean > &E3_threshold_10s_mean", 1, 0, CalculeVar_010 )
+new TSetting( DCU_BUZZ_ON_E3, "ExpertsFile", 0 )
+new TSetting( Tag_Time_E3, "ExpertsFile", 0 )
+new TSetting( delay_react_Buzz_E3, "ExpertsFile", 0 )
+new TCopy( BUZZ_State_E3, DCU_BUZZ_ON_E3, CalculeVar_001 )
+
+new TExpertSys( E3_Buzz_ES )
+//
+// ExpertSystem States
+//
+E3_Buzz_ES.AddState( OK )
+E3_Buzz_ES.AddState( KO )
+//
+// ExpertSystem Conditions
+//
+E3_Buzz_ES.Stop()
+
+E3_Buzz_ES.OK.AddCondition( "&alarm_nb == 3 and (&DCU_BUZZ_ON == 0 or &E3_Alarm == 0 ) " )
+
+E3_Buzz_ES.OK.AddAction( "DCU_BUZZ.Set( 0 )" )
+E3_Buzz_ES.OK.AddAction( "alarm_nb.SetValue( 0 )" )
+
+E3_Buzz_ES.KO.AddCondition( "&DCU_BUZZ_ON == 1 and &E3_Alarm == 1 " )
+
+E3_Buzz_ES.KO.AddAction( "DCU_BUZZ.Set( 1 )" )
+E3_Buzz_ES.KO.AddAction( "alarm_nb.SetValue( 3 )" )
+
+E3_Buzz_ES.Start()
+#
+#
+new TExpertSys( E3_TimeTag_Buzz_ES )
+//
+// ExpertSystem States
+//
+E3_TimeTag_Buzz_ES.AddState( OK )
+//
+// ExpertSystem Conditions
+//
+E3_TimeTag_Buzz_ES.Stop()
+
+E3_TimeTag_Buzz_ES.OK.AddCondition( "&BUZZ_State_E3 == 0" )
+
+E3_TimeTag_Buzz_ES.OK.AddAction( "Tag_Time_E3.SetValue( &TimeTodaySeconds )" )
+
+E3_TimeTag_Buzz_ES.Start()
+#
+#
+new TSubtract( Delta_Time_E3, TimeTodaySeconds, Tag_Time_E3, CalculeVar_001 )
+#
+#
+new TExpertSys( E3_SW_Buzz_ON_ES )
+//
+// ExpertSystem States
+//
+E3_SW_Buzz_ON_ES.AddState( OK )
+E3_SW_Buzz_ON_ES.AddState( KO )
+//
+// ExpertSystem Conditions
+//
+E3_SW_Buzz_ON_ES.Stop()
+
+E3_SW_Buzz_ON_ES.OK.AddCondition( " &Delta_Time_E3 > &delay_react_Buzz_E3 " )
+
+E3_SW_Buzz_ON_ES.OK.AddAction( "DCU_BUZZ_ON_E3.Set( 1 )" )
+
+E3_SW_Buzz_ON_ES.KO.AddCondition( " &Delta_Time_E3 < &delay_react_Buzz_E3 and &DCU_BUZZ_ON_E3 == 0" )
+
+E3_SW_Buzz_ON_ES.KO.AddAction( "DCU_BUZZ_ON_E3.Set( 0 )" )
+
+E3_SW_Buzz_ON_ES.Start()
+#
+#
+#
+#
+#---E2------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#
+new TChooser( E2Valid, "&E2_Input > 200", 1, 0, CalculeVar_010 )
+new TChooser( E2_Alarm, "&E2_10s_mean > &E2_threshold_10s_mean or &E2_1s_max > &E2_threshold_1s_max", 1, 0, CalculeVar_010 )
+new TSetting( DCU_BUZZ_ON_E2, "ExpertsFile", 0 )
+new TSetting( Tag_Time_E2, "ExpertsFile", 0 )
+new TSetting( delay_react_Buzz_E2, "ExpertsFile", 0 )
+new TCopy( BUZZ_State_E2, DCU_BUZZ_ON_E2, CalculeVar_001 )
+
+new TExpertSys( E2_Buzz_ES )
+//
+// ExpertSystem States
+//
+E2_Buzz_ES.AddState( OK )
+E2_Buzz_ES.AddState( KO )
+//
+// ExpertSystem Conditions
+//
+E2_Buzz_ES.Stop()
+
+E2_Buzz_ES.OK.AddCondition( "&alarm_nb == 2 and ( &DCU_BUZZ_ON == 0 or &E2_Alarm == 0 ) " )
+
+E2_Buzz_ES.OK.AddAction( "DCU_BUZZ.Set( 0 )" )
+E2_Buzz_ES.OK.AddAction( "alarm_nb.SetValue( 0 )" )
+
+E2_Buzz_ES.KO.AddCondition( " &DCU_BUZZ_ON == 1 and &E2_Alarm == 1 " )
+
+E2_Buzz_ES.KO.AddAction( "DCU_BUZZ.Set( 1 )" )
+E2_Buzz_ES.KO.AddAction( "alarm_nb.SetValue( 2 )" )
+
+E2_Buzz_ES.Start()
+#
+#
+new TExpertSys( E2_TimeTag_Buzz_ES )
+//
+// ExpertSystem States
+//
+E2_TimeTag_Buzz_ES.AddState( OK )
+//
+// ExpertSystem Conditions
+//
+E2_TimeTag_Buzz_ES.Stop()
+
+E2_TimeTag_Buzz_ES.OK.AddCondition( "&BUZZ_State_E2 == 0" )
+
+E2_TimeTag_Buzz_ES.OK.AddAction( "Tag_Time_E2.SetValue( &TimeTodaySeconds )" )
+
+E2_TimeTag_Buzz_ES.Start()
+#
+#
+new TSubtract( Delta_Time_E2, TimeTodaySeconds, Tag_Time_E2, CalculeVar_001 )
+#
+#
+new TExpertSys( E2_SW_Buzz_ON_ES )
+//
+// ExpertSystem States
+//
+E2_SW_Buzz_ON_ES.AddState( OK )
+E2_SW_Buzz_ON_ES.AddState( KO )
+//
+// ExpertSystem Conditions
+//
+E2_SW_Buzz_ON_ES.Stop()
+
+E2_SW_Buzz_ON_ES.OK.AddCondition( " &Delta_Time_E2 > &delay_react_Buzz_E2 " )
+
+E2_SW_Buzz_ON_ES.OK.AddAction( "DCU_BUZZ_ON_E2.Set( 1 )" )
+
+E2_SW_Buzz_ON_ES.KO.AddCondition( " &Delta_Time_E2 < &delay_react_Buzz_E2 and &DCU_BUZZ_ON_E2 == 0" )
+
+E2_SW_Buzz_ON_ES.KO.AddAction( "DCU_BUZZ_ON_E2.Set( 0 )" )
+
+E2_SW_Buzz_ON_ES.Start()
+#
+#
+#
+#
+#---E0/E1------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#
+new TChooser( E0Valid, "&E0_Input > 200", 1, 0, CalculeVar_010 )
+new TChooser( E0_Alarm, "&E0_10s_mean > &E0_threshold_10s_mean or &E0_1s_max > &E0_threshold_1s_max", 1, 0, CalculeVar_010 )
+new TChooser( E1Valid, "&E1_Input > 200", 1, 0, CalculeVar_010 )
+new TChooser( E1_Alarm, "&E1_10s_mean > &E1_threshold_10s_mean or &E1_1s_max > &E1_threshold_1s_max", 1, 0, CalculeVar_010 )
+new TChooser( E0E1Valid, "&E1Valid or &E0Valid", 1, 0, CalculeVar_010 )
+new TChooser( E0E1_Alarm, "&Capelage_ToUse  == 0", E0_Alarm, E1_Alarm, CalculeVar_010 )
+new TSetting( DCU_BUZZ_ON_E0E1, "ExpertsFile", 0 )
+new TSetting( Tag_Time_E0E1, "ExpertsFile", 0 )
+new TSetting( delay_react_Buzz_E0E1, "ExpertsFile", 0 )
+new TCopy( BUZZ_State_E0E1, DCU_BUZZ_ON_E0E1, CalculeVar_001 )
+
+new TExpertSys( E0E1_Buzz_ES )
+//
+// ExpertSystem States
+//
+E0E1_Buzz_ES.AddState( OK )
+E0E1_Buzz_ES.AddState( KO )
+//
+// ExpertSystem Conditions
+//
+E0E1_Buzz_ES.Stop()
+
+E0E1_Buzz_ES.OK.AddCondition( "&alarm_nb == 1 and ( &DCU_BUZZ_ON == 0 or &E0E1_Alarm == 0 ) " )
+
+E0E1_Buzz_ES.OK.AddAction( "DCU_BUZZ.Set( 0 )" )
+E0E1_Buzz_ES.OK.AddAction( "alarm_nb.SetValue( 0 )" )
+
+E0E1_Buzz_ES.KO.AddCondition( " &DCU_BUZZ_ON == 1  and &E0E1_Alarm == 1 " )
+
+E0E1_Buzz_ES.KO.AddAction( "DCU_BUZZ.Set( 1 )" )
+E0E1_Buzz_ES.KO.AddAction( "alarm_nb.SetValue( 1 )" )
+
+E0E1_Buzz_ES.Start()
+#
+#
+new TExpertSys( E0E1_TimeTag_Buzz_ES )
+//
+// ExpertSystem States
+//
+E0E1_TimeTag_Buzz_ES.AddState( OK )
+//
+// ExpertSystem Conditions
+//
+E0E1_TimeTag_Buzz_ES.Stop()
+
+E0E1_TimeTag_Buzz_ES.OK.AddCondition( "&BUZZ_State_E0E1 == 0" )
+
+E0E1_TimeTag_Buzz_ES.OK.AddAction( "Tag_Time_E0E1.SetValue( &TimeTodaySeconds )" )
+
+E0E1_TimeTag_Buzz_ES.Start()
+#
+#
+new TSubtract( Delta_Time_E0E1, TimeTodaySeconds, Tag_Time_E0E1, CalculeVar_001 )
+#
+#
+new TExpertSys( E0E1_SW_Buzz_ON_ES )
+//
+// ExpertSystem States
+//
+E0E1_SW_Buzz_ON_ES.AddState( OK )
+E0E1_SW_Buzz_ON_ES.AddState( KO )
+//
+// ExpertSystem Conditions
+//
+E0E1_SW_Buzz_ON_ES.Stop()
+
+E0E1_SW_Buzz_ON_ES.OK.AddCondition( " &Delta_Time_E0E1 > &delay_react_Buzz_E0E1 " )
+
+E0E1_SW_Buzz_ON_ES.OK.AddAction( "DCU_BUZZ_ON_E0E1.Set( 1 )" )
+
+E0E1_SW_Buzz_ON_ES.KO.AddCondition( " &Delta_Time_E0E1 < &delay_react_Buzz_E0E1 and &DCU_BUZZ_ON_E0E1 == 0" )
+
+E0E1_SW_Buzz_ON_ES.KO.AddAction( "DCU_BUZZ_ON_E0E1.Set( 0 )" )
+
+E0E1_SW_Buzz_ON_ES.Start()
+#
+#
+#
+#
+#---J3 min----------------------------------------------------------------------------------------------------------------------------------------------------------------
+#
+new TChooser( J3minValid, "&E3_Input > 200 and &E1_Input > 200", 1, 0, CalculeVar_010 )
+new TChooser( J3min_Alarm, "&E3_1s_mean < 500 and &E1_1s_mean > 1400", 1, 0, CalculeVar_010 )
+new TSetting( DCU_BUZZ_ON_J3min, "ExpertsFile", 0 )
+new TSetting( Tag_Time_J3min, "ExpertsFile", 0 )
+new TSetting( delay_react_Buzz_J3min, "ExpertsFile", 0 )
+new TCopy( BUZZ_State_J3min, DCU_BUZZ_ON_J3min, CalculeVar_001 )
+
+
+new TExpertSys( J3min_Buzz_ES )
+//
+// ExpertSystem States
+//
+J3min_Buzz_ES.AddState( OK )
+J3min_Buzz_ES.AddState( KO )
+//
+// ExpertSystem Conditions
+//
+J3min_Buzz_ES.Stop()
+
+J3min_Buzz_ES.OK.AddCondition( " &alarm_nb == 6 and ( &DCU_BUZZ_ON == 0 or &J3min_Alarm == 0 ) " )
+
+J3min_Buzz_ES.OK.AddAction( "DCU_BUZZ.Set( 0 )" )
+J3min_Buzz_ES.OK.AddAction( "alarm_nb.SetValue( 0 )" )
+
+J3min_Buzz_ES.KO.AddCondition( "&DCU_BUZZ_ON == 1 and &J3min_Alarm == 1 " )
+
+J3min_Buzz_ES.KO.AddAction( "DCU_BUZZ.Set( 1 )" )
+J3min_Buzz_ES.KO.AddAction( "alarm_nb.SetValue( 6 )" )
+
+J3min_Buzz_ES.Start()
+#
+#
+new TExpertSys( J3min_TimeTag_Buzz_ES )
+//
+// ExpertSystem States
+//
+J3min_TimeTag_Buzz_ES.AddState( OK )
+//
+// ExpertSystem Conditions
+//
+J3min_TimeTag_Buzz_ES.Stop()
+
+J3min_TimeTag_Buzz_ES.OK.AddCondition( "&BUZZ_State_J3min == 0" )
+
+J3min_TimeTag_Buzz_ES.OK.AddAction( "Tag_Time_J3min.SetValue( &TimeTodaySeconds )" )
+
+J3min_TimeTag_Buzz_ES.Start()
+#
+#
+new TSubtract( Delta_Time_J3min, TimeTodaySeconds, Tag_Time_J3min, CalculeVar_001 )
+#
+#
+new TExpertSys( J3min_SW_Buzz_ON_ES )
+//
+// ExpertSystem States
+//
+J3min_SW_Buzz_ON_ES.AddState( OK )
+J3min_SW_Buzz_ON_ES.AddState( KO )
+//
+// ExpertSystem Conditions
+//
+J3min_SW_Buzz_ON_ES.Stop()
+
+J3min_SW_Buzz_ON_ES.OK.AddCondition( " &Delta_Time_J3min > &delay_react_Buzz_J3min " )
+
+J3min_SW_Buzz_ON_ES.OK.AddAction( "DCU_BUZZ_ON_J3min.Set( 1 )" )
+
+J3min_SW_Buzz_ON_ES.KO.AddCondition( " &Delta_Time_J3min < &delay_react_Buzz_J3min and &DCU_BUZZ_ON_J3min == 0" )
+
+J3min_SW_Buzz_ON_ES.KO.AddAction( "DCU_BUZZ_ON_J3min.Set( 0 )" )
+
+J3min_SW_Buzz_ON_ES.Start()
+#
+#
+#
+#
+#---MadBrain----------------------------------------------------------------------------------------------------------------------------------------------------------
+#
+new TChooser( MADvalid, "&MADBRAINvalid and &MADCONTROLLERvalid and &MAD_YawValid", 1, 0, CalculeVar_010 )
+new TSetting( DCU_BUZZ_ON_Brain, "ExpertsFile", 0 )
+new TSetting( Tag_Time_Brain, "ExpertsFile", 0 )
+new TSetting( delay_react_Buzz_Brain, "ExpertsFile", 0 )
+new TCopy( BUZZ_State_Brain, DCU_BUZZ_ON_Brain, CalculeVar_001 )
+#
+new TExpertSys( Brain_Buzz_ES )
+//
+// ExpertSystem States
+//
+Brain_Buzz_ES.AddState( OK )
+Brain_Buzz_ES.AddState( KO )
+//
+// ExpertSystem Conditions
+//
+Brain_Buzz_ES.Stop()
+
+Brain_Buzz_ES.OK.AddCondition( "&alarm_nb == 9 and (&DCU_BUZZ_ON == 0 or &MADvalid == 1 ) " )
+
+Brain_Buzz_ES.OK.AddAction( "DCU_BUZZ.Set( 0 )" )
+Brain_Buzz_ES.OK.AddAction( "alarm_nb.SetValue( 0 )" )
+
+Brain_Buzz_ES.KO.AddCondition( " &DCU_BUZZ_ON == 1 and &MADvalid == 0 and &SOG_Input > 1" )
+
+Brain_Buzz_ES.KO.AddAction( "DCU_BUZZ.Set( 1 )" )
+Brain_Buzz_ES.KO.AddAction( "alarm_nb.SetValue( 9 )" )
+
+Brain_Buzz_ES.Start()
+#
+#
+new TExpertSys( Brain_TimeTag_Buzz_ES )
+//
+// ExpertSystem States
+//
+Brain_TimeTag_Buzz_ES.AddState( OK )
+//
+// ExpertSystem Conditions
+//
+Brain_TimeTag_Buzz_ES.Stop()
+
+Brain_TimeTag_Buzz_ES.OK.AddCondition( "&BUZZ_State_Brain == 0" )
+
+Brain_TimeTag_Buzz_ES.OK.AddAction( "Tag_Time_Brain.SetValue( &TimeTodaySeconds )" )
+
+Brain_TimeTag_Buzz_ES.Start()
+#
+#
+new TSubtract( Delta_Time_Brain, TimeTodaySeconds, Tag_Time_Brain, CalculeVar_001 )
+#
+#
+new TExpertSys( Brain_SW_Buzz_ON_ES )
+//
+// ExpertSystem States
+//
+Brain_SW_Buzz_ON_ES.AddState( OK )
+Brain_SW_Buzz_ON_ES.AddState( KO )
+//
+// ExpertSystem Conditions
+//
+Brain_SW_Buzz_ON_ES.Stop()
+
+Brain_SW_Buzz_ON_ES.OK.AddCondition( " &Delta_Time_Brain > &delay_react_Buzz_Brain " )
+
+Brain_SW_Buzz_ON_ES.OK.AddAction( "DCU_BUZZ_ON_Brain.Set( 1 )" )
+
+Brain_SW_Buzz_ON_ES.KO.AddCondition( " &Delta_Time_Brain < &delay_react_Buzz_Brain and &DCU_BUZZ_ON_Brain == 0" )
+
+Brain_SW_Buzz_ON_ES.KO.AddAction( "DCU_BUZZ_ON_Brain.Set( 0 )" )
+
+Brain_SW_Buzz_ON_ES.Start()
+#
+#
+#
+#
+#---Présence d'eau-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+#
+new TChooser( WS_Alarm, "&Alarm_WS1_Input == 1 or &Alarm_WS2_Input == 1 or &Alarm_WS3_Input == 1 or &Alarm_WS4_Input == 1 or &Alarm_WS5_Input == 1 or &Alarm_WS6_Input == 1 ", 1, 0, CalculeVar_010 )
+new TSetting( DCU_BUZZ_ON_WS, "ExpertsFile", 0 )
+new TSetting( Tag_Time_WS, "ExpertsFile", 0 )
+new TSetting( delay_react_Buzz_WS, "ExpertsFile", 0 )
+new TCopy( BUZZ_State_WS, DCU_BUZZ_ON_WS, CalculeVar_001 )
+#
+new TExpertSys( WS_Alarm_Buzz_ES )
+//
+// ExpertSystem States
+//
+WS_Alarm_Buzz_ES.AddState( OK )
+WS_Alarm_Buzz_ES.AddState( KO )
+//
+// ExpertSystem Conditions
+//
+WS_Alarm_Buzz_ES.Stop()
+
+WS_Alarm_Buzz_ES.OK.AddCondition( "&alarm_nb == 11 and (&DCU_BUZZ_ON == 0 or &WS_Alarm == 0 )" )
+
+WS_Alarm_Buzz_ES.OK.AddAction( "DCU_BUZZ.Set( 0 )" )
+WS_Alarm_Buzz_ES.OK.AddAction( "alarm_nb.SetValue( 0 )" )
+
+WS_Alarm_Buzz_ES.KO.AddCondition( " &DCU_BUZZ_ON == 1 and &WS_Alarm == 1" )
+
+WS_Alarm_Buzz_ES.KO.AddAction( "DCU_BUZZ.Set( 1 )" )
+WS_Alarm_Buzz_ES.KO.AddAction( "alarm_nb.SetValue( 11 )" )
+
+WS_Alarm_Buzz_ES.Start()
+#
+#
+new TExpertSys( WS_TimeTag_Buzz_ES )
+//
+// ExpertSystem States
+//
+WS_TimeTag_Buzz_ES.AddState( OK )
+//
+// ExpertSystem Conditions
+//
+WS_TimeTag_Buzz_ES.Stop()
+
+WS_TimeTag_Buzz_ES.OK.AddCondition( "&BUZZ_State_WS == 0" )
+
+WS_TimeTag_Buzz_ES.OK.AddAction( "Tag_Time_WS.SetValue( &TimeTodaySeconds )" )
+
+WS_TimeTag_Buzz_ES.Start()
+#
+#
+new TSubtract( Delta_Time_WS, TimeTodaySeconds, Tag_Time_WS, CalculeVar_001 )
+#
+#
+new TExpertSys( WS_SW_Buzz_ON_ES )
+//
+// ExpertSystem States
+//
+WS_SW_Buzz_ON_ES.AddState( OK )
+WS_SW_Buzz_ON_ES.AddState( KO )
+//
+// ExpertSystem Conditions
+//
+WS_SW_Buzz_ON_ES.Stop()
+
+WS_SW_Buzz_ON_ES.OK.AddCondition( " &Delta_Time_WS > &delay_react_Buzz_WS " )
+
+WS_SW_Buzz_ON_ES.OK.AddAction( "DCU_BUZZ_ON_WS.Set( 1 )" )
+
+WS_SW_Buzz_ON_ES.KO.AddCondition( " &Delta_Time_WS < &delay_react_Buzz_WS and &DCU_BUZZ_ON_WS == 0" )
+
+WS_SW_Buzz_ON_ES.KO.AddAction( "DCU_BUZZ_ON_WS.Set( 0 )" )
+
+WS_SW_Buzz_ON_ES.Start()
+#
+#
+#
+#
+#
+#---Batterie-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#
+new TChooser( Batt_Alarm, "&Alarm_Battery_Input > 0 ", 1, 0, CalculeVar_010 )
+new TSetting( DCU_BUZZ_ON_Batt, "ExpertsFile", 0 )
+new TSetting( Tag_Time_Batt, "ExpertsFile", 0 )
+new TSetting( delay_react_Buzz_Batt, "ExpertsFile", 0 )
+new TCopy( BUZZ_State_Batt, DCU_BUZZ_ON_Batt, CalculeVar_001 )
+#
+#
+new TExpertSys( Batt_Alarm_Buzz_ES )
+//
+// ExpertSystem States
+//
+Batt_Alarm_Buzz_ES.AddState( OK )
+Batt_Alarm_Buzz_ES.AddState( KO )
+//
+// ExpertSystem Conditions
+//
+Batt_Alarm_Buzz_ES.Stop()
+
+Batt_Alarm_Buzz_ES.OK.AddCondition( "&alarm_nb == 10 and (&DCU_BUZZ_ON_Batt == 0 or &Batt_Alarm == 0 )" )
+
+Batt_Alarm_Buzz_ES.OK.AddAction( "DCU_BUZZ.Set( 0 )" )
+Batt_Alarm_Buzz_ES.OK.AddAction( "alarm_nb.SetValue( 0 )" )
+
+Batt_Alarm_Buzz_ES.KO.AddCondition( " &DCU_BUZZ_ON_Batt == 1 and &Batt_Alarm == 1" )
+
+Batt_Alarm_Buzz_ES.KO.AddAction( "DCU_BUZZ.Set( 1 )" )
+Batt_Alarm_Buzz_ES.KO.AddAction( "alarm_nb.SetValue( 10 )" )
+
+Batt_Alarm_Buzz_ES.Start()
+#
+#
+new TExpertSys( Batt_TimeTag_Buzz_ES )
+//
+// ExpertSystem States
+//
+Batt_TimeTag_Buzz_ES.AddState( OK )
+//
+// ExpertSystem Conditions
+//
+Batt_TimeTag_Buzz_ES.Stop()
+
+Batt_TimeTag_Buzz_ES.OK.AddCondition( "&BUZZ_State_Batt == 0" )
+
+Batt_TimeTag_Buzz_ES.OK.AddAction( "Tag_Time_Batt.SetValue( &TimeTodaySeconds )" )
+
+Batt_TimeTag_Buzz_ES.Start()
+#
+#
+new TSubtract( Delta_Time_Batt, TimeTodaySeconds, Tag_Time_Batt, CalculeVar_001 )
+#
+#
+new TExpertSys( Batt_SW_Buzz_ON_ES )
+//
+// ExpertSystem States
+//
+Batt_SW_Buzz_ON_ES.AddState( OK )
+Batt_SW_Buzz_ON_ES.AddState( KO )
+//
+// ExpertSystem Conditions
+//
+Batt_SW_Buzz_ON_ES.Stop()
+
+Batt_SW_Buzz_ON_ES.OK.AddCondition( " &Delta_Time_Batt > &delay_react_Buzz_Batt " )
+
+Batt_SW_Buzz_ON_ES.OK.AddAction( "DCU_BUZZ_ON_Batt.Set( 1 )" )
+
+Batt_SW_Buzz_ON_ES.KO.AddCondition( " &Delta_Time_Batt < &delay_react_Buzz_Batt and &DCU_BUZZ_ON_Batt == 0" )
+
+Batt_SW_Buzz_ON_ES.KO.AddAction( "DCU_BUZZ_ON_Batt.Set( 0 )" )
+
+Batt_SW_Buzz_ON_ES.Start()

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Sailsys>
+  <SailsysLogFile Version="1.1">
+    <Header Type="Periodic">
+      <Freq Value="1" Units="Hz"/>
+    </Header>
+    <VarsDef Version="1.2" Count="91">
+      <jjlDATE Type="TRawVariable" Status="Valid" Class="date" Units="YYYYMMDD" Decimals="0" Description="Sailsys local date" ShortName="" Tags="" SetupFileName=""/>
+      <jjlTIME Type="TRawVariable" Status="Valid" Class="time" Units="HHMMSS.SSS" Decimals="3" Description="Sailsys local time" ShortName="" Tags="" SetupFileName=""/>
+      <QuadransUDP_Positi_Longitude Type="TRawVariable" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName=""/>
+      <QuadransUDP_Positi_Latitude Type="TRawVariable" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName=""/>
+      <TWA Type="TFinalVar" Status="Valid" Class="circ180" Units="deg" Decimals="1" Description="True Wind Angle" ShortName="" Tags="FinalVar" SetupFileName="cfg/Bravo5/bravo_vars.sys"/>
+      <TWS Type="TFinalVar" Status="Valid" Class="linear" Units="kts" Decimals="1" Description="True Wind Speed" ShortName="" Tags="FinalVar" SetupFileName="cfg/Bravo5/bravo_vars.sys"/>
+      <TWD Type="TFinalVar" Status="Valid" Class="circ360" Units="deg" Decimals="0" Description="True Wind Direction" ShortName="" Tags="FinalVar" SetupFileName="cfg/Bravo5/bravo_vars.sys"/>
+      <AWA Type="TFinalVar" Status="Valid" Class="circ180" Units="deg" Decimals="1" Description="Apparent Wind Angle" ShortName="" Tags="FinalVar" SetupFileName="cfg/Bravo5/bravo_vars.sys"/>
+      <AWS Type="TFinalVar" Status="Valid" Class="linear" Units="kts" Decimals="1" Description="Apparent Wind Speed" ShortName="" Tags="FinalVar" SetupFileName="cfg/Bravo5/bravo_vars.sys"/>
+      <AWAnke_Input Type="TInputVar" Status="Valid" Class="linear" Units="deg" Decimals="8" Description="nke1 hr awa" ShortName="" Tags="" SetupFileName="cfg/Bravo5/bravo_inputs.sys"/>
+      <AWSnke_Input Type="TInputVar" Status="Valid" Class="linear" Units="kts" Decimals="8" Description="nke1 hr aws" ShortName="" Tags="" SetupFileName="cfg/Bravo5/bravo_inputs.sys"/>
+      <AWA2nke_Input Type="TInputVar" Status="Valid" Class="linear" Units="deg" Decimals="8" Description="nke2 hr awa" ShortName="" Tags="" SetupFileName="cfg/Bravo5/bravo_inputs.sys"/>
+      <AWS2nke_Input Type="TInputVar" Status="Valid" Class="linear" Units="kts" Decimals="8" Description="nke2 hr aws" ShortName="" Tags="" SetupFileName="cfg/Bravo5/bravo_inputs.sys"/>
+      <AWA3nke_Input Type="TInputVar" Status="Valid" Class="linear" Units="deg" Decimals="8" Description="nke3 hr awa" ShortName="" Tags="" SetupFileName="cfg/Bravo5/bravo_inputs.sys"/>
+      <AWS3nke_Input Type="TInputVar" Status="Valid" Class="linear" Units="kts" Decimals="8" Description="nke3 hr aws" ShortName="" Tags="" SetupFileName="cfg/Bravo5/bravo_inputs.sys"/>
+      <AWA4nke_Input Type="TInputVar" Status="Valid" Class="linear" Units="deg" Decimals="8" Description="nke4 hr awa" ShortName="" Tags="" SetupFileName="cfg/Bravo5/bravo_inputs.sys"/>
+      <AWS4nke_Input Type="TInputVar" Status="Valid" Class="linear" Units="kts" Decimals="8" Description="nke4 hr aws" ShortName="" Tags="" SetupFileName="cfg/Bravo5/bravo_inputs.sys"/>
+      <NkeOffset Type="TSetting" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName="cfg/Bravo5/instruments/nke_wind.sys"/>
+      <NkeOffset_2 Type="TSetting" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName="cfg/Bravo5/instruments/nke_wind_secondary.sys"/>
+      <NkeOffset_3 Type="TSetting" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName="cfg/Bravo5/instruments/nke_wind_3.sys"/>
+      <NkeOffset_4 Type="TSetting" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName="cfg/Bravo5/instruments/nke_wind_4.sys"/>
+      <BS Type="TFinalVar" Status="Valid" Class="linear" Units="kts" Decimals="2" Description="Boatspeed" ShortName="" Tags="FinalVar" SetupFileName="cfg/Bravo5/bravo_vars.sys"/>
+      <SOG Type="TFinalVar" Status="Valid" Class="linear" Units="kts" Decimals="2" Description="Speed Over Ground" ShortName="" Tags="FinalVar" SetupFileName="cfg/Bravo5/bravo_vars.sys"/>
+      <DaggerSpeedometer_Input Type="TInputVar" Status="Valid" Class="linear" Units="kts" Decimals="8" Description="DaggerBoard paddle wheel" ShortName="" Tags="" SetupFileName="cfg/Bravo5/bravo_inputs.sys"/>
+      <Hdg Type="TFinalVar" Status="Valid" Class="circ360" Units="deg" Decimals="0" Description="Heading" ShortName="" Tags="FinalVar" SetupFileName="cfg/Bravo5/bravo_vars.sys"/>
+      <COG Type="TFinalVar" Status="Valid" Class="circ360" Units="deg" Decimals="0" Description="Course Over Ground" ShortName="" Tags="FinalVar" SetupFileName="cfg/Bravo5/bravo_vars.sys"/>
+      <Heel Type="TFinalVar" Status="Valid" Class="circ180" Units="deg" Decimals="1" Description="Heel (+ stbd tack)" ShortName="" Tags="FinalVar" SetupFileName="cfg/Bravo5/bravo_vars.sys"/>
+      <Trim Type="TFinalVar" Status="Valid" Class="circ180" Units="deg" Decimals="1" Description="Trim (+ bow up)" ShortName="" Tags="FinalVar" SetupFileName="cfg/Bravo5/bravo_vars.sys"/>
+      <RudderAngle Type="TFinalVar" Status="Valid" Class="linear" Units="deg" Decimals="1" Description="" ShortName="" Tags="FinalVar" SetupFileName="cfg/Bravo5/bravo_vars.sys"/>
+      <MastRotation Type="TFinalVar" Status="Valid" Class="linear" Units="deg" Decimals="2" Description="" ShortName="" Tags="FinalVar" SetupFileName="cfg/Bravo5/bravo_vars.sys"/>
+      <Foil_Stb_Pos_Input Type="TInputVar" Status="Valid" Class="linear" Units="%" Decimals="8" Description="" ShortName="" Tags="" SetupFileName="cfg/Bravo5/bravo_inputs.sys"/>
+      <Foil_Port_Pos_Input Type="TInputVar" Status="Valid" Class="linear" Units="%" Decimals="8" Description="" ShortName="" Tags="" SetupFileName="cfg/Bravo5/bravo_inputs.sys"/>
+      <Foil_Port_Rake_Input Type="TInputVar" Status="Valid" Class="linear" Units="deg" Decimals="8" Description="" ShortName="" Tags="" SetupFileName="cfg/Bravo5/bravo_inputs.sys"/>
+      <Foil_Stb_Rake_Input Type="TInputVar" Status="Valid" Class="linear" Units="deg" Decimals="8" Description="" ShortName="" Tags="" SetupFileName="cfg/Bravo5/bravo_inputs.sys"/>
+      <KeelAngle_Input Type="TInputVar" Status="Valid" Class="linear" Units="deg" Decimals="8" Description="Keel Angle" ShortName="" Tags="" SetupFileName="cfg/Bravo5/bravo_inputs.sys"/>
+      <Outrigger_Port_1s_max Type="TCalcRawVariable" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName=""/>
+      <Outrigger_Stb_1s_max Type="TCalcRawVariable" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName=""/>
+      <Runner_Port_1s_max Type="TCalcRawVariable" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName=""/>
+      <Runner_Stb_1s_max Type="TCalcRawVariable" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName=""/>
+      <Mast_Nz_1s_max Type="TCalcRawVariable" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName=""/>
+      <E0_1s_max Type="TCalcRawVariable" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName=""/>
+      <E1_1s_max Type="TCalcRawVariable" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName=""/>
+      <E2_1s_max Type="TCalcRawVariable" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName=""/>
+      <E3_1s_max Type="TCalcRawVariable" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName=""/>
+      <E4_1s_max Type="TCalcRawVariable" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName=""/>
+      <Keel_Press_Stem_Input Type="TInputVar" Status="Valid" Class="linear" Units="bars" Decimals="8" Description="Pression tige" ShortName="" Tags="" SetupFileName="cfg/Bravo5/bravo_inputs.sys"/>
+      <Keel_Press_Barrel_Input Type="TInputVar" Status="Valid" Class="linear" Units="bars" Decimals="8" Description="Pression fut" ShortName="" Tags="" SetupFileName="cfg/Bravo5/bravo_inputs.sys"/>
+      <Foil_Port_peak Type="TCalcRawVariable" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName=""/>
+      <Foil_Stb_peak Type="TCalcRawVariable" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName=""/>
+      <Foil_Port_in_min Type="TCalcRawVariable" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName=""/>
+      <Foil_Port_in_max Type="TCalcRawVariable" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName=""/>
+      <Foil_Port_ex_min Type="TCalcRawVariable" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName=""/>
+      <Foil_Port_ex_max Type="TCalcRawVariable" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName=""/>
+      <Foil_Stb_in_min Type="TCalcRawVariable" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName=""/>
+      <Foil_Stb_in_max Type="TCalcRawVariable" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName=""/>
+      <Foil_Stb_ex_min Type="TCalcRawVariable" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName=""/>
+      <Foil_Stb_ex_max Type="TCalcRawVariable" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName=""/>
+      <Ballast_AV_State Type="TSetting" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName="cfg/Bravo5/expertSystems/Ballast_AV_Expert.sys"/>
+      <Ballast_Stb_State Type="TSetting" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName="cfg/Bravo5/expertSystems/Ballast_Expert.sys"/>
+      <Ballast_Port_State Type="TSetting" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName="cfg/Bravo5/expertSystems/Ballast_Expert.sys"/>
+      <Ballast_AV_Low_Port_Input Type="TInputVar" Status="Valid" Class="linear" Units="" Decimals="8" Description="Ballast AV Port Low" ShortName="" Tags="" SetupFileName="cfg/Bravo5/bravo_inputs.sys"/>
+      <Ballast_AV_High_Port_Input Type="TInputVar" Status="Valid" Class="linear" Units="" Decimals="8" Description="Ballast AV Port High" ShortName="" Tags="" SetupFileName="cfg/Bravo5/bravo_inputs.sys"/>
+      <Ballast_AV_Low_Stb_Input Type="TInputVar" Status="Valid" Class="linear" Units="" Decimals="8" Description="Ballast AV Stb Low" ShortName="" Tags="" SetupFileName="cfg/Bravo5/bravo_inputs.sys"/>
+      <Ballast_AV_High_Stb_Input Type="TInputVar" Status="Valid" Class="linear" Units="" Decimals="8" Description="Ballast AV Stb High" ShortName="" Tags="" SetupFileName="cfg/Bravo5/bravo_inputs.sys"/>
+      <FoilPeak_Alarm Type="TChooser" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName="cfg/Bravo5/expertSystems/Buzz_Foil_Expert.sys"/>
+      <Outrigger_Alarm Type="TChooser" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName="cfg/Bravo5/expertSystems/Buzz_Tirants_Expert.sys"/>
+      <Runner_Alarm Type="TChooser" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName="cfg/Bravo5/expertSystems/Buzz_Runner_Expert.sys"/>
+      <E0_Alarm Type="TChooser" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName="cfg/Bravo5/expertSystems/Buzz_E0E1_Expert.sys"/>
+      <E1_Alarm Type="TChooser" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName="cfg/Bravo5/expertSystems/Buzz_E0E1_Expert.sys"/>
+      <E0E1_Alarm Type="TChooser" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName="cfg/Bravo5/expertSystems/Buzz_E0E1_Expert.sys"/>
+      <E2_Alarm Type="TChooser" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName="cfg/Bravo5/expertSystems/Buzz_E2_Expert.sys"/>
+      <E3_Alarm Type="TChooser" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName="cfg/Bravo5/expertSystems/Buzz_E3_Expert.sys"/>
+      <E4_Alarm Type="TChooser" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName="cfg/Bravo5/expertSystems/Buzz_E4_Expert.sys"/>
+      <J3min_Alarm Type="TChooser" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName="cfg/Bravo5/expertSystems/Buzz_J3min_Expert.sys"/>
+      <alarm_nb Type="TSetting" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName="cfg/Bravo5/expertSystems/Alarm_voix.sys"/>
+      <TWA1 Type="TFinalVar" Status="Valid" Class="circ180" Units="deg" Decimals="1" Description="True Wind Angle" ShortName="" Tags="FinalVar" SetupFileName="cfg/Bravo5/bravo_vars.sys"/>
+      <TWS1 Type="TFinalVar" Status="Valid" Class="linear" Units="kts" Decimals="1" Description="True Wind Speed" ShortName="" Tags="FinalVar" SetupFileName="cfg/Bravo5/bravo_vars.sys"/>
+      <TWA2 Type="TFinalVar" Status="Valid" Class="circ180" Units="deg" Decimals="1" Description="True Wind Angle" ShortName="" Tags="FinalVar" SetupFileName="cfg/Bravo5/bravo_vars.sys"/>
+      <TWS2 Type="TFinalVar" Status="Valid" Class="linear" Units="kts" Decimals="1" Description="True Wind Speed" ShortName="" Tags="FinalVar" SetupFileName="cfg/Bravo5/bravo_vars.sys"/>
+      <TWA3 Type="TFinalVar" Status="Valid" Class="circ180" Units="deg" Decimals="1" Description="True Wind Angle" ShortName="" Tags="FinalVar" SetupFileName="cfg/Bravo5/bravo_vars.sys"/>
+      <TWS3 Type="TFinalVar" Status="Valid" Class="linear" Units="kts" Decimals="1" Description="True Wind Speed" ShortName="" Tags="FinalVar" SetupFileName="cfg/Bravo5/bravo_vars.sys"/>
+      <TWA4 Type="TFinalVar" Status="Valid" Class="circ180" Units="deg" Decimals="1" Description="True Wind Angle" ShortName="" Tags="FinalVar" SetupFileName="cfg/Bravo5/bravo_vars.sys"/>
+      <TWS4 Type="TFinalVar" Status="Valid" Class="linear" Units="kts" Decimals="1" Description="True Wind Speed" ShortName="" Tags="FinalVar" SetupFileName="cfg/Bravo5/bravo_vars.sys"/>
+      <Leeway_damp Type="TSetting" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName="cfg/Bravo5/maths/leeway.sys"/>
+      <Lwy Type="TFinalVar" Status="Valid" Class="circ180" Units="deg" Decimals="2" Description="Leeway" ShortName="" Tags="FinalVar" SetupFileName="cfg/Bravo5/bravo_vars.sys"/>
+      <LWYorg Type="TCalcRawVariable" Status="Valid" Class="circ180" Units="deg" Decimals="2" Description="Leeway" ShortName="" Tags="" SetupFileName=""/>
+      <LWYHEELi_unsigned Type="TSubtract" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName="cfg/Bravo5/maths/leeway.sys"/>
+      <LWYHEELi Type="TMultiply" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName="cfg/Bravo5/maths/leeway.sys"/>
+      <LWYHEELi_damped Type="TExponentialFilter" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName="cfg/Bravo5/maths/leeway.sys"/>
+      <LWYHEELm Type="TMultiply" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName="cfg/Bravo5/maths/leeway.sys"/>
+      <LWYHEELorg Type="TCopy" Status="Valid" Class="linear" Units="" Decimals="8" Description="" ShortName="" Tags="" SetupFileName="cfg/Bravo5/maths/leeway.sys"/>
+    </VarsDef>
+  </SailsysLogFile>
+  <TypeMng>
+    <TRawVariable>
+      <Type NAME="TCalculedVariable"/>
+      <Type NAME="TVariable"/>
+    </TRawVariable>
+    <TFinalVar>
+      <Type NAME="TFinalVarBase"/>
+      <Type NAME="TCalculedVariable"/>
+      <Type NAME="TVariable"/>
+    </TFinalVar>
+    <TInputVar>
+      <Type NAME="TInputVarBase"/>
+      <Type NAME="TCalculedVariable"/>
+      <Type NAME="TVariable"/>
+    </TInputVar>
+    <TSetting>
+      <Type NAME="TCalculedVariable"/>
+      <Type NAME="TVariable"/>
+    </TSetting>
+    <TCalcRawVariable>
+      <Type NAME="TCalculedVariable"/>
+      <Type NAME="TVariable"/>
+    </TCalcRawVariable>
+    <TChooser>
+      <Type NAME="TCalculedVariable"/>
+      <Type NAME="TVariable"/>
+    </TChooser>
+    <TSubtract>
+      <Type NAME="TCalculedVariable"/>
+      <Type NAME="TVariable"/>
+    </TSubtract>
+    <TMultiply>
+      <Type NAME="TCalculedVariable"/>
+      <Type NAME="TVariable"/>
+    </TMultiply>
+    <TExponentialFilter>
+      <Type NAME="TCalculedVariable"/>
+      <Type NAME="TVariable"/>
+    </TExponentialFilter>
+    <TCopy>
+      <Type NAME="TCalculedVariable"/>
+      <Type NAME="TVariable"/>
+    </TCopy>
+  </TypeMng>
+</Sailsys>
+

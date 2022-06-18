@@ -30,8 +30,9 @@
 # 7 == bastaques
 # 8 == tirants
 # 9 == pilote
-# 10 == Arbalette
-# 11 == SPECIAL
+# 10 == Batteries
+# 11 == Présence d'eau
+# 12 == 
 #------------------------------------------------------------------------------
 new TSetting( DCU_BUZZ, 0, 0 )
 new TSetting( DCU_BUZZ2, 0, 0 )
@@ -69,7 +70,7 @@ alarm_nb_ES.AddState( quinze )
 //
 alarm_nb_ES.Stop()
 
-alarm_nb_ES.zero.AddCondition( "&alarm_nb == 0 or &DCU_BUZZ == 0" )
+alarm_nb_ES.zero.AddCondition( "&alarm_nb == 0 or &DCU_BUZZ == 0 " )
 
 alarm_nb_ES.zero.AddAction( "DCU_K11.Set( 0 )" )
 alarm_nb_ES.zero.AddAction( "DCU_K12.Set( 0 )" )

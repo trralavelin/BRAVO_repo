@@ -70,3 +70,235 @@
 06/05/2022 16:21:47 System Error on thread <AttitudeLogDoubleBuffer>: Generic, AttitudeLog::SetFileName: <./data/ Attitude_20220506v00000.txt.gz>: Already initialized.
 06/05/2022 16:21:47 System Error on thread <InstrumentsLogDoubleBuffer>: Generic, InstrumentsLog::SetFileName: <./data/ Instruments_20220506v00000.txt.gz>: Already initialized.
 06/05/2022 16:21:47 System Error on thread <HighRateLogDoubleBuffer>: Generic, HighRateLog::SetFileName: <./data/ HighRate_20220506v00000.txt.gz>: Already initialized.
+-----
+Version: 5.2.4 (rev.: 18791 @ /SailsysV4/trunk);
+-----
+10/05/2022 16:39:27 VerboseRemote  - Warning: QuadransImu: trying to set Property <SerialChannel> to Value <Serial4> 
+10/05/2022 16:39:27 VerboseRemote  - Warning: GPS_1: trying to set Property <SerialChannel> to Value <Serial2> 
+10/05/2022 16:39:27 VerboseRemote   - Error at line 3 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:27 VerboseRemote    +  new TNmeaDev( NMEAout, Serial3, B38400, NOPAR, L8, S1, 1.000000, B5 )
+10/05/2022 16:39:27 VerboseRemote    Causa:  THandler::SetChannel: Can't find the requested channel
+10/05/2022 16:39:27 VerboseRemote   - Error at line 4 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:27 VerboseRemote    +  NMEAout.EnableFrame ( FrameVTG, nfVTG )
+10/05/2022 16:39:27 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:27 VerboseRemote   - Error at line 5 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:27 VerboseRemote    +  NMEAout.SetParam ( FrameVTG, 0, Null )	#Track, degrees true
+10/05/2022 16:39:27 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:27 VerboseRemote   - Error at line 6 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:27 VerboseRemote    +  NMEAout.SetParam ( FrameVTG, 1, COG )	#Track, degrees magnetic
+10/05/2022 16:39:27 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:27 VerboseRemote   - Error at line 7 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:27 VerboseRemote    +  NMEAout.SetParam ( FrameVTG, 2, SOG )	#Speed, knots
+10/05/2022 16:39:27 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:27 VerboseRemote   - Error at line 8 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:27 VerboseRemote    +  NMEAout.SetParam ( FrameVTG, 3, Null )	#Speed, Km/hr
+10/05/2022 16:39:27 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:27 VerboseRemote   - Error at line 9 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:27 VerboseRemote    +  NMEAout.EnableFrame ( FrameMWD, nfMWD )
+10/05/2022 16:39:27 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:27 VerboseRemote   - Error at line 10 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:27 VerboseRemote    +  NMEAout.SetParam ( FrameMWD, 0, Null )	#Wind direcction, degrees true
+10/05/2022 16:39:27 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:27 VerboseRemote   - Error at line 11 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:27 VerboseRemote    +  NMEAout.SetParam ( FrameMWD, 1, TWD )	#Wind direction, degrees magnetic
+10/05/2022 16:39:27 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:27 VerboseRemote   - Error at line 12 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:27 VerboseRemote    +  NMEAout.SetParam ( FrameMWD, 2, TWS )	#Wind speed, Knots
+10/05/2022 16:39:27 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:27 VerboseRemote   - Error at line 13 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:27 VerboseRemote    +  NMEAout.SetParam ( FrameMWD, 3, Null )	#Wind speed, meters/second
+10/05/2022 16:39:27 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:27 VerboseRemote   - Error at line 14 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:27 VerboseRemote    +  NMEAout.EnableFrame ( FrameHDG, nfHDG )
+10/05/2022 16:39:27 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:27 VerboseRemote   - Error at line 15 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:27 VerboseRemote    +  NMEAout.SetParam ( FrameHDG, 0, HDM )	#Magnetic sensor heading, degrees
+10/05/2022 16:39:27 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:27 VerboseRemote   - Error at line 16 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:27 VerboseRemote    +  NMEAout.SetParam ( FrameHDG, 1, Null )	#Magnetic deviation, degrees
+10/05/2022 16:39:27 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:27 VerboseRemote   - Error at line 17 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:27 VerboseRemote    +  NMEAout.SetParam ( FrameHDG, 2, MagneticVariation )	#Magnetic variation, degrees
+10/05/2022 16:39:27 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:27 VerboseRemote   - Error at line 18 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:27 VerboseRemote    +  NMEAout.EnableFrame ( FrameVHW, nfVHW )
+10/05/2022 16:39:27 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:27 VerboseRemote   - Error at line 19 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:27 VerboseRemote    +  NMEAout.SetParam ( FrameVHW, 0, HDT )	#Heading, degrees true
+10/05/2022 16:39:27 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:27 VerboseRemote   - Error at line 20 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:27 VerboseRemote    +  NMEAout.SetParam ( FrameVHW, 1, HDT )	#Heading, degrees magnetic
+10/05/2022 16:39:27 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:27 VerboseRemote   - Error at line 21 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:27 VerboseRemote    +  NMEAout.SetParam ( FrameVHW, 2, BS )	#Speed, Knots
+10/05/2022 16:39:27 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:27 VerboseRemote   - Error at line 22 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:27 VerboseRemote    +  NMEAout.SetParam ( FrameVHW, 3, Null )	#Speed Km/hr
+10/05/2022 16:39:27 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:27 VerboseRemote   - Error at line 23 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:27 VerboseRemote    +  NMEAout.EnableFrame ( FrameTW, nfMWV )
+10/05/2022 16:39:27 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:27 VerboseRemote   - Error at line 24 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:27 VerboseRemote    +  NMEAout.SetParam ( FrameTW, 0, TWA )	#Wind Angle
+10/05/2022 16:39:27 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:27 VerboseRemote   - Error at line 25 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:27 VerboseRemote    +  NMEAout.SetParam ( FrameTW, 1, cte1 )	#Referencia. 0=Relative, 1=True
+10/05/2022 16:39:27 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:27 VerboseRemote   - Error at line 26 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:27 VerboseRemote    +  NMEAout.SetParam ( FrameTW, 2, TWS )	#Wind speed
+10/05/2022 16:39:27 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:27 VerboseRemote   - Error at line 27 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:27 VerboseRemote    +  NMEAout.SetParam ( FrameTW, 3, cte2 )	#Wind speed units 0=K, 1=M, 2=N
+10/05/2022 16:39:27 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:27 VerboseRemote   - Error at line 28 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:27 VerboseRemote    +  NMEAout.EnableFrame ( FrameAW, nfMWV )
+10/05/2022 16:39:27 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:27 VerboseRemote   - Error at line 29 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:27 VerboseRemote    +  NMEAout.SetParam ( FrameAW, 0, AWA )	#Wind Angle
+10/05/2022 16:39:27 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:27 VerboseRemote   - Error at line 30 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:27 VerboseRemote    +  NMEAout.SetParam ( FrameAW, 1, cte0 )	#Referencia. 0=Relative, 1=True
+10/05/2022 16:39:27 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:27 VerboseRemote   - Error at line 31 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:27 VerboseRemote    +  NMEAout.SetParam ( FrameAW, 2, AWS )	#Wind speed
+10/05/2022 16:39:27 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:27 VerboseRemote   - Error at line 32 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:27 VerboseRemote    +  NMEAout.SetParam ( FrameAW, 3, cte2 )	#Wind speed units 0=K, 1=M, 2=N
+10/05/2022 16:39:27 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:27 VerboseRemote   - Error at line 9 on file cfg/Bravo5/instruments/3dm.sys.
+10/05/2022 16:39:27 VerboseRemote    +  new T3DMGX4_45( MicroStrain, Serial5, B115200, NOPAR, L8, S1 )
+10/05/2022 16:39:27 VerboseRemote    Causa:  THandler::SetChannel: Can't find the requested channel
+10/05/2022 16:39:27 VerboseRemote  - Warning: msHDGi: trying to set Property <Source> to Value <MicroStrain_AhrsYaw> 
+10/05/2022 16:39:27 VerboseRemote  - Warning: msHEELi: trying to set Property <Right> to Value <MicroStrain_AhrsRoll> 
+10/05/2022 16:39:28 VerboseRemote  - Warning: msTRIMi: trying to set Property <Right> to Value <MicroStrain_AhrsPitch> 
+10/05/2022 16:39:28 VerboseRemote  - Warning: msPITCHRATEm: trying to set Property <Source> to Value <MicroStrain_GyroY> 
+10/05/2022 16:39:28 VerboseRemote  - Warning: msROLLRATEm: trying to set Property <Source> to Value <MicroStrain_GyroX> 
+10/05/2022 16:39:28 VerboseRemote  - Warning: msYAWRATEm: trying to set Property <Source> to Value <MicroStrain_GyroZ> 
+10/05/2022 16:39:28 VerboseRemote  - Warning: msHDGupdating: trying to set Property <Source> to Value <MicroStrain_AhrsYaw> 
+10/05/2022 16:39:28 VerboseRemote  - Warning: msGPSupdating: trying to set Property <Source> to Value <MicroStrain_GpsTime> 
+10/05/2022 16:39:28 VerboseRemote   - Error at line 144 on file cfg/Bravo5/data/perfpol.sys.
+10/05/2022 16:39:28 VerboseRemote    +  Performance.Build()
+10/05/2022 16:39:28 VerboseRemote    Causa:  Unexpected error:
+10/05/2022 16:39:28 VerboseRemote   - Error at line 24 on file cfg/Bravo5/logs.sys.
+10/05/2022 16:39:28 VerboseRemote    +  InstrumentsLog.SetDirFile( "./data/" )
+10/05/2022 16:39:28 VerboseRemote    Causa:  InstrumentsLog::SetDirName. can't find directory <./data/>
+10/05/2022 16:39:28 VerboseRemote   - Error at line 30 on file cfg/Bravo5/logs.sys.
+10/05/2022 16:39:28 VerboseRemote    +  PerformanceLog.SetDirFile( "./data/" )
+10/05/2022 16:39:28 VerboseRemote    Causa:  PerformanceLog::SetDirName. can't find directory <./data/>
+10/05/2022 16:39:28 VerboseRemote   - Error at line 66 on file cfg/Bravo5/logs.sys.
+10/05/2022 16:39:28 VerboseRemote    +  HighRateLog.SetDirFile( "./data/" )
+10/05/2022 16:39:28 VerboseRemote    Causa:  HighRateLog::SetDirName. can't find directory <./data/>
+10/05/2022 16:39:28 VerboseRemote   - Error at line 160 on file cfg/Bravo5/logs.sys.
+10/05/2022 16:39:28 VerboseRemote    +  AdvensLog.SetDirFile( "./data/" )
+10/05/2022 16:39:28 VerboseRemote    Causa:  AdvensLog::SetDirName. can't find directory <./data/>
+10/05/2022 16:39:28 VerboseRemote   - Error at line 175 on file cfg/Bravo5/logs.sys.
+10/05/2022 16:39:28 VerboseRemote    +  AttitudeLog.SetDirFile( "./data/" )
+10/05/2022 16:39:28 VerboseRemote    Causa:  AttitudeLog::SetDirName. can't find directory <./data/>
+10/05/2022 16:39:31 VerboseRemote  - System Loaded. Total loaded time = 4.4492 seconds
+-----
+Version: 5.2.4 (rev.: 18791 @ /SailsysV4/trunk);
+-----
+10/05/2022 16:39:59 VerboseRemote  - Warning: QuadransImu: trying to set Property <SerialChannel> to Value <Serial4> 
+10/05/2022 16:39:59 VerboseRemote  - Warning: GPS_1: trying to set Property <SerialChannel> to Value <Serial2> 
+10/05/2022 16:39:59 VerboseRemote   - Error at line 3 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:59 VerboseRemote    +  new TNmeaDev( NMEAout, Serial3, B38400, NOPAR, L8, S1, 1.000000, B5 )
+10/05/2022 16:39:59 VerboseRemote    Causa:  THandler::SetChannel: Can't find the requested channel
+10/05/2022 16:39:59 VerboseRemote   - Error at line 4 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:59 VerboseRemote    +  NMEAout.EnableFrame ( FrameVTG, nfVTG )
+10/05/2022 16:39:59 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:59 VerboseRemote   - Error at line 5 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:59 VerboseRemote    +  NMEAout.SetParam ( FrameVTG, 0, Null )	#Track, degrees true
+10/05/2022 16:39:59 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:59 VerboseRemote   - Error at line 6 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:59 VerboseRemote    +  NMEAout.SetParam ( FrameVTG, 1, COG )	#Track, degrees magnetic
+10/05/2022 16:39:59 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:59 VerboseRemote   - Error at line 7 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:59 VerboseRemote    +  NMEAout.SetParam ( FrameVTG, 2, SOG )	#Speed, knots
+10/05/2022 16:39:59 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:59 VerboseRemote   - Error at line 8 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:59 VerboseRemote    +  NMEAout.SetParam ( FrameVTG, 3, Null )	#Speed, Km/hr
+10/05/2022 16:39:59 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:59 VerboseRemote   - Error at line 9 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:59 VerboseRemote    +  NMEAout.EnableFrame ( FrameMWD, nfMWD )
+10/05/2022 16:39:59 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:59 VerboseRemote   - Error at line 10 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:59 VerboseRemote    +  NMEAout.SetParam ( FrameMWD, 0, Null )	#Wind direcction, degrees true
+10/05/2022 16:39:59 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:59 VerboseRemote   - Error at line 11 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:59 VerboseRemote    +  NMEAout.SetParam ( FrameMWD, 1, TWD )	#Wind direction, degrees magnetic
+10/05/2022 16:39:59 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:59 VerboseRemote   - Error at line 12 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:59 VerboseRemote    +  NMEAout.SetParam ( FrameMWD, 2, TWS )	#Wind speed, Knots
+10/05/2022 16:39:59 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:59 VerboseRemote   - Error at line 13 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:59 VerboseRemote    +  NMEAout.SetParam ( FrameMWD, 3, Null )	#Wind speed, meters/second
+10/05/2022 16:39:59 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:59 VerboseRemote   - Error at line 14 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:59 VerboseRemote    +  NMEAout.EnableFrame ( FrameHDG, nfHDG )
+10/05/2022 16:39:59 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:59 VerboseRemote   - Error at line 15 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:59 VerboseRemote    +  NMEAout.SetParam ( FrameHDG, 0, HDM )	#Magnetic sensor heading, degrees
+10/05/2022 16:39:59 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:59 VerboseRemote   - Error at line 16 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:59 VerboseRemote    +  NMEAout.SetParam ( FrameHDG, 1, Null )	#Magnetic deviation, degrees
+10/05/2022 16:39:59 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:59 VerboseRemote   - Error at line 17 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:59 VerboseRemote    +  NMEAout.SetParam ( FrameHDG, 2, MagneticVariation )	#Magnetic variation, degrees
+10/05/2022 16:39:59 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:59 VerboseRemote   - Error at line 18 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:59 VerboseRemote    +  NMEAout.EnableFrame ( FrameVHW, nfVHW )
+10/05/2022 16:39:59 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:59 VerboseRemote   - Error at line 19 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:59 VerboseRemote    +  NMEAout.SetParam ( FrameVHW, 0, HDT )	#Heading, degrees true
+10/05/2022 16:39:59 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:59 VerboseRemote   - Error at line 20 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:59 VerboseRemote    +  NMEAout.SetParam ( FrameVHW, 1, HDT )	#Heading, degrees magnetic
+10/05/2022 16:39:59 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:59 VerboseRemote   - Error at line 21 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:59 VerboseRemote    +  NMEAout.SetParam ( FrameVHW, 2, BS )	#Speed, Knots
+10/05/2022 16:39:59 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:59 VerboseRemote   - Error at line 22 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:59 VerboseRemote    +  NMEAout.SetParam ( FrameVHW, 3, Null )	#Speed Km/hr
+10/05/2022 16:39:59 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:59 VerboseRemote   - Error at line 23 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:59 VerboseRemote    +  NMEAout.EnableFrame ( FrameTW, nfMWV )
+10/05/2022 16:39:59 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:59 VerboseRemote   - Error at line 24 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:59 VerboseRemote    +  NMEAout.SetParam ( FrameTW, 0, TWA )	#Wind Angle
+10/05/2022 16:39:59 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:59 VerboseRemote   - Error at line 25 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:59 VerboseRemote    +  NMEAout.SetParam ( FrameTW, 1, cte1 )	#Referencia. 0=Relative, 1=True
+10/05/2022 16:39:59 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:59 VerboseRemote   - Error at line 26 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:59 VerboseRemote    +  NMEAout.SetParam ( FrameTW, 2, TWS )	#Wind speed
+10/05/2022 16:39:59 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:59 VerboseRemote   - Error at line 27 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:59 VerboseRemote    +  NMEAout.SetParam ( FrameTW, 3, cte2 )	#Wind speed units 0=K, 1=M, 2=N
+10/05/2022 16:39:59 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:59 VerboseRemote   - Error at line 28 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:59 VerboseRemote    +  NMEAout.EnableFrame ( FrameAW, nfMWV )
+10/05/2022 16:39:59 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:59 VerboseRemote   - Error at line 29 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:59 VerboseRemote    +  NMEAout.SetParam ( FrameAW, 0, AWA )	#Wind Angle
+10/05/2022 16:39:59 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:59 VerboseRemote   - Error at line 30 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:59 VerboseRemote    +  NMEAout.SetParam ( FrameAW, 1, cte0 )	#Referencia. 0=Relative, 1=True
+10/05/2022 16:39:59 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:59 VerboseRemote   - Error at line 31 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:59 VerboseRemote    +  NMEAout.SetParam ( FrameAW, 2, AWS )	#Wind speed
+10/05/2022 16:39:59 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:59 VerboseRemote   - Error at line 32 on file cfg/Bravo5/interfaces/nmea0183.sys.
+10/05/2022 16:39:59 VerboseRemote    +  NMEAout.SetParam ( FrameAW, 3, cte2 )	#Wind speed units 0=K, 1=M, 2=N
+10/05/2022 16:39:59 VerboseRemote    Causa:  TObjectSearchStack::Eval: <NMEAout> is not a valid object name!
+10/05/2022 16:39:59 VerboseRemote  - Warning: msHDGi: trying to set Property <Source> to Value <MicroStrain_AhrsYaw> 
+10/05/2022 16:39:59 VerboseRemote  - Warning: msHEELi: trying to set Property <Right> to Value <MicroStrain_AhrsRoll> 
+10/05/2022 16:39:59 VerboseRemote  - Warning: msTRIMi: trying to set Property <Right> to Value <MicroStrain_AhrsPitch> 
+10/05/2022 16:39:59 VerboseRemote  - Warning: msPITCHRATEm: trying to set Property <Source> to Value <MicroStrain_GyroY> 
+10/05/2022 16:39:59 VerboseRemote  - Warning: msROLLRATEm: trying to set Property <Source> to Value <MicroStrain_GyroX> 
+10/05/2022 16:39:59 VerboseRemote  - Warning: msYAWRATEm: trying to set Property <Source> to Value <MicroStrain_GyroZ> 
+10/05/2022 16:39:59 VerboseRemote  - Warning: msHDGupdating: trying to set Property <Source> to Value <MicroStrain_AhrsYaw> 
+10/05/2022 16:39:59 VerboseRemote  - Warning: msGPSupdating: trying to set Property <Source> to Value <MicroStrain_GpsTime> 
+10/05/2022 16:39:59 VerboseRemote   - Error at line 144 on file cfg/Bravo5/data/perfpol.sys.
+10/05/2022 16:39:59 VerboseRemote    +  Performance.Build()
+10/05/2022 16:39:59 VerboseRemote    Causa:  Unexpected error:
+10/05/2022 16:40:03 VerboseRemote  - System Loaded. Total loaded time = 4.3482 seconds
