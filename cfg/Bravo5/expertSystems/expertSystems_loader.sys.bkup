@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 # expertSystems_loader
 #   Uncomments each ExpertSystems needed  for setup
-#
+#	
 
 load "cfg/Bravo5/expertSystems/Main_Expert.sys"
 load "cfg/Bravo5/expertSystems/MAD_target_Expert.sys"
@@ -16,6 +16,3 @@ load "cfg/Bravo5/expertSystems/MAG_Expert.sys"
 
 load "cfg/Bravo5/expertSystems/Ballast_Expert.sys"
 load "cfg/Bravo5/expertSystems/Ballast_AV_Expert.sys"
-
-load "cfg/Bravo5/expertSystems/Alarm_voix.sys"
-load "cfg/Bravo5/expertSystems/Alarmes.sys"

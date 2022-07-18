@@ -1,18 +1,3 @@
-// BRAVO SYSTEMS SL (JJL set-up file).
-#  ***************************************************
-#  ****                    JJL                    ****
-#  ***************************************************
-
-#  System Version : 5.2.3 (rev.: 15808 @ /SailsysV4/branches/jcd-SailsysV5);
-#  Config Version : BRAVO4
-#  Libraries loaded
-#     #          Lib Name version
-#  ----------------------------------
-#     0 -   SystemLibrary 3.9500
-#     1 -      VarLibrary 3.3300
-#     2 -      StdLibrary 3.2440
-#     3 - BravoCommonsLibrary 1.6000
-
 MagneticVariation.Source.Set( wmmMagneticVariation )
 Gravity.Source.Set( wgsGravity )
 CurrDrift.Source.Set( CurrDriftMeasured )
@@ -146,7 +131,7 @@ Keel_Press_Stem_Input_Final.Source.Set( Keel_Press_Stem_Input )
 Keel_Press_Barrel_Input_Final.Source.Set( Keel_Press_Barrel )
 Foil_Active_Rake_Final.Source.Set( Foil_Active_Rake )
 Foil_Active_Pos_Final.Source.Set( Foil_Active_Pos )
-KeelAngle_Input_Final.Source.Set( KeelAngle_Input )
+KeelAngle_Input_Final.Source.Set( adjKeelAngle2 )
 Heel_Input_Final.Source.Set( Heel_Input )
 Outrigger_Active_Final.Source.Set( Outrigger_Active )
 Runner_Active_Final.Source.Set( Runner_Active )
@@ -164,3 +149,4 @@ n2k_Baro_Temp_Final.Source.Set( n2kBaroTempInt )
 Adr_Pvit_cible_Final.Source.Set( Adr_Pvit_cible_Input )
 Adr_VMG_Final.Source.Set( Adr_VMG_Input )
 Adr_CMG_Final.Source.Set( Adr_CMG_Input )
+ADV_Rfid.Source.Set( Null )

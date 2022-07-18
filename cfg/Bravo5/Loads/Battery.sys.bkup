@@ -1,0 +1,39 @@
+#Alarme batteries
+# MadintecCan_MAD_DigitalInterface2_A1 = Alarm_Battery
+# 1 ou 0
+
+## ------------------------------------
+##					Batterymin
+##-------------------------------------
+
+new TSetting( BatteryBoD_stateACK, 0, 0 )
+new TSetting( AlarmBatt, 0, 0 )
+new TSetting( waitBattery, 15, 0 )
+new TSetting( BatteryactivateAlarme, 1, 0 )
+
+new TLuaVar( BatteryLua, "cfg/Bravo5/Loads/aabit.lua", LuaProcess )
+BatteryLua.Params.Add( "var", Alarm_Battery_Input )
+BatteryLua.Params.Add( "stateACK", BatteryBoD_stateACK )
+BatteryLua.Params.Add( "waituser", waitBattery )
+BatteryLua.Params.Add( "activate", BatteryactivateAlarme )
+BatteryLua.Output.Add( "led" )
+BatteryLua.Output.Add( "BoD_activateACK" )
+BatteryLua.Output.Add( "Buzz" )
+BatteryLua.Output.Add( "heure" )
+
+
+new TExpertSys( Batteryresetbtn )
+//
+// ExpertSystem States
+//
+Batteryresetbtn.AddState( OK )
+//
+// ExpertSystem Conditions
+//
+Batteryresetbtn.Stop()
+
+Batteryresetbtn.OK.AddCondition( "&BatteryLua_BoD_activateACK  == 1" )
+
+Batteryresetbtn.OK.AddAction( "BatteryBoD_stateACK.SetValue(1)" )
+
+Batteryresetbtn.Start()

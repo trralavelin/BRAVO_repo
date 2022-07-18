@@ -1,0 +1,98 @@
+#
+# outrigger bab = AN2
+# outriigger trib = AN3
+#
+#
+new TSetting( Outrigger_threshold_1s_max, 22000, 0 )
+new TSetting( Outrigger_threshold_10s_mean, 19000, 0 )
+new TSetting( Outrigger_PortChange, 1000, 0 )
+new TSetting( Outrigger_StbChange, 500, 0 )
+
+#-------------------------------------------------------------------
+# 							Outrigger BABORD
+#-------------------------------------------------------------------
+
+new TLuaVar( Outrigger_Port, "cfg/Bravo5/maths/loadFormater.lua", LuaProcess )
+Outrigger_Port.Params.Add( "input", Outrigger_Port_Input )
+Outrigger_Port.Output.Add( "1s_max" )
+Outrigger_Port.Output.Add( "1s_mean" )
+Outrigger_Port.Output.Add( "10s_max" )
+Outrigger_Port.Output.Add( "10s_mean" )
+Outrigger_Port.Output.Add( "60s_max" )
+Outrigger_Port.Output.Add( "60s_mean" )
+
+### valeur en Percent 
+new TMultiply( Outrigger_Port_Input10s_m, 100, Outrigger_Port_Input10s, CalculeVar_010 )
+new TDivide( Outrigger_Portpercent10s, Outrigger_Port_Input10s_m, Outrigger_threshold_10s_mean, CalculeVar_010 )
+
+new TMultiply( Outrigger_Port_Input1s_m, 100, Outrigger_Port_Input1s, CalculeVar_010 )
+new TDivide( Outrigger_Portpercent1s, Outrigger_Port_Input1s_m, Outrigger_threshold_1s_max, CalculeVar_010 )
+
+## gestion du dépassement des seuils ##
+new TSetting( Outrigger_PortBoD_Reset_Seuil, 0, 0 )
+
+#---------------------------------------------------------------------
+#					Outrigger STB
+# --------------------------------------------------------------------
+
+new TLuaVar( Outrigger_Stb, "cfg/Bravo5/maths/loadFormater.lua", LuaProcess )
+Outrigger_Stb.Params.Add( "input", Outrigger_Stb_Input )
+Outrigger_Stb.Output.Add( "1s_max" )
+Outrigger_Stb.Output.Add( "1s_mean" )
+Outrigger_Stb.Output.Add( "10s_max" )
+Outrigger_Stb.Output.Add( "10s_mean" )
+Outrigger_Stb.Output.Add( "60s_max" )
+Outrigger_Stb.Output.Add( "60s_mean" )
+
+### valeur en Percent 
+new TMultiply( Outrigger_Stb_Input10s_m, 100, Outrigger_Stb_Input10s, CalculeVar_010 )
+new TDivide( Outrigger_Stbpercent10s, Outrigger_Stb_Input10s_m, Outrigger_threshold_10s_mean, CalculeVar_010 )
+
+new TMultiply( Outrigger_Stb_Input1s_m, 100, Outrigger_Stb_Input1s, CalculeVar_010 )
+new TDivide( Outrigger_Stbpercent1s, Outrigger_Stb_Input1s_m, Outrigger_threshold_1s_max, CalculeVar_010 )
+
+#---------------------------------------------------------------------------
+#					select outrgigger actif
+# --------------------------------------------------------------------------
+new TChooser( Outrigger_percent10s, "(&AWA > 0)", Outrigger_Stbpercent10s, Outrigger_Portpercent10s, CalculeVar_025 )
+new TChooser( Outrigger_percent1s, "(&AWA > 0)", Outrigger_Stbpercent1s, Outrigger_Portpercent1s, CalculeVar_025 )
+
+#---------------------------------------------------------------------------
+#					Alarme gestion uniquement sur outrigger actif
+# --------------------------------------------------------------------------
+new TSetting( OutriggerBoD_stateACK, 0, 0 )
+new TSetting( waitOutrigger, 15, 0 )
+new TSetting( OutriggerPortactivateAlarme, 1, 0 )
+new TSetting( OutriggerStbactivateAlarme, 1, 0 )
+new TChooser( OutriggeractivateAlarme, "(&AWA > 0)", OutriggerStbactivateAlarme, OutriggerPortactivateAlarme, CalculeVar_025 )
+
+new TLuaVar( Outriggerlua, "cfg/Bravo5/maths/aa.lua", LuaProcess )
+Outriggerlua.Params.Add( "input10s", Outrigger_percent10s )
+Outriggerlua.Params.Add( "input1s", Outrigger_percent1s )
+Outriggerlua.Params.Add( "stateACK", OutriggerBoD_stateACK )
+Outriggerlua.Params.Add( "waituser", waitOutrigger )
+Outriggerlua.Params.Add( "activate", OutriggeractivateAlarme )
+Outriggerlua.Output.Add( "led" )
+Outriggerlua.Output.Add( "MaxSeuil_10s" )
+Outriggerlua.Output.Add( "MaxSeuil_1s" )
+Outriggerlua.Output.Add( "cpt" )
+Outriggerlua.Output.Add( "BoD_activateACK" )
+Outriggerlua.Output.Add( "Buzz" )
+Outriggerlua.Output.Add( "heure" )
+##### gestion du bouton Reset dans BoD 
+
+new TExpertSys( Outrigger_resetbtn )
+//
+// ExpertSystem States
+//
+Outrigger_resetbtn.AddState( OK )
+//
+// ExpertSystem Conditions
+//
+Outrigger_resetbtn.Stop()
+
+Outrigger_resetbtn.OK.AddCondition( "&Outriggerlua_BoD_activateACK  == 1" )
+
+Outrigger_resetbtn.OK.AddAction( "OutriggerBoD_stateACK.SetValue(1)" )
+
+Outrigger_resetbtn.Start()

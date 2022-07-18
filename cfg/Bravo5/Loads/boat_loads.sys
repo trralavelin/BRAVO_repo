@@ -1,0 +1,42 @@
+load "cfg/Bravo5/Loads/J2load.sys"
+load "cfg/Bravo5/Loads/E0E1E4load.sys"
+load "cfg/Bravo5/Loads/J3load.sys"
+load "cfg/Bravo5/Loads/outriggerload.sys"
+load "cfg/Bravo5/Loads/runnerload.sys"
+load "cfg/Bravo5/Loads/foilload.sys"
+load "cfg/Bravo5/Loads/Battery.sys"
+load "cfg/Bravo5/Loads/eau.sys"
+load "cfg/Bravo5/Loads/Pilote.sys"
+load "cfg/Bravo5/Loads/alarmeout.sys"
+
+
+#------------------------------------------------------------------------------
+
+
+new TSetting( Main_Sheet_user_offset, 3000, 0 )
+new TSetting( Jib_Sheet_user_offset, 1000, 0 )
+new TSetting( Mast_Nz_threshold, 37500, 0 )
+
+
+new TLuaVar( Mast_Nz_Input, "cfg/Bravo5/maths/nz.lua", LuaProcess )
+Mast_Nz_Input.Params.Add( "MainSheet", Main_Sheet_Input )
+Mast_Nz_Input.Params.Add( "JibSheet", Jib_Sheet_Input )
+Mast_Nz_Input.Params.Add( "E0", E0_Input )
+Mast_Nz_Input.Params.Add( "E1", E1_Input )
+Mast_Nz_Input.Params.Add( "E2", E2_Input )
+Mast_Nz_Input.Params.Add( "E3", E3_Input )
+Mast_Nz_Input.Params.Add( "E4", E4_Input )
+Mast_Nz_Input.Params.Add( "R_Stb", Runner_Stb_Input )
+Mast_Nz_Input.Params.Add( "R_Port", Runner_Port_Input )
+Mast_Nz_Input.Params.Add( "Out_Stb", Outrigger_Stb_Input )
+Mast_Nz_Input.Params.Add( "Out_Port", Outrigger_Port_Input )
+Mast_Nz_Input.Output.Add( "Main_Nz" )
+
+new TLuaVar( Mast_Nz, "cfg/Bravo5/maths/loadFormater.lua", LuaProcess )
+Mast_Nz.Params.Add( "input", Mast_Nz_Input_Main_Nz )
+Mast_Nz.Output.Add( "1s_max" )
+Mast_Nz.Output.Add( "1s_mean" )
+Mast_Nz.Output.Add( "10s_max" )
+Mast_Nz.Output.Add( "10s_mean" )
+Mast_Nz.Output.Add( "60s_max" )
+Mast_Nz.Output.Add( "60s_mean" )

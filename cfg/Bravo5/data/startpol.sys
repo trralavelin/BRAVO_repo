@@ -14,7 +14,7 @@
 # Copyright: Bravo Systems SL. All Rights Reserved.
 #------------------------------------------------------------------------------
 
-new TWtpPolar( Start , 6 )
+new TWtpPolar( Start, 6 )
 Start.AddRow( 0.000000 )
 Start.SetPoint( 0, 0, 0.000000, 0.000000 )
 Start.SetPoint( 0, 1, 70.000000, 0.000000 )

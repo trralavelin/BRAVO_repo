@@ -1,0 +1,107 @@
+# MAD interface AN6
+# = J3_Input
+
+new TSetting( E3_coeff, 0.83, 0 )
+
+new TSetting( E3_threshold_10s_mean, 5000, 0 )
+
+new TSetting( E3_threshold_1s_max, 3, 0 )
+
+new TSetting( J3_threshold, 5000, 0 )
+
+new TLuaVar( E3, "cfg/Bravo5/maths/loadFormater.lua", LuaProcess )
+E3.Params.Add( "input", E3_Input )
+E3.Output.Add( "1s_max" )
+E3.Output.Add( "1s_mean" )
+E3.Output.Add( "10s_max" )
+E3.Output.Add( "10s_mean" )
+E3.Output.Add( "60s_max" )
+E3.Output.Add( "60s_mean" )
+
+
+
+### valeur en Percent 
+new TMultiply( E3per10s_m, 100, E3_Input10s, CalculeVar_010 )
+new TDivide( E3percent10s, E3per10s_m, E3_threshold_10s_mean, CalculeVar_010 )
+
+new TMultiply( E3per1s_m, 100, E3_Input1s, CalculeVar_010 )
+new TDivide( E3percent1s, E3per1s_m, E3_threshold_1s_max, CalculeVar_010 )
+
+## gestion du dépassement des seuils ##
+new TSetting( E3BoD_stateACK, 0, 0 )
+new TSetting( E3change, 500, 0 )
+new TSetting( waitE3, 15, 0 )
+new TSetting( E3activateAlarme, 1, 0 )
+
+new TLuaVar( E3lua, "cfg/Bravo5/maths/aa.lua", LuaProcess )
+E3lua.Params.Add( "input10s", E3percent10s )
+E3lua.Params.Add( "input1s", E3percent1s )
+E3lua.Params.Add( "stateACK", E3BoD_stateACK )
+E3lua.Params.Add( "waituser", waitE3 )
+E3lua.Params.Add( "activate", E3activateAlarme )
+E3lua.Output.Add( "led" )
+E3lua.Output.Add( "MaxSeuil_10s" )
+E3lua.Output.Add( "MaxSeuil_1s" )
+E3lua.Output.Add( "cpt" )
+E3lua.Output.Add( "BoD_activateACK" )
+E3lua.Output.Add( "Buzz" )
+E3lua.Output.Add( "heure" )
+##### gestion du bouton Reset dans BoD 
+
+
+new TExpertSys( E3resetbtn )
+//
+// ExpertSystem States
+//
+E3resetbtn.AddState( OK )
+//
+// ExpertSystem Conditions
+//
+E3resetbtn.Stop()
+
+E3resetbtn.OK.AddCondition( "&E3lua_BoD_activateACK  == 1" )
+
+E3resetbtn.OK.AddAction( "E3BoD_stateACK.SetValue(1)" )
+
+E3resetbtn.Start()
+new TChooser( J3minValid, "&E3_Input > 200 and &E1_Input > 200", 1, 0, CalculeVar_010 )
+new TChooser( J3min_Alarm, "&E3_1s_mean < 500 and &E1_1s_mean > 1400", 1, 0, CalculeVar_010 )
+
+## ------------------------------------
+##					J3min
+##-------------------------------------
+
+new TSetting( J3minBoD_stateACK, 0, 0 )
+new TSetting( E3min, 500, 0 )
+new TSetting( E1max, 1500, 0 )
+new TSetting( J3minactivateAlarme, 1, 0 )
+new TSetting( waitJ3min, 120, 0 )
+
+
+new TLuaVar( J3minLua, "cfg/Bravo5/Loads/J3min.lua", LuaProcess )
+J3minLua.Params.Add( "E3_1s_mean", E3_1s_mean )
+J3minLua.Params.Add( "E1_1s_mean", E1_1s_mean )
+J3minLua.Params.Add( "stateACK", J3minBoD_stateACK )
+J3minLua.Params.Add( "E3min", E3min )
+J3minLua.Params.Add( "E1max", E1max )
+J3minLua.Output.Add( "led" )
+J3minLua.Output.Add( "BoD_activateACK" )
+J3minLua.Output.Add( "Buzz" )
+J3minLua.Output.Add( "heure" )
+
+
+new TExpertSys( J3minresetbtn )
+//
+// ExpertSystem States
+//
+J3minresetbtn.AddState( OK )
+//
+// ExpertSystem Conditions
+//
+J3minresetbtn.Stop()
+
+J3minresetbtn.OK.AddCondition( "&J3minLua_BoD_activateACK  == 1" )
+
+J3minresetbtn.OK.AddAction( "J3minBoD_stateACK.SetValue(1)" )
+
+J3minresetbtn.Start()

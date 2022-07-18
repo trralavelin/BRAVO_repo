@@ -1,0 +1,51 @@
+
+
+
+new TLuaVar( bal_high_port, "cfg/Bravo5/maths/lissageFormater.lua", LuaProcess )
+bal_high_port.Params.Add( "input", Ballast_High_Port_Input )
+bal_high_port.Output.Add( "smooth_mean" )
+
+new TLuaVar( bal_low_port, "cfg/Bravo5/maths/lissageFormater.lua", LuaProcess )
+bal_low_port.Params.Add( "input", Ballast_Low_Port_Input )
+bal_low_port.Output.Add( "smooth_mean" )
+
+new TLuaVar( bal_high_stb, "cfg/Bravo5/maths/lissageFormater.lua", LuaProcess )
+bal_high_stb.Params.Add( "input", Ballast_High_Stb_Input )
+bal_high_stb.Output.Add( "smooth_mean" )
+
+new TLuaVar( bal_low_stb, "cfg/Bravo5/maths/lissageFormater.lua", LuaProcess )
+bal_low_stb.Params.Add( "input", Ballast_Low_Stb_Input )
+bal_low_stb.Output.Add( "smooth_mean" )
+
+new TLuaVar( bal_av_high_port, "cfg/Bravo5/maths/lissageFormater.lua", LuaProcess )
+bal_av_high_port.Params.Add( "input", Ballast_AV_High_Port_Input )
+bal_av_high_port.Output.Add( "smooth_mean" )
+
+new TLuaVar( bal_av_low_port, "cfg/Bravo5/maths/lissageFormater.lua", LuaProcess )
+bal_av_low_port.Params.Add( "input", Ballast_AV_Low_Port_Input )
+bal_av_low_port.Output.Add( "smooth_mean" )
+
+new TLuaVar( bal_av_high_stb, "cfg/Bravo5/maths/lissageFormater.lua", LuaProcess )
+bal_av_high_stb.Params.Add( "input", Ballast_AV_High_Stb_Input )
+bal_av_high_stb.Output.Add( "smooth_mean" )
+
+new TLuaVar( bal_av_low_stb, "cfg/Bravo5/maths/lissageFormater.lua", LuaProcess )
+bal_av_low_stb.Params.Add( "input", Ballast_AV_Low_Stb_Input )
+bal_av_low_stb.Output.Add( "smooth_mean" )
+
+
+new TLuaVar( adr_vmg, "cfg/Bravo5/maths/lissageFormater.lua", LuaProcess )
+adr_vmg.Params.Add( "input", Adr_VMG_Input )
+adr_vmg.Output.Add( "smooth_mean" )
+new TCopy( Adr_VMG_display, adr_vmg_smooth_mean, CalculeVar_005 )
+
+new TLuaVar( adr_cmg, "cfg/Bravo5/maths/lissageFormater.lua", LuaProcess )
+adr_cmg.Params.Add( "input", Adr_CMG_Input )
+adr_cmg.Output.Add( "smooth_mean" )
+new TCopy( Adr_CMG_display, adr_cmg_smooth_mean, CalculeVar_005 )
+
+
+new TLuaVar( adr_pvit_cible, "cfg/Bravo5/maths/lissageFormater.lua", LuaProcess )
+adr_pvit_cible.Params.Add( "input", Adr_Pvit_cible_Input )
+adr_pvit_cible.Output.Add( "smooth_mean" )
+new TCopy( Adr_Pvit_cible_display, adr_pvit_cible_smooth_mean, CalculeVar_005 )

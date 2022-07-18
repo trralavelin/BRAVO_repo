@@ -1,0 +1,174 @@
+#MAD interface AN4 / J1_Input
+# = E4_Input si LoadCell = 1
+#
+# MAD interface AN7 / A0_Input  
+# = E0_Input si capelage = 0
+# = E1_Input si capelage = 1 
+# = E4_Input si LoadCell = 0 
+#
+#
+new TSetting( E0E1change, 1800, 0 )
+new TSetting( E0_coeff, 0.59, 0 )
+new TSetting( E1_coeff, 0.59, 0 )
+new TSetting( E4change, 5, 0 )
+new TSetting( E4_A0_coeff, 0.59, 0 )
+new TSetting( E4_J1_coeff, 1.5, 0 )
+#
+new TSetting( E4_LoadCell_ToUse, 0, 0 )
+new TSetting( CapelageToUse, 0, 0 )
+new TSetting( A0_user_offset, 0, 0 )
+
+new TSetting( J1_threshold, 6000, 0 )
+new TSetting( E0_threshold_10s_mean, 5000, 0 )
+new TSetting( E0_threshold_1s_max, 6250, 0 )
+new TSetting( E1_threshold_10s_mean, 5600, 0 )
+new TSetting( E1_threshold_1s_max, 7000, 0 )
+#
+new TSetting( E0E1_threshold_10s_mean, 5000, 0 )
+new TSetting( E0E1_threshold_1s_max, 6250, 0 )
+new TSetting( E4_threshold_10s_mean, 16600, 0 )
+new TSetting( E4_threshold_1s_max, 18000, 0 )
+
+
+#-------------------------------------------------------
+# 					E4 
+#--------------------------------------------------------
+
+
+new TLuaVar( E4, "cfg/Bravo5/maths/loadFormater.lua", LuaProcess )
+E4.Params.Add( "input", E4_Input )
+E4.Output.Add( "1s_max" )
+E4.Output.Add( "1s_mean" )
+E4.Output.Add( "10s_max" )
+E4.Output.Add( "10s_mean" )
+E4.Output.Add( "60s_max" )
+E4.Output.Add( "60s_mean" )
+
+
+new TMultiply( E4per10s_m, 100, E4_Input10s, CalculeVar_010 )
+new TDivide( E4percent10s, E4per10s_m, E4_threshold_10s_mean, CalculeVar_010 )
+new TMultiply( E4per1s_m, 100, E4_Input1s, CalculeVar_010 )
+new TDivide( E4percent1s, E4per1s_m, E4_threshold_1s_max, CalculeVar_010 )
+
+new TMultiply( A0_user_offset_NEG, A0_user_offset, -1, CalculeVar_001 )
+
+new TExpertSys( E4_ES )
+//
+// ExpertSystem States
+//
+E4_ES.AddState( J1 )
+E4_ES.AddState( A0 )
+//
+// ExpertSystem Conditions
+//
+E4_ES.Stop()
+
+E4_ES.J1.AddCondition( "& E4_LoadCell_ToUse  == 1" )
+
+E4_ES.J1.AddAction( "E4_Input.Source.Set( J1_Input )" )
+E4_ES.J1.AddAction( "E4_Input.Slope.Set( E4_J1_coeff )" )
+
+E4_ES.A0.AddCondition( "& E4_LoadCell_ToUse  == 0" )
+
+E4_ES.A0.AddAction( "E4_Input.Source.Set( A0_Input )" )
+E4_ES.A0.AddAction( "E4_Input.Slope.Set( E4_A0_coeff )" )
+
+E4_ES.Start()
+
+
+new TSetting( E4BoD_stateACK, 0, 0 )
+new TSetting( E4activateAlarme, 0, 0 )
+new TSetting( waitE4, 1, 0 )
+
+new TLuaVar( E4lua, "cfg/Bravo5/maths/aa.lua", LuaProcess )
+E4lua.Params.Add( "input10s", E4percent10s )
+E4lua.Params.Add( "input1s", E4percent1s )
+E4lua.Params.Add( "stateACK", E4BoD_stateACK )
+E4lua.Params.Add( "waituser", waitE4 )
+E4lua.Params.Add( "activate", E4activateAlarme )
+E4lua.Output.Add( "led" )
+E4lua.Output.Add( "MaxSeuil_10s" )
+E4lua.Output.Add( "MaxSeuil_1s" )
+E4lua.Output.Add( "cpt" )
+E4lua.Output.Add( "BoD_activateACK" )
+E4lua.Output.Add( "Buzz" )
+E4lua.Output.Add( "heure" )
+new TExpertSys( E4resetbtn )
+//
+// ExpertSystem States
+//
+E4resetbtn.AddState( OK )
+//
+// ExpertSystem Conditions
+//
+E4resetbtn.Stop()
+
+E4resetbtn.OK.AddCondition( "&E4lua_BoD_activateACK  == 1" )
+
+E4resetbtn.OK.AddAction( "E4BoD_stateACK.SetValue(1)" )
+
+E4resetbtn.Start()
+
+#-------------------------------------------------------
+# 					E0E1 
+#--------------------------------------------------------
+new TLuaVar( E0, "cfg/Bravo5/maths/loadFormater.lua", LuaProcess )
+E0.Params.Add( "input", E0_Input )
+E0.Output.Add( "1s_max" )
+E0.Output.Add( "1s_mean" )
+E0.Output.Add( "10s_max" )
+E0.Output.Add( "10s_mean" )
+E0.Output.Add( "60s_max" )
+E0.Output.Add( "60s_mean" )
+#
+#
+new TLuaVar( E1, "cfg/Bravo5/maths/loadFormater.lua", LuaProcess )
+E1.Params.Add( "input", E1_Input )
+E1.Output.Add( "1s_max" )
+E1.Output.Add( "1s_mean" )
+E1.Output.Add( "10s_max" )
+E1.Output.Add( "10s_mean" )
+E1.Output.Add( "60s_max" )
+E1.Output.Add( "60s_mean" )
+#
+new TMultiply( E0E1per10s_m, 100, E0E1_Input10s, CalculeVar_010 )
+new TDivide( E0E1percent10s, E0E1per10s_m, E0E1_threshold_10s_mean, CalculeVar_010 )
+new TMultiply( E0E1per1s_m, 100, E0E1_Input1s, CalculeVar_010 )
+new TDivide( E0E1percent1s, E0E1per1s_m, E0E1_threshold_1s_max, CalculeVar_010 )
+
+#------
+#
+#------
+new TSetting( E0E1BoD_stateACK, 0, 0 )
+new TSetting( waitE0E1, 15, 0 )
+new TSetting( E0E1activateAlarme, 1, 0 )
+
+new TLuaVar( E0E1lua, "cfg/Bravo5/maths/aa.lua", LuaProcess )
+E0E1lua.Params.Add( "input10s", E0E1percent10s )
+E0E1lua.Params.Add( "input1s", E0E1percent1s )
+E0E1lua.Params.Add( "stateACK", E0E1BoD_stateACK )
+E0E1lua.Params.Add( "waituser", waitE0E1 )
+E0E1lua.Params.Add( "activate", E0E1activateAlarme )
+E0E1lua.Output.Add( "led" )
+E0E1lua.Output.Add( "MaxSeuil_10s" )
+E0E1lua.Output.Add( "MaxSeuil_1s" )
+E0E1lua.Output.Add( "cpt" )
+E0E1lua.Output.Add( "BoD_activateACK" )
+E0E1lua.Output.Add( "Buzz" )
+E0E1lua.Output.Add( "heure" )
+
+new TExpertSys( E0E1resetbtn )
+//
+// ExpertSystem States
+//
+E0E1resetbtn.AddState( OK )
+//
+// ExpertSystem Conditions
+//
+E0E1resetbtn.Stop()
+
+E0E1resetbtn.OK.AddCondition( "&E0E1lua_BoD_activateACK  == 1" )
+
+E0E1resetbtn.OK.AddAction( "E0E1BoD_stateACK.SetValue(1)" )
+
+E0E1resetbtn.Start()

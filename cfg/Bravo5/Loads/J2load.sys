@@ -1,0 +1,65 @@
+#J2_Input MAD interface AN5
+# = E2_Input
+
+new TSetting( E2_coeff, 1, 0 )
+
+new TSetting( E2_threshold_10s_mean, 50, 0 )
+new TSetting( E2_threshold_1s_max, 30, 0 )
+new TSetting( E2change, 20000, 0 )
+
+new TSetting( J2_threshold, 7000, 0 )
+
+new TLuaVar( E2, "cfg/Bravo5/maths/loadFormater.lua", LuaProcess )
+E2.Params.Add( "input", E2_Input )
+E2.Output.Add( "1s_max" )
+E2.Output.Add( "1s_mean" )
+E2.Output.Add( "10s_max" )
+E2.Output.Add( "10s_mean" )
+E2.Output.Add( "60s_max" )
+E2.Output.Add( "60s_mean" )
+
+
+### valeur en Percent 
+new TMultiply( E2per10s_m, 100, E2_Input10s, CalculeVar_010 )
+new TDivide( E2percent10s, E2per10s_m, E2_threshold_10s_mean, CalculeVar_010 )
+
+new TMultiply( E2per1s_m, 100, E2_Input1s, CalculeVar_010 )
+new TDivide( E2percent1s, E2per1s_m, E2_threshold_1s_max, CalculeVar_010 )
+
+## gestion du dépassement des seuils ##
+new TSetting( E2BoD_stateACK, 0, 0 )
+new TSetting( waitE2, 15, 0 )
+new TSetting( E2activateAlarme, 1, 0 )
+
+new TLuaVar( E2lua, "cfg/Bravo5/maths/aa.lua", LuaProcess )
+E2lua.Params.Add( "input10s", E2percent10s )
+E2lua.Params.Add( "input1s", E2percent1s )
+E2lua.Params.Add( "stateACK", E2BoD_stateACK )
+E2lua.Params.Add( "waituser", waitE2 )
+E2lua.Params.Add( "activate", E2activateAlarme )
+E2lua.Params.Add( "waituser", waitJ3min )
+E2lua.Params.Add( "activate", J3minactivateAlarme )
+E2lua.Output.Add( "led" )
+E2lua.Output.Add( "MaxSeuil_10s" )
+E2lua.Output.Add( "MaxSeuil_1s" )
+E2lua.Output.Add( "cpt" )
+E2lua.Output.Add( "BoD_activateACK" )
+E2lua.Output.Add( "Buzz" )
+E2lua.Output.Add( "heure" )
+##### gestion du bouton Reset dans BoD 
+
+new TExpertSys( E2resetbtn )
+//
+// ExpertSystem States
+//
+E2resetbtn.AddState( OK )
+//
+// ExpertSystem Conditions
+//
+E2resetbtn.Stop()
+
+E2resetbtn.OK.AddCondition( "&E2lua_BoD_activateACK  == 1" )
+
+E2resetbtn.OK.AddAction( "E2BoD_stateACK.SetValue(1)" )
+
+E2resetbtn.Start()

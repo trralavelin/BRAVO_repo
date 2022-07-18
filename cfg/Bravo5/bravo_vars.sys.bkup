@@ -204,6 +204,7 @@ new TFinalVar( Adr_Pvit_cible_Final, "BravoVars", "%", "linear", 0, "", "", 0, C
 new TFinalVar( Adr_VMG_Final, "BravoVars", "kts", "linear", 0, "", "", 0, CalculeVar_025 )
 new TFinalVar( Adr_CMG_Final, "BravoVars", "kts", "linear", 0, "", "", 0, CalculeVar_025 )
 
+new TFinalVar( ADV_Rfid, "BravoVars", "kts", "linear", 0, "", "", 0, CalculeVar_025 )
 
 
 new TRBTimer( Countdown )

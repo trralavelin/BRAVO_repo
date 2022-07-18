@@ -1,0 +1,31 @@
+#
+#--------------------------------
+#     gestion du buzzer et VOIX
+#---------------------------------
+#
+# 2 fonctions LUA : 
+#     - aabis.lua  : pour gérer la sortie buzzer (en ent
+#			Seuil si dépassement de charge
+#			Surveillance si c'est MUTE ou ACTIF
+#
+#           MUTE avec Timer
+#           Actif OU Non (gérer dans les settings)
+
+
+new TLuaVar( AlarmeOUT, "cfg/Bravo5/maths/aabis.lua", LuaProcess )
+AlarmeOUT.Params.Add( "E2Buzz", E2lua_Buzz )
+AlarmeOUT.Params.Add( "E3Buzz", E3lua_Buzz )
+AlarmeOUT.Params.Add( "E0E1Buzz", E0E1lua_Buzz )
+AlarmeOUT.Params.Add( "E4Buzz", E4lua_Buzz )
+AlarmeOUT.Params.Add( "Outrigger_Buzz", Outriggerlua_Buzz )
+AlarmeOUT.Params.Add( "Runner_Buzz", Runnerlua_Buzz )
+AlarmeOUT.Params.Add( "Foil_Buzz", foillua_Buzz )
+AlarmeOUT.Params.Add( "J3minBuzz", J3minLua_Buzz )
+AlarmeOUT.Params.Add( "BatteryBuzz", BatteryLua_Buzz )
+AlarmeOUT.Params.Add( "EauBuzz", EauLua_Buzz )
+AlarmeOUT.Params.Add( "PiloteBuzz", PiloteLua_Buzz )
+AlarmeOUT.Output.Add( "K11" )
+AlarmeOUT.Output.Add( "K12" )
+AlarmeOUT.Output.Add( "K21" )
+AlarmeOUT.Output.Add( "K22" )
+AlarmeOUT.Output.Add( "buzz" )

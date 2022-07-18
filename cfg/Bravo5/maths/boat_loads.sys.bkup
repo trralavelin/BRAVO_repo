@@ -22,7 +22,7 @@ new TSetting( E0_threshold_1s_max, 6250, 0 )
 new TSetting( E1_threshold_10s_mean, 5600, 0 )
 new TSetting( E1_threshold_1s_max, 7000, 0 )
 new TSetting( E2_threshold_10s_mean, 7500, 0 )
-new TSetting( E2_threshold_1s_max, 9325, 0 )
+new TSetting( E2_threshold_1s_max, 9350, 0 )
 new TSetting( E4_threshold_10s_mean, 11000, 0 )
 new TSetting( E4_threshold_1s_max, 11000, 0 )
 new TSetting( E3_threshold_10s_mean, 5000, 0 )
@@ -83,7 +83,7 @@ E4_ES.Start()
 
 
 
-new TSetting( Capelage_ToUse, 0, 0 )
+new TSetting( Capelage_ToUse, 1, 0 )
 
 new TExpertSys( Capelage_ES )
 //

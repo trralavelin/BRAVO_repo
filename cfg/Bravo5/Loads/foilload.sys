@@ -1,0 +1,181 @@
+#
+# Foil lecture interrogateur
+#
+#
+#
+new TCalcule( FoilProcess, 10 )
+
+new TLuaVar( Foil_Port, "cfg/Bravo5/maths/foilFormater.lua", FoilProcess )
+Foil_Port.Params.Add( "in_1", mdx_sensor_13_Value )
+Foil_Port.Params.Add( "in_2", mdx_sensor_14_Value )
+Foil_Port.Params.Add( "in_3", mdx_sensor_15_Value )
+Foil_Port.Params.Add( "ex_1", mdx_sensor_1_Value )
+Foil_Port.Params.Add( "ex_2", mdx_sensor_2_Value )
+Foil_Port.Params.Add( "ex_3", mdx_sensor_3_Value )
+Foil_Port.Params.Add( "ex_4", mdx_sensor_4_Value )
+Foil_Port.Params.Add( "ex_5", mdx_sensor_5_Value )
+Foil_Port.Params.Add( "frequency", 30 )
+Foil_Port.Output.Add( "in_1_min" )
+Foil_Port.Output.Add( "in_1" )
+Foil_Port.Output.Add( "in_1_max" )
+Foil_Port.Output.Add( "in_2_min" )
+Foil_Port.Output.Add( "in_2" )
+Foil_Port.Output.Add( "in_2_max" )
+Foil_Port.Output.Add( "in_3_min" )
+Foil_Port.Output.Add( "in_3" )
+Foil_Port.Output.Add( "in_3_max" )
+Foil_Port.Output.Add( "ex_1_min" )
+Foil_Port.Output.Add( "ex_1" )
+Foil_Port.Output.Add( "ex_1_max" )
+Foil_Port.Output.Add( "ex_2_min" )
+Foil_Port.Output.Add( "ex_2" )
+Foil_Port.Output.Add( "ex_2_max" )
+Foil_Port.Output.Add( "ex_3_min" )
+Foil_Port.Output.Add( "ex_3" )
+Foil_Port.Output.Add( "ex_3_max" )
+Foil_Port.Output.Add( "ex_4_min" )
+Foil_Port.Output.Add( "ex_4" )
+Foil_Port.Output.Add( "ex_4_max" )
+Foil_Port.Output.Add( "ex_5_min" )
+Foil_Port.Output.Add( "ex_5" )
+Foil_Port.Output.Add( "ex_5_max" )
+Foil_Port.Output.Add( "in_min" )
+Foil_Port.Output.Add( "in_max" )
+Foil_Port.Output.Add( "ex_min" )
+Foil_Port.Output.Add( "ex_max" )
+Foil_Port.Output.Add( "in_peak" )
+Foil_Port.Output.Add( "ex_peak" )
+Foil_Port.Output.Add( "peak" )
+
+new TLuaVar( Foil_Stb, "cfg/Bravo5/maths/foilFormater.lua", FoilProcess )
+Foil_Stb.Params.Add( "in_1", mdx_sensor_17_Value )
+Foil_Stb.Params.Add( "in_2", mdx_sensor_18_Value )
+Foil_Stb.Params.Add( "in_3", mdx_sensor_19_Value )
+Foil_Stb.Params.Add( "ex_1", mdx_sensor_7_Value )
+Foil_Stb.Params.Add( "ex_2", mdx_sensor_8_Value )
+Foil_Stb.Params.Add( "ex_3", mdx_sensor_9_Value )
+Foil_Stb.Params.Add( "ex_4", mdx_sensor_10_Value )
+Foil_Stb.Params.Add( "ex_5", mdx_sensor_11_Value )
+Foil_Stb.Params.Add( "frequency", 30 )
+Foil_Stb.Output.Add( "in_1_min" )
+Foil_Stb.Output.Add( "in_1" )
+Foil_Stb.Output.Add( "in_1_max" )
+Foil_Stb.Output.Add( "in_2_min" )
+Foil_Stb.Output.Add( "in_2" )
+Foil_Stb.Output.Add( "in_2_max" )
+Foil_Stb.Output.Add( "in_3_min" )
+Foil_Stb.Output.Add( "in_3" )
+Foil_Stb.Output.Add( "in_3_max" )
+Foil_Stb.Output.Add( "ex_1_min" )
+Foil_Stb.Output.Add( "ex_1" )
+Foil_Stb.Output.Add( "ex_1_max" )
+Foil_Stb.Output.Add( "ex_2_min" )
+Foil_Stb.Output.Add( "ex_2" )
+Foil_Stb.Output.Add( "ex_2_max" )
+Foil_Stb.Output.Add( "ex_3_min" )
+Foil_Stb.Output.Add( "ex_3" )
+Foil_Stb.Output.Add( "ex_3_max" )
+Foil_Stb.Output.Add( "ex_4_min" )
+Foil_Stb.Output.Add( "ex_4" )
+Foil_Stb.Output.Add( "ex_4_max" )
+Foil_Stb.Output.Add( "ex_5_min" )
+Foil_Stb.Output.Add( "ex_5" )
+Foil_Stb.Output.Add( "ex_5_max" )
+Foil_Stb.Output.Add( "in_min" )
+Foil_Stb.Output.Add( "in_max" )
+Foil_Stb.Output.Add( "ex_min" )
+Foil_Stb.Output.Add( "ex_max" )
+Foil_Stb.Output.Add( "in_peak" )
+Foil_Stb.Output.Add( "ex_peak" )
+Foil_Stb.Output.Add( "peak" )
+
+#
+#
+#
+new TSetting( Foil_Active_peak_threshold, -4500, 0 )
+#
+#(intrados ou extrados, le peak est la valeure la plus basse entre les 2
+#
+new TLuaVar( Foil_Stb_f, "cfg/Bravo5/maths/loadFormater.lua", LuaProcess )
+Foil_Stb_f.Params.Add( "input", Foil_Stb_peak )
+Foil_Stb_f.Output.Add( "1s_max" )
+Foil_Stb_f.Output.Add( "1s_mean" )
+Foil_Stb_f.Output.Add( "10s_max" )
+Foil_Stb_f.Output.Add( "10s_mean" )
+Foil_Stb_f.Output.Add( "60s_max" )
+Foil_Stb_f.Output.Add( "60s_mean" )
+#
+#
+new TLuaVar( Foil_Port_f, "cfg/Bravo5/maths/loadFormater.lua", LuaProcess )
+Foil_Port_f.Params.Add( "input", Foil_Port_peak )
+Foil_Port_f.Output.Add( "1s_max" )
+Foil_Port_f.Output.Add( "1s_mean" )
+Foil_Port_f.Output.Add( "10s_max" )
+Foil_Port_f.Output.Add( "10s_mean" )
+Foil_Port_f.Output.Add( "60s_max" )
+Foil_Port_f.Output.Add( "60s_mean" )
+#
+#
+new TSetting( Foil_Portchange, 1, 0 )
+new TSetting( Foil_Stbchange, 2, 0 )
+### valeur en Percent  
+
+#---------------------------------------------------------
+#		Foil bab %
+#---------------------------------------------------------
+
+new TMultiply( Foil_Portper1s_m, 100, Foil_Port_Input1s, CalculeVar_010 )
+new TDivide( Foil_Portpercent1sNEG, Foil_Portper1s_m, Foil_Active_peak_threshold, CalculeVar_010 )
+new TAbs( Foil_Portpercent1s, Foil_Portpercent1sNEG, CalculeVar_025 )
+
+#---------------------------------------------------------
+#		Foil stb %
+#---------------------------------------------------------
+new TMultiply( Foil_Stbper1s_m, 100, Foil_Stb_Input1s, CalculeVar_010 )
+new TDivide( Foil_Stbpercent1sNEG, Foil_Stbper1s_m, Foil_Active_peak_threshold, CalculeVar_010 )
+new TAbs( Foil_Stbpercent1s, Foil_Stbpercent1sNEG, CalculeVar_025 )
+
+#---------------------------------------------------------------------------
+#					select foil actif
+# --------------------------------------------------------------------------
+new TChooser( foil_percent1s, "(&AWA > 0)", Foil_Stbpercent1s, Foil_Portpercent1s, CalculeVar_010 )
+
+#---------------------------------------------------------------------------
+#					Alarme gestion uniquement sur foil actif
+# --------------------------------------------------------------------------
+new TSetting( foilBoD_stateACK, 0, 0 )
+new TSetting( waitfoil, 15, 0 )
+new TSetting( foilPortactivateAlarme, 1, 0 )
+new TSetting( foilStbactivateAlarme, 1, 0 )
+new TChooser( foilactivateAlarme, "(&AWA > 0)", foilStbactivateAlarme, foilPortactivateAlarme, CalculeVar_025 )
+
+new TLuaVar( foillua, "cfg/Bravo5/maths/aa.lua", LuaProcess )
+foillua.Params.Add( "input10s", 0 )
+foillua.Params.Add( "input1s", foil_percent1s )
+foillua.Params.Add( "stateACK", foilBoD_stateACK )
+foillua.Params.Add( "waituser", waitfoil )
+foillua.Params.Add( "activate", foilactivateAlarme )
+foillua.Output.Add( "led" )
+foillua.Output.Add( "MaxSeuil_10s" )
+foillua.Output.Add( "MaxSeuil_1s" )
+foillua.Output.Add( "cpt" )
+foillua.Output.Add( "BoD_activateACK" )
+foillua.Output.Add( "Buzz" )
+foillua.Output.Add( "heure" )
+##### gestion du bouton Reset dans BoD 
+
+new TExpertSys( foil_resetbtn )
+//
+// ExpertSystem States
+//
+foil_resetbtn.AddState( OK )
+//
+// ExpertSystem Conditions
+//
+foil_resetbtn.Stop()
+
+foil_resetbtn.OK.AddCondition( "&foillua_BoD_activateACK  == 1" )
+
+foil_resetbtn.OK.AddAction( "foilBoD_stateACK.SetValue(1)" )
+
+foil_resetbtn.Start()

@@ -1,0 +1,39 @@
+#Alarme batteries
+# MadintecCan_MAD_DigitalInterface2_A1 = Alarm_Battery
+# 1 ou 0
+
+## ------------------------------------
+##					Eaumin
+##-------------------------------------
+
+new TChooser( WS_Alarm, "&Alarm_WS1_Input == 1 or &Alarm_WS2_Input == 1 or &Alarm_WS3_Input == 1 or &Alarm_WS4_Input == 1 or &Alarm_WS5_Input == 1 or &Alarm_WS6_Input == 1 ", 1, 0, CalculeVar_010 )
+new TSetting( EauBoD_stateACK, 0, 0 )
+new TSetting( waitEau, 15, 0 )
+new TSetting( EauactivateAlarme, 1, 0 )
+
+new TLuaVar( EauLua, "cfg/Bravo5/Loads/aabit.lua", LuaProcess )
+EauLua.Params.Add( "var", WS_Alarm )
+EauLua.Params.Add( "stateACK", EauBoD_stateACK )
+EauLua.Params.Add( "waituser", waitEau )
+EauLua.Params.Add( "activate", EauactivateAlarme )
+EauLua.Output.Add( "led" )
+EauLua.Output.Add( "BoD_activateACK" )
+EauLua.Output.Add( "Buzz" )
+EauLua.Output.Add( "heure" )
+
+
+new TExpertSys( Eauresetbtn )
+//
+// ExpertSystem States
+//
+Eauresetbtn.AddState( OK )
+//
+// ExpertSystem Conditions
+//
+Eauresetbtn.Stop()
+
+Eauresetbtn.OK.AddCondition( "&EauLua_BoD_activateACK  == 1" )
+
+Eauresetbtn.OK.AddAction( "EauBoD_stateACK.SetValue(1)" )
+
+Eauresetbtn.Start()

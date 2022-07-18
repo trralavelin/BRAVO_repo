@@ -1,0 +1,131 @@
+new TSetting( Runner_threshold_Arbalette_1s_max, 7000, 0 )
+new TSetting( Runner_threshold_Arbalette_10s_mean, 5000, 0 )
+new TSetting( Runner_threshold_tete_1s_max, 8125, 0 )
+new TSetting( Runner_threshold_tete_10s_mean, 6500, 0 )
+new TSetting( Runner_threshold_active_1s_max, 7000, 0 )
+new TSetting( Runner_threshold_active_10s_mean, 5000, 0 )
+new TSetting( Runner_Portchange, 5, 0 )
+new TSetting( Runner_Stbchange, 1000, 0 )
+
+new TLuaVar( Runner_Port, "cfg/Bravo5/maths/loadFormater.lua", LuaProcess )
+Runner_Port.Params.Add( "input", Runner_Port_Input )
+Runner_Port.Output.Add( "1s_max" )
+Runner_Port.Output.Add( "1s_mean" )
+Runner_Port.Output.Add( "10s_max" )
+Runner_Port.Output.Add( "10s_mean" )
+Runner_Port.Output.Add( "60s_max" )
+Runner_Port.Output.Add( "60s_mean" )
+
+new TLuaVar( Runner_Stb, "cfg/Bravo5/maths/loadFormater.lua", LuaProcess )
+Runner_Stb.Params.Add( "input", Runner_Stb_Input )
+Runner_Stb.Output.Add( "1s_max" )
+Runner_Stb.Output.Add( "1s_mean" )
+Runner_Stb.Output.Add( "10s_max" )
+Runner_Stb.Output.Add( "10s_mean" )
+Runner_Stb.Output.Add( "60s_max" )
+Runner_Stb.Output.Add( "60s_mean" )
+
+new TSetting( ArbaletteToUse, 1, 0 )
+
+new TExpertSys( Arbalette_ES )
+//
+// ExpertSystem States
+//
+Arbalette_ES.AddState( tete )
+Arbalette_ES.AddState( arbalette )
+//
+// ExpertSystem Conditions
+//
+Arbalette_ES.Stop()
+
+Arbalette_ES.tete.AddCondition( "& ArbaletteToUse  == 0" )
+
+Arbalette_ES.tete.AddAction( "Runner_threshold_active_10s_mean.SetValue(&Runner_threshold_tete_10s_mean)" )
+Arbalette_ES.tete.AddAction( "Runner_threshold_active_1s_max.SetValue(&Runner_threshold_tete_1s_max)" )
+
+Arbalette_ES.arbalette.AddCondition( "& ArbaletteToUse  == 1 " )
+
+Arbalette_ES.arbalette.AddAction( "Runner_threshold_active_10s_mean.SetValue(&Runner_threshold_Arbalette_10s_mean)" )
+Arbalette_ES.arbalette.AddAction( "Runner_threshold_active_1s_max.SetValue(&Runner_threshold_Arbalette_1s_max)" )
+
+Arbalette_ES.Start()
+
+#-------------------------------------------------------------
+#						Runner port % 
+#--------------------------------------------------------------
+#
+### valeur en Percent 
+new TMultiply( Runner_Port_Input10s_m, 100, Runner_Port_Input10s, CalculeVar_010 )
+new TDivide( Runner_Portpercent10s, Runner_Port_Input10s_m, Runner_threshold_active_10s_mean, CalculeVar_010 )
+
+new TMultiply( Runner_Port_Input1s_m, 100, Runner_Port_Input1s, CalculeVar_010 )
+new TDivide( Runner_Portpercent1s, Runner_Port_Input1s_m, Runner_threshold_active_1s_max, CalculeVar_010 )
+
+#-------------------------------------------------------------
+#						Runner Stb %
+#--------------------------------------------------------------
+#
+### valeur en Percent 
+new TMultiply( Runner_Stb_Input10s_m, 100, Runner_Stb_Input10s, CalculeVar_010 )
+new TDivide( Runner_Stbpercent10s, Runner_Stb_Input10s_m, Runner_threshold_active_10s_mean, CalculeVar_010 )
+
+new TMultiply( Runner_Stb_Input1s_m, 100, Runner_Stb_Input1s, CalculeVar_010 )
+new TDivide( Runner_Stbpercent1s, Runner_Stb_Input1s_m, Runner_threshold_active_1s_max, CalculeVar_010 )
+
+
+#---------------------------------------------------------------------------
+#					select runner actif
+# --------------------------------------------------------------------------
+new TChooser( Runner_percent10s, "(&AWA > 0)", Runner_Stbpercent10s, Runner_Portpercent10s, CalculeVar_025 )
+new TChooser( Runner_percent1s, "(&AWA > 0)", Runner_Stbpercent1s, Runner_Portpercent1s, CalculeVar_025 )
+
+
+#--------------------------------------- ------------------------------------
+#					Alarme gestion uniquement sur outrigger actif
+# --------------------------------------------------------------------------
+new TSetting( RunnerBoD_stateACK, 0, 0 )
+new TSetting( waitRunner, 15, 0 )
+new TSetting( RunnerPortactivateAlarme, 1, 0 )
+new TSetting( RunnerStbactivateAlarme, 1, 0 )
+new TChooser( RunneractivateAlarme, "(&AWA > 0)", RunnerStbactivateAlarme, RunnerPortactivateAlarme, CalculeVar_025 )
+
+
+new TLuaVar( Runnerlua, "cfg/Bravo5/maths/aa.lua", LuaProcess )
+Runnerlua.Params.Add( "input10s", Runner_percent10s )
+Runnerlua.Params.Add( "input1s", Runner_percent1s )
+Runnerlua.Params.Add( "stateACK", RunnerBoD_stateACK )
+Runnerlua.Params.Add( "waituser", waitRunner )
+Runnerlua.Params.Add( "activate", RunneractivateAlarme )
+Runnerlua.Output.Add( "led" )
+Runnerlua.Output.Add( "MaxSeuil_10s" )
+Runnerlua.Output.Add( "MaxSeuil_1s" )
+Runnerlua.Output.Add( "cpt" )
+Runnerlua.Output.Add( "BoD_activateACK" )
+Runnerlua.Output.Add( "Buzz" )
+Runnerlua.Output.Add( "heure" )
+##### gestion du bouton Reset dans BoD 
+
+new TExpertSys( Runner_resetbtn )
+//
+// ExpertSystem States
+//
+Runner_resetbtn.AddState( OK )
+//
+// ExpertSystem Conditions
+//
+Runner_resetbtn.Stop()
+
+Runner_resetbtn.OK.AddCondition( "&Runnerlua_BoD_activateACK  == 1" )
+
+Runner_resetbtn.OK.AddAction( "RunnerBoD_stateACK.SetValue(1)" )
+
+Runner_resetbtn.Start()
+
+new TLuaVar( Runner_On, "cfg/Bravo5/maths/loadFormater.lua", LuaProcess )
+Runner_On.Params.Add( "input", Runner_Active )
+Runner_On.Output.Add( "1s_max" )
+Runner_On.Output.Add( "1s_mean" )
+Runner_On.Output.Add( "10s_max" )
+Runner_On.Output.Add( "10s_mean" )
+Runner_On.Output.Add( "60s_max" )
+Runner_On.Output.Add( "60s_mean" )

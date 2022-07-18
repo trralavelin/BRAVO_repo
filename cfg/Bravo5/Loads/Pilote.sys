@@ -1,0 +1,42 @@
+#Alarme batteries
+# MadintecCan_MAD_DigitalInterface2
+# 1 ou 0
+
+## ------------------------------------
+##				Pilote
+##-------------------------------------
+
+
+new TChooser( MADvalid, "&MADBRAINvalid and &MADCONTROLLERvalid and &MAD_YawValid and &SOG > 0.5", 1, 0, CalculeVar_010 )
+
+new TSetting( PiloteBoD_stateACK, 0, 0 )
+new TSetting( AlarmPilote, 0, 0 )
+new TSetting( waitPilote, 15, 0 )
+new TSetting( PiloteactivateAlarme, 1, 0 )
+
+new TLuaVar( PiloteLua, "cfg/Bravo5/Loads/aabit.lua", LuaProcess )
+PiloteLua.Params.Add( "var", MADvalid )
+PiloteLua.Params.Add( "stateACK", PiloteBoD_stateACK )
+PiloteLua.Params.Add( "waituser", waitPilote )
+PiloteLua.Params.Add( "activate", PiloteactivateAlarme )
+PiloteLua.Output.Add( "led" )
+PiloteLua.Output.Add( "BoD_activateACK" )
+PiloteLua.Output.Add( "Buzz" )
+PiloteLua.Output.Add( "heure" )
+
+
+new TExpertSys( Piloteresetbtn )
+//
+// ExpertSystem States
+//
+Piloteresetbtn.AddState( OK )
+//
+// ExpertSystem Conditions
+//
+Piloteresetbtn.Stop()
+
+Piloteresetbtn.OK.AddCondition( "&PiloteLua_BoD_activateACK  == 1" )
+
+Piloteresetbtn.OK.AddAction( "PiloteBoD_stateACK.SetValue(1)" )
+
+Piloteresetbtn.Start()

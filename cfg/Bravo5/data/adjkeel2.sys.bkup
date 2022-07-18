@@ -3,14 +3,14 @@ adjKeelAngle2.SetUseAbsX( false )
 //
 // Set points for curve <adjKeelAngle2>
 //
-adjKeelAngle2.SetValue( 1, 0.56200, -35.50000 )
-adjKeelAngle2.SetValue( 2, 0.78500, -30.00000 )
-adjKeelAngle2.SetValue( 3, 1.27700, -20.00000 )
-adjKeelAngle2.SetValue( 4, 1.80800, -10.00000 )
-adjKeelAngle2.SetValue( 5, 2.39300, 0.00000 )
-adjKeelAngle2.SetValue( 6, 2.97800, 10.00000 )
-adjKeelAngle2.SetValue( 7, 3.52000, 20.00000 )
-adjKeelAngle2.SetValue( 8, 4.02000, 30.00000 )
-adjKeelAngle2.SetValue( 9, 4.25000, 35.50000 )
+adjKeelAngle2.SetValue( 1, 0.54500, -35.50000 )
+adjKeelAngle2.SetValue( 2, 0.78100, -30.00000 )
+adjKeelAngle2.SetValue( 3, 1.28400, -20.00000 )
+adjKeelAngle2.SetValue( 4, 1.82500, -10.00000 )
+adjKeelAngle2.SetValue( 5, 2.40200, 0.00000 )
+adjKeelAngle2.SetValue( 6, 2.91400, 10.00000 )
+adjKeelAngle2.SetValue( 7, 3.45600, 20.00000 )
+adjKeelAngle2.SetValue( 8, 3.98100, 30.00000 )
+adjKeelAngle2.SetValue( 9, 4.26100, 35.50000 )
 // Build curve <adjKeelAngle2>
 adjKeelAngle2.BuildCurve()
